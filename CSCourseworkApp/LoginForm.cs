@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -10,19 +11,38 @@ namespace CSCourseworkApp
             InitializeComponent();
         }
 
-        internal string hashingAlgorithm(string plain)
+        private string hashingAlgorithm(string plain)
         {
-            string[] indv = plain.Split();
-            return null;
+            double val = 1;
+            char[] pl = plain.ToCharArray();
+            foreach(char o in pl)
+            {
+                val += o;
+            }
+            val = Math.Sin(val)*Math.Tan(val);
+            string hash = val.ToString();
+            Debug.WriteLine(hash);
+            hash = hash.Remove(0, 3);
+            Debug.WriteLine(hash);
+            return hash;
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
             string username = usernameBox.Text;
-            string password = passwordBox.Text;
+            string password = hashingAlgorithm(passwordBox.Text);
+            int permId = 0;
             using(SqlTools tools = new SqlTools())
             {
-                tools.reader = tools.executeReader("SELECT PermissionId FROM Staff WHERE StaffUsername=" + username + "AND StaffPassword="+""); ;
+                permId = tools.executeScalar("Select PermissionLevel from Staff where StaffUsername='" + username + "' and StaffPassword='"+ password +"'");
+            }
+            switch (permId)
+            {
+                case 1:
+                    break;
+                default:
+                    MessageBox.Show("Future system will have lower permission levels");
+                    break;
             }
         }
     }
