@@ -14,10 +14,10 @@ namespace CSCourseworkApp
         private string hashingAlgorithm(string plain)
         {
             double val = 1;
-            char[] pl = plain.ToCharArray();
-            foreach(char o in pl)
+            char[] plainarr = plain.ToCharArray();
+            foreach(char ch in plainarr)
             {
-                val += o;
+                val += ch;
             }
             val = Math.Sin(val)*Math.Tan(val);
             string hash = val.ToString();
@@ -39,6 +39,10 @@ namespace CSCourseworkApp
             switch (permId)
             {
                 case 1:
+                    MainForm af = new MainForm();
+                    this.Hide();
+                    af.FormClosed += (s, args) => this.Close();
+                    af.Show();
                     break;
                 default:
                     MessageBox.Show("Future system will have lower permission levels");
