@@ -40,8 +40,8 @@ namespace CSCourseworkApp
             {
                 case 1:
                     MainForm af = new MainForm();
-                    this.Hide();
-                    af.FormClosed += (s, args) => this.Close();
+                    Hide();
+                    af.FormClosed += (s, args) => Close();
                     af.Show();
                     break;
                 default:
