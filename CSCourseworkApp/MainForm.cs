@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -39,6 +35,7 @@ namespace CSCourseworkApp
                 // add each item from group list into listbox
                 groupsListBox.Items.Add(group);
             }
+            Debug.WriteLine(DumpDataTable(Groups.groupDt));
         }
         
         private void adminStaffButton_Click(object sender, EventArgs e)
@@ -53,7 +50,31 @@ namespace CSCourseworkApp
 
         private void groupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
+            //foreach(DataRow dr in Groups.groupDt.Rows)
+            //{
+            //    Debug.WriteLine(dr["AcademicYear"]);
+            //}
+        }
 
+        public static string DumpDataTable(DataTable table)
+        {
+            string data = string.Empty;
+            StringBuilder sb = new StringBuilder();
+
+            if (null != table && null != table.Rows)
+            {
+                foreach (DataRow dataRow in table.Rows)
+                {
+                    foreach (var item in dataRow.ItemArray)
+                    {
+                        sb.Append(item);
+                        sb.Append(',');
+                    }
+                    sb.AppendLine();
+                }
+                data = sb.ToString();
+            }
+            return data;
         }
     }
 }
