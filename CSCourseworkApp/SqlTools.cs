@@ -98,7 +98,7 @@ namespace CSCourseworkApp
                 return dt;
             }
         }
-        public static List<String> getDbTableNames()
+        public static List<string> getDbTableNames()
         {
             /*
              * getDbTableNames gets the connected database

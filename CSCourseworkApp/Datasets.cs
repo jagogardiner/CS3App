@@ -31,37 +31,47 @@ namespace CSCourseworkApp
                     d.TableName = tablename;
                 }
             }
-            List<string> foreignKeys = new List<string>();
-            List<string> actualKeys = new List<string>();
+            List<string[]> foreignKeys = new List<string[]>();
             foreach(DataTable dt in CSDatabase.Tables)
             {
-                foreach(DataColumn c in dt.Columns)
+                foreach (DataColumn c in dt.Columns)
                 {
                     if (c.ColumnName.Contains("FK_"))
                     {
-                        foreignKeys.Add(c.ColumnName);
-                        actualKeys.Add(c.ColumnName.Substring(3, c.ColumnName.Length - 3));
-                        foreach(DataTable find in CSDatabase.Tables)
+                        string[] keys = {c.ColumnName, c.ColumnName.Substring(3, c.ColumnName.Length - 3)};
+                        foreignKeys.Add(keys);
+                    }
+                }
+            }
+            foreach (DataTable find in CSDatabase.Tables)
+            {
+                foreach (DataColumn ctofind in find.Columns)
+                {
+                    foreach (string[] key in foreignKeys)
+                    {
+                        if (ctofind.ColumnName == key[0])
                         {
-                            foreach(DataColumn ctofind in dt.Columns)
+                            foreach (DataTable dt in CSDatabase.Tables)
                             {
-                                foreach(string key in actualKeys)
+                                foreach (DataColumn realc in dt.Columns)
                                 {
-                                    if(ctofind.ColumnName == key)
+                                    if (realc.ColumnName == key[1])
                                     {
-                                        CSDatabase = createRelation(CSDatabase, c, ctofind, c.ColumnName);
+                                        CSDatabase = createRelation(CSDatabase, realc, ctofind, key[0]);
                                     }
                                 }
-                            }
-                            foreach (ForeignKeyConstraint cs in find.Constraints)
-                            {
-                                Debug.WriteLine(cs.ConstraintName);
                             }
                         }
                     }
                 }
             }
+#if DEBUG
+            foreach (DataRelation dr in CSDatabase.Relations)
+            {
+                Debug.WriteLine(dr.RelationName);
+            }
         }
+#endif
 
         private static DataSet createRelation(DataSet ds, DataColumn parent, DataColumn child, string fkname)
         {

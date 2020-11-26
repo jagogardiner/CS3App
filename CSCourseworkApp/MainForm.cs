@@ -51,7 +51,12 @@ namespace CSCourseworkApp
         private void groupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             string selectedGroup = (string)groupsListBox.SelectedItem;
-            Debug.WriteLine(Groups.groupDt.Rows[groupsListBox.SelectedIndex]["FK_AcademicYearId"]);
+            DataRow dr = Groups.groupDt.Rows[groupsListBox.SelectedIndex];
+
+            foreach(DataRow _ in childDr)
+            {   
+                Debug.WriteLine(_["AcademicYearID"]);
+            }
         }
 
         public static string DumpDataTable(DataTable table)
