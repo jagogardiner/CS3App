@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Linq;
 
 namespace CSCourseworkApp
 {
@@ -96,6 +98,19 @@ namespace CSCourseworkApp
                 return dt;
             }
         }
+        public static List<String> getDbTableNames()
+        {
+            /*
+             * getDbTableNames gets the connected database
+             * table names to be populated later on into a DataTable
+             * or DataSet, returned as a list of strings.
+             */
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                return connection.GetSchema("Tables").AsEnumerable().Select(x => x[2].ToString()).ToList();
+            }
+        }
         public void Dispose()
         {
             /*
@@ -111,7 +126,8 @@ namespace CSCourseworkApp
             {
                 connection.Close();
                 connection.Dispose();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 /* This should not happen but the user should not be
                  * interupted if it does. It's not catastrophic and
@@ -119,7 +135,6 @@ namespace CSCourseworkApp
                  */
                 Debug.WriteLine(e);
             }
-
         }
     }
 }

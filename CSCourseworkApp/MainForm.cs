@@ -12,6 +12,7 @@ namespace CSCourseworkApp
         public MainForm()
         {
             InitializeComponent();
+            Datasets.populateTables();
         }
 
         private void hidePanels(Panel panelToShow)
@@ -35,7 +36,6 @@ namespace CSCourseworkApp
                 // add each item from group list into listbox
                 groupsListBox.Items.Add(group);
             }
-            Debug.WriteLine(DumpDataTable(Groups.groupDt));
         }
         
         private void adminStaffButton_Click(object sender, EventArgs e)
@@ -50,10 +50,8 @@ namespace CSCourseworkApp
 
         private void groupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            //foreach(DataRow dr in Groups.groupDt.Rows)
-            //{
-            //    Debug.WriteLine(dr["AcademicYear"]);
-            //}
+            string selectedGroup = (string)groupsListBox.SelectedItem;
+            Debug.WriteLine(Groups.groupDt.Rows[groupsListBox.SelectedIndex]["FK_AcademicYearId"]);
         }
 
         public static string DumpDataTable(DataTable table)

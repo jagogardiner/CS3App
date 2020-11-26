@@ -12,14 +12,10 @@ namespace CSCourseworkApp
     class Groups
     {
         public static List<string> GroupList = new List<string>();
-        public static DataTable groupDt = new DataTable();
+        public static DataTable groupDt = Datasets.CSDatabase.Tables["Groups"];
 
         public static void populateList()
         {
-            using (SqlTools t = new SqlTools())
-            {
-                groupDt = t.populateDataTable("Groups");
-            }
             foreach (DataRow dr in groupDt.Rows)
             {
                 GroupList.Add(dr["GroupName"].ToString());
