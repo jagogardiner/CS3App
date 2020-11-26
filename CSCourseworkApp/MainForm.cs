@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,12 @@ namespace CSCourseworkApp
         public MainForm()
         {
             InitializeComponent();
-            Datasets.populateTables();
         }
 
         private void hidePanels(Panel panelToShow)
         {
             // hide all panels except admin selection panel and desired form passed as an arugment
-            foreach (Panel panel in Controls.OfType<Panel>().Where(p => p != panelToShow && p != this.adminPanel))
+            foreach (Panel panel in Controls.OfType<Panel>().Where(p => p != panelToShow && p != adminPanel))
             {
                 panel.Hide();
             }
@@ -50,34 +50,7 @@ namespace CSCourseworkApp
 
         private void groupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            string selectedGroup = (string)groupsListBox.SelectedItem;
-            DataRow dr = Groups.groupDt.Rows[groupsListBox.SelectedIndex];
-
-            foreach(DataRow _ in childDr)
-            {   
-                Debug.WriteLine(_["AcademicYearID"]);
-            }
-        }
-
-        public static string DumpDataTable(DataTable table)
-        {
-            string data = string.Empty;
-            StringBuilder sb = new StringBuilder();
-
-            if (null != table && null != table.Rows)
-            {
-                foreach (DataRow dataRow in table.Rows)
-                {
-                    foreach (var item in dataRow.ItemArray)
-                    {
-                        sb.Append(item);
-                        sb.Append(',');
-                    }
-                    sb.AppendLine();
-                }
-                data = sb.ToString();
-            }
-            return data;
+            academicYearLabel.Text = $"Academic Year: {Groups.getAcademicYear(groupsListBox.SelectedIndex)}";
         }
     }
 }

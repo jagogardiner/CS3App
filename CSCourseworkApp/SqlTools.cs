@@ -18,10 +18,28 @@ namespace CSCourseworkApp
 
         // Private connection and command that we can reuse
         static private SqlConnection connection;
-        static private SqlCommand command;
         private static string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CSDb.mdf;Integrated Security = True";
         // Make reader public for executeReader usage.
         public SqlDataReader reader;
+
+        public SqlDataReader executeReader(SqlCommand command)
+        {
+            /*
+             * executeReader returns an SqlDataReader to read
+             * from data based on the query string provided.
+             * 
+             * Arguments: 
+             * command (SqlCommand): SQL command query object
+            */
+            connection = new SqlConnection(connectionString);
+            connection.Open();
+            command.Connection = connection;
+            /* Note that try catch isn't attempted
+             * SqlCommand has its own valid exceptions
+             * and catches should be used in local scope instead
+             */
+            return command.ExecuteReader();
+        }
 
         public SqlDataReader executeReader(string query)
         {
@@ -34,12 +52,31 @@ namespace CSCourseworkApp
             */
             connection = new SqlConnection(connectionString);
             connection.Open();
-            command = new SqlCommand(query, connection);
+            SqlCommand command = new SqlCommand(query, connection);
             /* Note that try catch isn't attempted
              * SqlCommand has its own valid exceptions
              * and catches should be used in local scope instead
              */
             return command.ExecuteReader();
+        }
+
+        public int executeScalar(SqlCommand command)
+        {
+            /*
+             * executeScalar returns an integer-casted scalar
+             * to read integer values from a query instead of
+             * creating a new reader object.
+             * 
+             * Arguments:
+             * command (SqlCommand): SQL command query object
+             */
+            using (connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command.Connection = connection;
+                // Make sure we cast int on scalar
+                return (int)command.ExecuteScalar();
+            }
         }
 
         public int executeScalar(string query)
@@ -55,7 +92,7 @@ namespace CSCourseworkApp
             using (connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                command = new SqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query, connection);
                 // Make sure we cast int on scalar
                 return (int)command.ExecuteScalar();
             }
@@ -73,31 +110,11 @@ namespace CSCourseworkApp
             using (connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                command = new SqlCommand("SELECT COUNT(*) FROM " + table, connection);
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM "+table, connection);
                 return (int)command.ExecuteScalar();
             }
         }
 
-        public DataTable populateDataTable(string sqltable)
-        {
-            /*
-             * populateDataTable returns a DataTable which
-             * can be used as an object later on to sort etc.
-             * Much nicer than reading from a reader each time
-             * and much more efficient.
-             * 
-             * Arguments:
-             * sqltable (string): Name of the table to read into a DataTable.
-             */
-            DataTable dt = new DataTable();
-            using (connection = new SqlConnection(connectionString))
-            {
-                command = new SqlCommand("SELECT * FROM " + sqltable, connection);
-                SqlDataAdapter da = new SqlDataAdapter(command);
-                da.Fill(dt);
-                return dt;
-            }
-        }
         public static List<string> getDbTableNames()
         {
             /*
@@ -111,6 +128,21 @@ namespace CSCourseworkApp
                 return connection.GetSchema("Tables").AsEnumerable().Select(x => x[2].ToString()).ToList();
             }
         }
+
+        public string getJoinResult(SqlCommand command)
+        {
+            string result = null;
+            using (SqlTools t = new SqlTools())
+            {
+                t.reader = t.executeReader(command);
+                while(t.reader.Read())
+                {
+                    result = t.reader[0].ToString();
+                }
+            }
+            return result;
+        }
+
         public void Dispose()
         {
             /*
