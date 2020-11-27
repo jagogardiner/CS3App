@@ -35,15 +35,16 @@ namespace CSCourseworkApp
             this.adminGroupsButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.manageGroupsPanel = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.staffListLabel = new System.Windows.Forms.Label();
             this.academicYearLabel = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.editClassButton = new System.Windows.Forms.Button();
+            this.addClassButton = new System.Windows.Forms.Button();
+            this.deleteClassButton = new System.Windows.Forms.Button();
             this.selectedGroupLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupsListBox = new System.Windows.Forms.ListBox();
             this.manageStaffPanel = new System.Windows.Forms.Panel();
+            this.lecturersLabel = new System.Windows.Forms.Label();
             this.staffListBox = new System.Windows.Forms.ListBox();
             this.adminPanel.SuspendLayout();
             this.manageGroupsPanel.SuspendLayout();
@@ -103,11 +104,11 @@ namespace CSCourseworkApp
             // 
             // manageGroupsPanel
             // 
-            this.manageGroupsPanel.Controls.Add(this.label4);
+            this.manageGroupsPanel.Controls.Add(this.staffListLabel);
             this.manageGroupsPanel.Controls.Add(this.academicYearLabel);
-            this.manageGroupsPanel.Controls.Add(this.button3);
-            this.manageGroupsPanel.Controls.Add(this.button2);
-            this.manageGroupsPanel.Controls.Add(this.button1);
+            this.manageGroupsPanel.Controls.Add(this.editClassButton);
+            this.manageGroupsPanel.Controls.Add(this.addClassButton);
+            this.manageGroupsPanel.Controls.Add(this.deleteClassButton);
             this.manageGroupsPanel.Controls.Add(this.selectedGroupLabel);
             this.manageGroupsPanel.Controls.Add(this.label2);
             this.manageGroupsPanel.Controls.Add(this.groupsListBox);
@@ -117,14 +118,14 @@ namespace CSCourseworkApp
             this.manageGroupsPanel.TabIndex = 1;
             this.manageGroupsPanel.Visible = false;
             // 
-            // label4
+            // staffListLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(270, 93);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(154, 20);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Assigned lecturer(s):";
+            this.staffListLabel.AutoSize = true;
+            this.staffListLabel.Location = new System.Drawing.Point(270, 93);
+            this.staffListLabel.Name = "staffListLabel";
+            this.staffListLabel.Size = new System.Drawing.Size(154, 20);
+            this.staffListLabel.TabIndex = 9;
+            this.staffListLabel.Text = "Assigned lecturer(s):";
             // 
             // academicYearLabel
             // 
@@ -135,33 +136,34 @@ namespace CSCourseworkApp
             this.academicYearLabel.TabIndex = 8;
             this.academicYearLabel.Text = "Academic Year: ";
             // 
-            // button3
+            // editClassButton
             // 
-            this.button3.Location = new System.Drawing.Point(270, 164);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(182, 44);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Edit class";
-            this.button3.UseVisualStyleBackColor = true;
+            this.editClassButton.Location = new System.Drawing.Point(270, 164);
+            this.editClassButton.Name = "editClassButton";
+            this.editClassButton.Size = new System.Drawing.Size(182, 44);
+            this.editClassButton.TabIndex = 7;
+            this.editClassButton.Text = "Edit class";
+            this.editClassButton.UseVisualStyleBackColor = true;
+            this.editClassButton.Click += new System.EventHandler(this.editClassButton_Click);
             // 
-            // button2
+            // addClassButton
             // 
-            this.button2.Location = new System.Drawing.Point(400, 379);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(182, 44);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Add new class";
-            this.button2.UseVisualStyleBackColor = true;
+            this.addClassButton.Location = new System.Drawing.Point(400, 379);
+            this.addClassButton.Name = "addClassButton";
+            this.addClassButton.Size = new System.Drawing.Size(182, 44);
+            this.addClassButton.TabIndex = 6;
+            this.addClassButton.Text = "Add new class";
+            this.addClassButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // deleteClassButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.button1.Location = new System.Drawing.Point(270, 214);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(182, 44);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Delete Class";
-            this.button1.UseVisualStyleBackColor = false;
+            this.deleteClassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.deleteClassButton.Location = new System.Drawing.Point(270, 214);
+            this.deleteClassButton.Name = "deleteClassButton";
+            this.deleteClassButton.Size = new System.Drawing.Size(182, 44);
+            this.deleteClassButton.TabIndex = 5;
+            this.deleteClassButton.Text = "Delete Class";
+            this.deleteClassButton.UseVisualStyleBackColor = false;
             // 
             // selectedGroupLabel
             // 
@@ -195,18 +197,29 @@ namespace CSCourseworkApp
             // 
             // manageStaffPanel
             // 
+            this.manageStaffPanel.Controls.Add(this.lecturersLabel);
             this.manageStaffPanel.Controls.Add(this.staffListBox);
-            this.manageStaffPanel.Location = new System.Drawing.Point(227, 12);
+            this.manageStaffPanel.Location = new System.Drawing.Point(226, 12);
             this.manageStaffPanel.Name = "manageStaffPanel";
             this.manageStaffPanel.Size = new System.Drawing.Size(585, 426);
             this.manageStaffPanel.TabIndex = 5;
             this.manageStaffPanel.Visible = false;
             // 
+            // lecturersLabel
+            // 
+            this.lecturersLabel.AutoSize = true;
+            this.lecturersLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lecturersLabel.Location = new System.Drawing.Point(4, 5);
+            this.lecturersLabel.Name = "lecturersLabel";
+            this.lecturersLabel.Size = new System.Drawing.Size(153, 29);
+            this.lecturersLabel.TabIndex = 2;
+            this.lecturersLabel.Text = "Manage Staff";
+            // 
             // staffListBox
             // 
             this.staffListBox.FormattingEnabled = true;
             this.staffListBox.ItemHeight = 20;
-            this.staffListBox.Location = new System.Drawing.Point(0, 0);
+            this.staffListBox.Location = new System.Drawing.Point(6, 37);
             this.staffListBox.Name = "staffListBox";
             this.staffListBox.Size = new System.Drawing.Size(254, 384);
             this.staffListBox.TabIndex = 1;
@@ -217,8 +230,8 @@ namespace CSCourseworkApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 450);
             this.Controls.Add(this.manageGroupsPanel);
-            this.Controls.Add(this.adminPanel);
             this.Controls.Add(this.manageStaffPanel);
+            this.Controls.Add(this.adminPanel);
             this.Name = "MainForm";
             this.Text = "Main";
             this.adminPanel.ResumeLayout(false);
@@ -226,6 +239,7 @@ namespace CSCourseworkApp
             this.manageGroupsPanel.ResumeLayout(false);
             this.manageGroupsPanel.PerformLayout();
             this.manageStaffPanel.ResumeLayout(false);
+            this.manageStaffPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -240,13 +254,14 @@ namespace CSCourseworkApp
         private System.Windows.Forms.ListBox groupsListBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label selectedGroupLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button deleteClassButton;
         private System.Windows.Forms.Panel manageStaffPanel;
         private System.Windows.Forms.ListBox staffListBox;
         private System.Windows.Forms.Button adminStudentsButton;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button addClassButton;
+        private System.Windows.Forms.Button editClassButton;
+        private System.Windows.Forms.Label staffListLabel;
         private System.Windows.Forms.Label academicYearLabel;
+        private System.Windows.Forms.Label lecturersLabel;
     }
 }

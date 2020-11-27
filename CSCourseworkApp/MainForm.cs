@@ -50,7 +50,15 @@ namespace CSCourseworkApp
 
         private void groupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
+            selectedGroupLabel.Text = Groups.GroupList[groupsListBox.SelectedIndex];
             academicYearLabel.Text = $"Academic Year: {Groups.getAcademicYear(groupsListBox.SelectedIndex)}";
+            staffListLabel.Text = $"Assigned lecturer(s): {String.Join("\r\n", Groups.getStaff(groupsListBox.SelectedIndex))}";
+        }
+
+        private void editClassButton_Click(object sender, EventArgs e)
+        {
+            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], groupsListBox.SelectedIndex + 1, Groups.getAcademicYear(groupsListBox.SelectedIndex));
+            editGroupForm.Show();
         }
     }
 }
