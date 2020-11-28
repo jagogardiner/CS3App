@@ -56,7 +56,13 @@ namespace CSCourseworkApp
 
         private void EditClassButton_Click(object sender, EventArgs e)
         {
-            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()));
+            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()), Groups.GetStaff(groupsListBox.SelectedItem.ToString()));
+            editGroupForm.Show();
+        }
+
+        private void AddClassButton_Click(object sender, EventArgs e)
+        {
+            EditGroupForm editGroupForm = new EditGroupForm();
             editGroupForm.Show();
         }
     }

@@ -74,7 +74,7 @@ namespace CSCourseworkApp
             this.adminPanel.Controls.Add(this.adminGroupsButton);
             this.adminPanel.Controls.Add(this.label1);
             this.adminPanel.Location = new System.Drawing.Point(8, 8);
-            this.adminPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminPanel.Margin = new System.Windows.Forms.Padding(2);
             this.adminPanel.Name = "adminPanel";
             this.adminPanel.Size = new System.Drawing.Size(139, 277);
             this.adminPanel.TabIndex = 0;
@@ -82,7 +82,7 @@ namespace CSCourseworkApp
             // adminStudentsButton
             // 
             this.adminStudentsButton.Location = new System.Drawing.Point(7, 91);
-            this.adminStudentsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminStudentsButton.Margin = new System.Windows.Forms.Padding(2);
             this.adminStudentsButton.Name = "adminStudentsButton";
             this.adminStudentsButton.Size = new System.Drawing.Size(121, 29);
             this.adminStudentsButton.TabIndex = 5;
@@ -93,7 +93,7 @@ namespace CSCourseworkApp
             // adminStaffButton
             // 
             this.adminStaffButton.Location = new System.Drawing.Point(7, 58);
-            this.adminStaffButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminStaffButton.Margin = new System.Windows.Forms.Padding(2);
             this.adminStaffButton.Name = "adminStaffButton";
             this.adminStaffButton.Size = new System.Drawing.Size(121, 29);
             this.adminStaffButton.TabIndex = 2;
@@ -104,7 +104,7 @@ namespace CSCourseworkApp
             // adminGroupsButton
             // 
             this.adminGroupsButton.Location = new System.Drawing.Point(7, 26);
-            this.adminGroupsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminGroupsButton.Margin = new System.Windows.Forms.Padding(2);
             this.adminGroupsButton.Name = "adminGroupsButton";
             this.adminGroupsButton.Size = new System.Drawing.Size(121, 29);
             this.adminGroupsButton.TabIndex = 1;
@@ -134,7 +134,7 @@ namespace CSCourseworkApp
             this.manageGroupsPanel.Controls.Add(this.label2);
             this.manageGroupsPanel.Controls.Add(this.groupsListBox);
             this.manageGroupsPanel.Location = new System.Drawing.Point(151, 8);
-            this.manageGroupsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manageGroupsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.manageGroupsPanel.Name = "manageGroupsPanel";
             this.manageGroupsPanel.Size = new System.Drawing.Size(390, 277);
             this.manageGroupsPanel.TabIndex = 1;
@@ -163,7 +163,7 @@ namespace CSCourseworkApp
             // editClassButton
             // 
             this.editClassButton.Location = new System.Drawing.Point(180, 107);
-            this.editClassButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.editClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.editClassButton.Name = "editClassButton";
             this.editClassButton.Size = new System.Drawing.Size(121, 29);
             this.editClassButton.TabIndex = 7;
@@ -174,18 +174,19 @@ namespace CSCourseworkApp
             // addClassButton
             // 
             this.addClassButton.Location = new System.Drawing.Point(267, 246);
-            this.addClassButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.addClassButton.Name = "addClassButton";
             this.addClassButton.Size = new System.Drawing.Size(121, 29);
             this.addClassButton.TabIndex = 6;
             this.addClassButton.Text = "Add new class";
             this.addClassButton.UseVisualStyleBackColor = true;
+            this.addClassButton.Click += new System.EventHandler(this.AddClassButton_Click);
             // 
             // deleteClassButton
             // 
             this.deleteClassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.deleteClassButton.Location = new System.Drawing.Point(180, 139);
-            this.deleteClassButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteClassButton.Name = "deleteClassButton";
             this.deleteClassButton.Size = new System.Drawing.Size(121, 29);
             this.deleteClassButton.TabIndex = 5;
@@ -218,7 +219,7 @@ namespace CSCourseworkApp
             // 
             this.groupsListBox.FormattingEnabled = true;
             this.groupsListBox.Location = new System.Drawing.Point(3, 26);
-            this.groupsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.groupsListBox.Name = "groupsListBox";
             this.groupsListBox.Size = new System.Drawing.Size(171, 251);
             this.groupsListBox.TabIndex = 0;
@@ -427,11 +428,11 @@ namespace CSCourseworkApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 292);
-            this.Controls.Add(this.manageStudentsPanel);
             this.Controls.Add(this.manageGroupsPanel);
+            this.Controls.Add(this.manageStudentsPanel);
             this.Controls.Add(this.manageStaffPanel);
             this.Controls.Add(this.adminPanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Main";
             this.adminPanel.ResumeLayout(false);

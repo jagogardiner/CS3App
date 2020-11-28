@@ -33,12 +33,13 @@ namespace CSCourseworkApp
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupNameTextBox = new System.Windows.Forms.TextBox();
-            this.academYearComboBox = new System.Windows.Forms.ComboBox();
+            this.academicYearComboBox = new System.Windows.Forms.ComboBox();
             this.lecturerBox = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.addStaffIDButton = new System.Windows.Forms.Button();
+            this.removeStaffButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.saveGroupButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // groupTitleLabel
@@ -76,13 +77,13 @@ namespace CSCourseworkApp
             this.groupNameTextBox.Size = new System.Drawing.Size(185, 20);
             this.groupNameTextBox.TabIndex = 3;
             // 
-            // academYearComboBox
+            // academicYearComboBox
             // 
-            this.academYearComboBox.FormattingEnabled = true;
-            this.academYearComboBox.Location = new System.Drawing.Point(101, 91);
-            this.academYearComboBox.Name = "academYearComboBox";
-            this.academYearComboBox.Size = new System.Drawing.Size(115, 21);
-            this.academYearComboBox.TabIndex = 4;
+            this.academicYearComboBox.FormattingEnabled = true;
+            this.academicYearComboBox.Location = new System.Drawing.Point(101, 91);
+            this.academicYearComboBox.Name = "academicYearComboBox";
+            this.academicYearComboBox.Size = new System.Drawing.Size(115, 21);
+            this.academicYearComboBox.TabIndex = 4;
             // 
             // lecturerBox
             // 
@@ -92,23 +93,25 @@ namespace CSCourseworkApp
             this.lecturerBox.Size = new System.Drawing.Size(255, 173);
             this.lecturerBox.TabIndex = 5;
             // 
-            // button1
+            // addStaffIDButton
             // 
-            this.button1.Location = new System.Drawing.Point(17, 343);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 39);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Add by staff ID";
-            this.button1.UseVisualStyleBackColor = true;
+            this.addStaffIDButton.Location = new System.Drawing.Point(17, 343);
+            this.addStaffIDButton.Name = "addStaffIDButton";
+            this.addStaffIDButton.Size = new System.Drawing.Size(121, 39);
+            this.addStaffIDButton.TabIndex = 7;
+            this.addStaffIDButton.Text = "Add by staff ID";
+            this.addStaffIDButton.UseVisualStyleBackColor = true;
+            this.addStaffIDButton.Click += new System.EventHandler(this.AddStaffIDButton_Click);
             // 
-            // button2
+            // removeStaffButton
             // 
-            this.button2.Location = new System.Drawing.Point(144, 343);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 39);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Remove";
-            this.button2.UseVisualStyleBackColor = true;
+            this.removeStaffButton.Location = new System.Drawing.Point(144, 343);
+            this.removeStaffButton.Name = "removeStaffButton";
+            this.removeStaffButton.Size = new System.Drawing.Size(128, 39);
+            this.removeStaffButton.TabIndex = 8;
+            this.removeStaffButton.Text = "Remove";
+            this.removeStaffButton.UseVisualStyleBackColor = true;
+            this.removeStaffButton.Click += new System.EventHandler(this.RemoveStaffButton_Click);
             // 
             // label3
             // 
@@ -123,20 +126,33 @@ namespace CSCourseworkApp
             // 
             this.saveGroupButton.Location = new System.Drawing.Point(17, 389);
             this.saveGroupButton.Name = "saveGroupButton";
-            this.saveGroupButton.Size = new System.Drawing.Size(255, 40);
+            this.saveGroupButton.Size = new System.Drawing.Size(255, 30);
             this.saveGroupButton.TabIndex = 10;
             this.saveGroupButton.Text = "Save Group";
             this.saveGroupButton.UseVisualStyleBackColor = true;
+            this.saveGroupButton.Click += new System.EventHandler(this.SaveGroupButton_Click);
+            // 
+            // CancelButton
+            // 
+            this.CancelButton.Location = new System.Drawing.Point(16, 425);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(255, 33);
+            this.CancelButton.TabIndex = 11;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // EditGroupForm
             // 
-            this.ClientSize = new System.Drawing.Size(285, 441);
+            this.ClientSize = new System.Drawing.Size(285, 470);
+            this.ControlBox = false;
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.saveGroupButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.removeStaffButton);
+            this.Controls.Add(this.addStaffIDButton);
             this.Controls.Add(this.lecturerBox);
-            this.Controls.Add(this.academYearComboBox);
+            this.Controls.Add(this.academicYearComboBox);
             this.Controls.Add(this.groupNameTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -155,11 +171,12 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox groupNameTextBox;
-        private System.Windows.Forms.ComboBox academYearComboBox;
+        private System.Windows.Forms.ComboBox academicYearComboBox;
         private System.Windows.Forms.ListBox lecturerBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button addStaffIDButton;
+        private System.Windows.Forms.Button removeStaffButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button saveGroupButton;
+        private new System.Windows.Forms.Button CancelButton;
     }
 }
