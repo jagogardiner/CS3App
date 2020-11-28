@@ -11,7 +11,7 @@ namespace CSCourseworkApp
             InitializeComponent();
         }
 
-        private string hashingAlgorithm(string plain)
+        private string HashingAlgorithm(string plain)
         {
             double val = 1;
             char[] plainarr = plain.ToCharArray();
@@ -27,12 +27,12 @@ namespace CSCourseworkApp
             return hash;
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        private void LoginButton_Click(object sender, EventArgs e)
         {
             string username = usernameBox.Text;
-            string password = hashingAlgorithm(passwordBox.Text);
+            string password = HashingAlgorithm(passwordBox.Text);
             int permId = 0;
-            permId = SqlTools.executeScalar("Select PermissionLevel from Staff where StaffUsername='" + username + "' and StaffPassword='" + password + "'");
+            permId = SqlTools.ExecuteScalar("Select PermissionLevel from Staff where StaffUsername='" + username + "' and StaffPassword='" + password + "'");
             switch (permId)
             {
                 case 1:

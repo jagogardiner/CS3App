@@ -16,11 +16,11 @@ namespace CSCourseworkApp
 
         // Private connection and command that we can reuse
         static private SqlConnection connection;
-        private static string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CSDb.mdf;Integrated Security = True";
+        private static readonly string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CSDb.mdf;Integrated Security = True";
         // Make reader public for executeReader usage.
         public SqlDataReader reader;
 
-        private SqlDataReader executeReader(SqlCommand command)
+        private SqlDataReader ExecuteReader(SqlCommand command)
         {
             /*
              * executeReader returns an SqlDataReader to read
@@ -39,26 +39,7 @@ namespace CSCourseworkApp
             return command.ExecuteReader();
         }
 
-        private SqlDataReader executeReader(string query)
-        {
-            /*
-             * executeReader returns an SqlDataReader to read
-             * from data based on the query string provided.
-             * 
-             * Arguments: 
-             * query (string): sql query to read data from
-            */
-            connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand(query, connection);
-            /* Note that try catch isn't attempted
-             * SqlCommand has its own valid exceptions
-             * and catches should be used in local scope instead
-             */
-            return command.ExecuteReader();
-        }
-
-        public static int executeScalar(SqlCommand command)
+        public static int ExecuteScalar(SqlCommand command)
         {
             /*
              * executeScalar returns an integer-casted scalar
@@ -80,7 +61,7 @@ namespace CSCourseworkApp
             }
         }
 
-        public static int executeScalar(string query)
+        public static int ExecuteScalar(string query)
         {
             /*
              * executeScalar returns an integer-casted scalar
@@ -107,7 +88,7 @@ namespace CSCourseworkApp
             DataTable dt = new DataTable();
             using(SqlTools t = new SqlTools())
             {
-                t.reader = t.executeReader(command);
+                t.reader = t.ExecuteReader(command);
                 dt.Load(t.reader);
                 return dt;
             }
@@ -119,7 +100,7 @@ namespace CSCourseworkApp
             DataTable dt = new DataTable();
             using (SqlTools t = new SqlTools())
             {
-                t.reader = t.executeReader(sql);
+                t.reader = t.ExecuteReader(sql);
                 dt.Load(t.reader);
                 return dt;
             }

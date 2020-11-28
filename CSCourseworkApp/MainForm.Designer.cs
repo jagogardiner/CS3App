@@ -88,7 +88,7 @@ namespace CSCourseworkApp
             this.adminStudentsButton.TabIndex = 5;
             this.adminStudentsButton.Text = "Manage Students";
             this.adminStudentsButton.UseVisualStyleBackColor = true;
-            this.adminStudentsButton.Click += new System.EventHandler(this.adminStudentsButton_Click);
+            this.adminStudentsButton.Click += new System.EventHandler(this.AdminStudentsButton_Click);
             // 
             // adminStaffButton
             // 
@@ -99,7 +99,7 @@ namespace CSCourseworkApp
             this.adminStaffButton.TabIndex = 2;
             this.adminStaffButton.Text = "Manage Staff";
             this.adminStaffButton.UseVisualStyleBackColor = true;
-            this.adminStaffButton.Click += new System.EventHandler(this.adminStaffButton_Click);
+            this.adminStaffButton.Click += new System.EventHandler(this.AdminStaffButton_Click);
             // 
             // adminGroupsButton
             // 
@@ -110,7 +110,7 @@ namespace CSCourseworkApp
             this.adminGroupsButton.TabIndex = 1;
             this.adminGroupsButton.Text = "Manage Groups";
             this.adminGroupsButton.UseVisualStyleBackColor = true;
-            this.adminGroupsButton.Click += new System.EventHandler(this.manageGroupsButton_Click);
+            this.adminGroupsButton.Click += new System.EventHandler(this.ManageGroupsButton_Click);
             // 
             // label1
             // 
@@ -169,7 +169,7 @@ namespace CSCourseworkApp
             this.editClassButton.TabIndex = 7;
             this.editClassButton.Text = "Edit class";
             this.editClassButton.UseVisualStyleBackColor = true;
-            this.editClassButton.Click += new System.EventHandler(this.editClassButton_Click);
+            this.editClassButton.Click += new System.EventHandler(this.EditClassButton_Click);
             // 
             // addClassButton
             // 
@@ -222,7 +222,7 @@ namespace CSCourseworkApp
             this.groupsListBox.Name = "groupsListBox";
             this.groupsListBox.Size = new System.Drawing.Size(171, 251);
             this.groupsListBox.TabIndex = 0;
-            this.groupsListBox.SelectedValueChanged += new System.EventHandler(this.groupsListBox_SelectedValueChanged);
+            this.groupsListBox.SelectedValueChanged += new System.EventHandler(this.GroupsListBox_SelectedValueChanged);
             // 
             // manageStudentsPanel
             // 

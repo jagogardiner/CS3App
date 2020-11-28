@@ -8,8 +8,8 @@ namespace CSCourseworkApp
 {
     public partial class EditGroupForm : Form
     {
-        string groupName, academicYear;
-        bool newGroup;
+        private readonly string groupName, academicYear;
+        readonly bool newGroup;
         public EditGroupForm(string groupName, bool newGroup)
         {
             InitializeComponent();
@@ -27,10 +27,10 @@ namespace CSCourseworkApp
         private void EditGroupForm_Load(object sender, EventArgs e)
         {
             groupNameTextBox.Text = groupName;
-            populateYears();
+            PopulateYears();
         }
         
-        private void populateYears()
+        private void PopulateYears()
         {
             DataTable dt = SqlTools.GetTable("SELECT AcademicYearName FROM AcademicYears");
             for (int i = 0; i < dt.Rows.Count; i++)

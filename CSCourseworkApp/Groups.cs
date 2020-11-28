@@ -10,7 +10,7 @@ namespace CSCourseworkApp
     {
         public static List<string> GroupList = new List<string>();
 
-        public static void populateList()
+        public static void PopulateList()
         {
             /*
              * populateList gets all the Groups
@@ -24,7 +24,7 @@ namespace CSCourseworkApp
             }
         }
 
-        public static string getAcademicYear(string groupName)
+        public static string GetAcademicYear(string groupName)
         {
             /*
              * getAcademicYear gets the academic year
@@ -34,16 +34,18 @@ namespace CSCourseworkApp
              * Arguments:
              * groupName (string): Name of the group to find the year of.
              */
-            SqlParameter p = new SqlParameter();
-            p.ParameterName = "@GroupName";
-            p.Value = groupName;
+            SqlParameter p = new SqlParameter
+            {
+                ParameterName = "@GroupName",
+                Value = groupName
+            };
             SqlCommand command = new SqlCommand("SELECT AcademicYears.AcademicYearName FROM Groups INNER JOIN AcademicYears ON Groups.AcademicYearId=AcademicYears.AcademicYearId WHERE Groups.GroupName = @GroupName");
             command.Parameters.Add(p);
             DataTable dt = SqlTools.GetTable(command);
             return dt.Rows[0]["AcademicYearName"].ToString();
         }
 
-        public static List<string> getStaff(string groupName)
+        public static List<string> GetStaff(string groupName)
         {
             /*
              * getStaff returns a List of strings of
