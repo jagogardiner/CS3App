@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -7,21 +9,18 @@ namespace CSCourseworkApp
     public partial class EditGroupForm : Form
     {
         string groupName, academicYear;
-        int groupIndex;
         bool newGroup;
-        public EditGroupForm(string groupName, int groupIndex, bool newGroup)
+        public EditGroupForm(string groupName, bool newGroup)
         {
             InitializeComponent();
             this.groupName = groupName;
-            this.groupIndex = groupIndex;
             this.newGroup = newGroup;
         }
 
-        public EditGroupForm(string groupName, int groupIndex, string academicYear)
+        public EditGroupForm(string groupName, string academicYear)
         {
             InitializeComponent();
             this.groupName = groupName;
-            this.groupIndex = groupIndex;
             this.academicYear = academicYear;
         }
 
@@ -33,25 +32,14 @@ namespace CSCourseworkApp
         
         private void populateYears()
         {
-            using(SqlTools t = new SqlTools())
+            DataTable dt = SqlTools.GetTable("SELECT AcademicYearName FROM AcademicYears");
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                for(int i = 0; i < t.getRows("AcademicYears"); i++)
-                {
-                    SqlParameter p = new SqlParameter();
-                    p.ParameterName = "@ID";
-                    p.Value = i;
-                    SqlCommand c = new SqlCommand("SELECT AcademicYearName FROM AcademicYears WHERE AcademicYearId = @ID");
-                    c.Parameters.Add(p);
-                    t.reader = t.executeReader(c);
-                    while(t.reader.Read())
-                    {
-                        academYearComboBox.Items.Add(t.reader[0].ToString());
-                    }
-                }
+                academYearComboBox.Items.Add(dt.Rows[i]["AcademicYearName"].ToString());
             }
             if (!newGroup)
             {
-                academYearComboBox.SelectedValue = academYearComboBox.FindStringExact(academicYear);
+                academYearComboBox.SelectedIndex = academYearComboBox.FindStringExact(academicYear);
             }
         }
     }

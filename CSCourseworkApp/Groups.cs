@@ -12,58 +12,62 @@ namespace CSCourseworkApp
 
         public static void populateList()
         {
-            using (SqlTools t = new SqlTools())
+            /*
+             * populateList gets all the Groups
+             * available in the database and adds them
+             * to the List<string> GroupList.
+             */
+            DataTable dt = SqlTools.GetTable("SELECT GroupName FROM Groups");
+            for(int i = 0; i < dt.Rows.Count; i++)
             {
-                for (int i = 1; i <= t.getRows("Groups"); i++)
-                {
-                    SqlCommand comm = new SqlCommand("SELECT GroupName FROM Groups where GroupId = @ID");
-                    SqlParameter ID = new SqlParameter();
-                    ID.ParameterName = "@ID";
-                    ID.Value = i;
-                    comm.Parameters.Add(ID);
-                    t.reader = t.executeReader(comm);
-                    while (t.reader.Read())
-                    {
-                        GroupList.Add(t.reader[0].ToString());
-                    }
-                }
+                GroupList.Add(dt.Rows[i]["GroupName"].ToString());
             }
         }
 
-        public static string getAcademicYear(int index)
+        public static string getAcademicYear(string groupName)
         {
-            using(SqlTools t = new SqlTools())
-            {
-                SqlParameter p = new SqlParameter();
-                p.ParameterName = "@ID";
-                p.Value = index + 1;
-                SqlCommand command = new SqlCommand("SELECT AcademicYears.AcademicYearName FROM Groups INNER JOIN AcademicYears ON Groups.AcademicYearId=AcademicYears.AcademicYearId WHERE Groups.GroupId = @ID");
-                command.Parameters.Add(p);
-                return t.getJoinResult(command);
-            }
+            /*
+             * getAcademicYear gets the academic year
+             * assigned to a group and returns the join
+             * result.
+             * 
+             * Arguments:
+             * groupName (string): Name of the group to find the year of.
+             */
+            SqlParameter p = new SqlParameter();
+            p.ParameterName = "@GroupName";
+            p.Value = groupName;
+            SqlCommand command = new SqlCommand("SELECT AcademicYears.AcademicYearName FROM Groups INNER JOIN AcademicYears ON Groups.AcademicYearId=AcademicYears.AcademicYearId WHERE Groups.GroupName = @GroupName");
+            command.Parameters.Add(p);
+            DataTable dt = SqlTools.GetTable(command);
+            return dt.Rows[0]["AcademicYearName"].ToString();
         }
 
-        public static List<string> getStaff(int index)
+        public static List<string> getStaff(string groupName)
         {
+            /*
+             * getStaff returns a List of strings of
+             * the staff within group specified.
+             * 
+             * Arguments:
+             * groupName (string): Name of the group to find the staff members of.
+             */
             List<string> staffList = new List<string>();
-            using(SqlTools t = new SqlTools())
+            // Returns a table with the staff members at that GroupID using StaffGroupsLink table.
+            SqlCommand command = new SqlCommand("SELECT Staff.StaffName FROM StaffGroupsLink INNER JOIN Staff ON StaffGroupsLink.StaffId=Staff.StaffId INNER JOIN Groups ON StaffGroupsLink.GroupId=Groups.GroupId WHERE Groups.GroupName = @GroupName");
+            SqlParameter p = new SqlParameter
             {
-                SqlCommand command = new SqlCommand("SELECT Staff.StaffName FROM StaffGroupsLink INNER JOIN Staff ON StaffGroupsLink.StaffId=Staff.StaffId INNER JOIN Groups ON StaffGroupsLink.GroupId=Groups.GroupId WHERE Groups.GroupId = @ID");
-                SqlParameter id = new SqlParameter();
-                id.ParameterName = "@ID";
-                id.Value = index + 1;
-                command.Parameters.Add(id);
-                t.reader = t.executeReader(command);
-                DataTable dt = new DataTable();
-                dt.Load(t.reader);
-                t.reader = t.executeReader(command);
-                for(int i = 0; i < dt.Rows.Count; i++)
-                {
-                    while (t.reader.Read())
-                    {
-                        staffList.Add(t.reader[i].ToString());
-                    }
-                }
+                ParameterName = "@GroupName",
+                Value = groupName
+            };
+            command.Parameters.Add(p);
+            // Load the returned table into a new DataTable.
+            // This is used to grab rows and avoid doing a lot of
+            // sql querys which is time consuming.
+            DataTable dt = SqlTools.GetTable(command);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                staffList.Add(dt.Rows[i]["StaffName"].ToString());
             }
             return staffList;
         }

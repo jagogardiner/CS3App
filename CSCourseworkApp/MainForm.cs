@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -13,6 +10,12 @@ namespace CSCourseworkApp
         public MainForm()
         {
             InitializeComponent();
+            Groups.populateList();
+            foreach (string group in Groups.GroupList)
+            {
+                // add each item from group list into listbox
+                groupsListBox.Items.Add(group);
+            }
         }
 
         private void hidePanels(Panel panelToShow)
@@ -27,37 +30,33 @@ namespace CSCourseworkApp
 
         private void manageGroupsButton_Click(object sender, EventArgs e)
         {
-            // show group management panel
+            // Show Group panel
             hidePanels(manageGroupsPanel);
-            // populate group list
-            Groups.populateList();
-            foreach(string group in Groups.GroupList)
-            {
-                // add each item from group list into listbox
-                groupsListBox.Items.Add(group);
-            }
         }
         
         private void adminStaffButton_Click(object sender, EventArgs e)
         {
+            // Show Staff panel
             hidePanels(manageStaffPanel);
         }
 
         private void adminStudentsButton_Click(object sender, EventArgs e)
         {
-
+            // Show Students panel
+            hidePanels(manageStudentsPanel);
         }
 
         private void groupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             selectedGroupLabel.Text = Groups.GroupList[groupsListBox.SelectedIndex];
-            academicYearLabel.Text = $"Academic Year: {Groups.getAcademicYear(groupsListBox.SelectedIndex)}";
-            staffListLabel.Text = $"Assigned lecturer(s): {String.Join("\r\n", Groups.getStaff(groupsListBox.SelectedIndex))}";
+            academicYearLabel.Text = $"Academic Year: {Groups.getAcademicYear(groupsListBox.SelectedItem.ToString())}";
+            // Seperate each lecturer by a line break, \r\n and join each staff.
+            staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.getStaff(groupsListBox.SelectedItem.ToString()))}";
         }
 
         private void editClassButton_Click(object sender, EventArgs e)
         {
-            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], groupsListBox.SelectedIndex + 1, Groups.getAcademicYear(groupsListBox.SelectedIndex));
+            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], Groups.getAcademicYear(groupsListBox.SelectedItem.ToString()));
             editGroupForm.Show();
         }
     }

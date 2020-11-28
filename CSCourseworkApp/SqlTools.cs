@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
 
 namespace CSCourseworkApp
 {
@@ -22,7 +20,7 @@ namespace CSCourseworkApp
         // Make reader public for executeReader usage.
         public SqlDataReader reader;
 
-        public SqlDataReader executeReader(SqlCommand command)
+        private SqlDataReader executeReader(SqlCommand command)
         {
             /*
              * executeReader returns an SqlDataReader to read
@@ -41,7 +39,7 @@ namespace CSCourseworkApp
             return command.ExecuteReader();
         }
 
-        public SqlDataReader executeReader(string query)
+        private SqlDataReader executeReader(string query)
         {
             /*
              * executeReader returns an SqlDataReader to read
@@ -60,7 +58,7 @@ namespace CSCourseworkApp
             return command.ExecuteReader();
         }
 
-        public int executeScalar(SqlCommand command)
+        public static int executeScalar(SqlCommand command)
         {
             /*
              * executeScalar returns an integer-casted scalar
@@ -70,16 +68,19 @@ namespace CSCourseworkApp
              * Arguments:
              * command (SqlCommand): SQL command query object
              */
-            using (connection = new SqlConnection(connectionString))
+            using (SqlTools t = new SqlTools())
             {
-                connection.Open();
-                command.Connection = connection;
-                // Make sure we cast int on scalar
-                return (int)command.ExecuteScalar();
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    // Make sure we cast int on scalar
+                    return (int)command.ExecuteScalar();
+                }
             }
         }
 
-        public int executeScalar(string query)
+        public static int executeScalar(string query)
         {
             /*
              * executeScalar returns an integer-casted scalar
@@ -89,58 +90,39 @@ namespace CSCourseworkApp
              * Arguments:
              * query (string): sql query to read integer from
              */
-            using (connection = new SqlConnection(connectionString))
+            using(SqlTools t = new SqlTools())
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand(query, connection);
-                // Make sure we cast int on scalar
-                return (int)command.ExecuteScalar();
-            }
-        }
-
-        public int getRows(string table)
-        {
-            /*
-             * getRows returns an integer value of the amount
-             * of rows in a table using the executeScalar function.
-             * 
-             * Arguments:
-             * table (string): Table name to get rows of.
-             */
-            using (connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM "+table, connection);
-                return (int)command.ExecuteScalar();
-            }
-        }
-
-        public static List<string> getDbTableNames()
-        {
-            /*
-             * getDbTableNames gets the connected database
-             * table names to be populated later on into a DataTable
-             * or DataSet, returned as a list of strings.
-             */
-            using(connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                return connection.GetSchema("Tables").AsEnumerable().Select(x => x[2].ToString()).ToList();
-            }
-        }
-
-        public string getJoinResult(SqlCommand command)
-        {
-            string result = null;
-            using (SqlTools t = new SqlTools())
-            {
-                t.reader = t.executeReader(command);
-                while(t.reader.Read())
+                using (connection = new SqlConnection(connectionString))
                 {
-                    result = t.reader[0].ToString();
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(query, connection);
+                    // Make sure we cast int on scalar
+                    return (int)command.ExecuteScalar();
                 }
             }
-            return result;
+        }
+
+        public static DataTable GetTable(SqlCommand command)
+        {
+            DataTable dt = new DataTable();
+            using(SqlTools t = new SqlTools())
+            {
+                t.reader = t.executeReader(command);
+                dt.Load(t.reader);
+                return dt;
+            }
+        }
+
+        public static DataTable GetTable(string query)
+        {
+            SqlCommand sql = new SqlCommand(query);
+            DataTable dt = new DataTable();
+            using (SqlTools t = new SqlTools())
+            {
+                t.reader = t.executeReader(sql);
+                dt.Load(t.reader);
+                return dt;
+            }
         }
 
         public void Dispose()

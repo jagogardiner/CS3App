@@ -32,10 +32,7 @@ namespace CSCourseworkApp
             string username = usernameBox.Text;
             string password = hashingAlgorithm(passwordBox.Text);
             int permId = 0;
-            using (SqlTools tools = new SqlTools())
-            {
-                permId = tools.executeScalar("Select PermissionLevel from Staff where StaffUsername='" + username + "' and StaffPassword='" + password + "'");
-            }
+            permId = SqlTools.executeScalar("Select PermissionLevel from Staff where StaffUsername='" + username + "' and StaffPassword='" + password + "'");
             switch (permId)
             {
                 case 1:
