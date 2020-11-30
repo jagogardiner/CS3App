@@ -19,10 +19,8 @@ namespace CSCourseworkApp
         {
             if (validID)
             {
-                EditGroupForm f = new EditGroupForm();
-                f.AddNewLecturer(staffName);
-                f.Close();
-                this.Close();
+                EditGroupForm.staffName = staffName;
+                Close();
             }
         }
 
@@ -46,7 +44,7 @@ namespace CSCourseworkApp
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

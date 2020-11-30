@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -45,7 +46,7 @@ namespace CSCourseworkApp
             return dt.Rows[0]["AcademicYearName"].ToString();
         }
 
-        public static List<string> GetStaff(string groupName)
+        public static BindingList<string> GetStaff(string groupName)
         {
             /*
              * getStaff returns a List of strings of
@@ -54,7 +55,7 @@ namespace CSCourseworkApp
              * Arguments:
              * groupName (string): Name of the group to find the staff members of.
              */
-            List<string> staffList = new List<string>();
+            BindingList<string> staffList = new BindingList<string>();
             // Returns a table with the staff members at that GroupID using StaffGroupsLink table.
             SqlCommand command = new SqlCommand("SELECT Staff.StaffName FROM StaffGroupsLink INNER JOIN Staff ON StaffGroupsLink.StaffId=Staff.StaffId INNER JOIN Groups ON StaffGroupsLink.GroupId=Groups.GroupId WHERE Groups.GroupName = @GroupName");
             SqlParameter p = new SqlParameter

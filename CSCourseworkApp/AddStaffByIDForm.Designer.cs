@@ -40,24 +40,27 @@ namespace CSCourseworkApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 13);
+            this.label1.Location = new System.Drawing.Point(14, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(69, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Staff ID:";
             // 
             // staffIDTextBox
             // 
-            this.staffIDTextBox.Location = new System.Drawing.Point(61, 10);
+            this.staffIDTextBox.Location = new System.Drawing.Point(92, 15);
+            this.staffIDTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.staffIDTextBox.Name = "staffIDTextBox";
-            this.staffIDTextBox.Size = new System.Drawing.Size(93, 20);
+            this.staffIDTextBox.Size = new System.Drawing.Size(138, 26);
             this.staffIDTextBox.TabIndex = 1;
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(12, 36);
+            this.searchButton.Location = new System.Drawing.Point(18, 55);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(142, 23);
+            this.searchButton.Size = new System.Drawing.Size(213, 35);
             this.searchButton.TabIndex = 2;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -66,17 +69,19 @@ namespace CSCourseworkApp
             // staffNameLabel
             // 
             this.staffNameLabel.AutoSize = true;
-            this.staffNameLabel.Location = new System.Drawing.Point(12, 66);
+            this.staffNameLabel.Location = new System.Drawing.Point(18, 102);
+            this.staffNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.staffNameLabel.Name = "staffNameLabel";
-            this.staffNameLabel.Size = new System.Drawing.Size(41, 13);
+            this.staffNameLabel.Size = new System.Drawing.Size(59, 20);
             this.staffNameLabel.TabIndex = 3;
             this.staffNameLabel.Text = "Name: ";
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(12, 91);
+            this.addButton.Location = new System.Drawing.Point(18, 140);
+            this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(142, 23);
+            this.addButton.Size = new System.Drawing.Size(213, 35);
             this.addButton.TabIndex = 4;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -84,9 +89,10 @@ namespace CSCourseworkApp
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(12, 121);
+            this.cancelButton.Location = new System.Drawing.Point(18, 186);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(142, 23);
+            this.cancelButton.Size = new System.Drawing.Size(213, 35);
             this.cancelButton.TabIndex = 5;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -94,9 +100,9 @@ namespace CSCourseworkApp
             // 
             // AddStaffByIDForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(166, 156);
+            this.ClientSize = new System.Drawing.Size(264, 240);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.addButton);
@@ -104,8 +110,11 @@ namespace CSCourseworkApp
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.staffIDTextBox);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AddStaffByIDForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Staff";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
