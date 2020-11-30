@@ -61,6 +61,7 @@ namespace CSCourseworkApp
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.staffListBox = new System.Windows.Forms.ListBox();
+            this.SubjectNameLabel = new System.Windows.Forms.Label();
             this.adminPanel.SuspendLayout();
             this.manageGroupsPanel.SuspendLayout();
             this.manageStudentsPanel.SuspendLayout();
@@ -125,6 +126,7 @@ namespace CSCourseworkApp
             // 
             // manageGroupsPanel
             // 
+            this.manageGroupsPanel.Controls.Add(this.SubjectNameLabel);
             this.manageGroupsPanel.Controls.Add(this.staffListLabel);
             this.manageGroupsPanel.Controls.Add(this.academicYearLabel);
             this.manageGroupsPanel.Controls.Add(this.editClassButton);
@@ -162,7 +164,7 @@ namespace CSCourseworkApp
             // 
             // editClassButton
             // 
-            this.editClassButton.Location = new System.Drawing.Point(180, 107);
+            this.editClassButton.Location = new System.Drawing.Point(183, 140);
             this.editClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.editClassButton.Name = "editClassButton";
             this.editClassButton.Size = new System.Drawing.Size(121, 29);
@@ -186,7 +188,7 @@ namespace CSCourseworkApp
             // deleteClassButton
             // 
             this.deleteClassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.deleteClassButton.Location = new System.Drawing.Point(180, 139);
+            this.deleteClassButton.Location = new System.Drawing.Point(183, 172);
             this.deleteClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteClassButton.Name = "deleteClassButton";
             this.deleteClassButton.Size = new System.Drawing.Size(121, 29);
@@ -425,6 +427,15 @@ namespace CSCourseworkApp
             this.staffListBox.Size = new System.Drawing.Size(171, 251);
             this.staffListBox.TabIndex = 0;
             // 
+            // SubjectNameLabel
+            // 
+            this.SubjectNameLabel.AutoSize = true;
+            this.SubjectNameLabel.Location = new System.Drawing.Point(180, 123);
+            this.SubjectNameLabel.Name = "SubjectNameLabel";
+            this.SubjectNameLabel.Size = new System.Drawing.Size(49, 13);
+            this.SubjectNameLabel.TabIndex = 10;
+            this.SubjectNameLabel.Text = "Subject: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,5 +494,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox staffListBox;
+        private System.Windows.Forms.Label SubjectNameLabel;
     }
 }

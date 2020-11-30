@@ -40,13 +40,15 @@ namespace CSCourseworkApp
             this.label3 = new System.Windows.Forms.Label();
             this.saveGroupButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.subjectsComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // groupTitleLabel
             // 
             this.groupTitleLabel.AutoSize = true;
             this.groupTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupTitleLabel.Location = new System.Drawing.Point(13, 9);
+            this.groupTitleLabel.Location = new System.Drawing.Point(13, 14);
             this.groupTitleLabel.Name = "groupTitleLabel";
             this.groupTitleLabel.Size = new System.Drawing.Size(86, 20);
             this.groupTitleLabel.TabIndex = 0;
@@ -55,7 +57,7 @@ namespace CSCourseworkApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 94);
+            this.label1.Location = new System.Drawing.Point(14, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 1;
@@ -80,9 +82,9 @@ namespace CSCourseworkApp
             // academicYearComboBox
             // 
             this.academicYearComboBox.FormattingEnabled = true;
-            this.academicYearComboBox.Location = new System.Drawing.Point(101, 91);
+            this.academicYearComboBox.Location = new System.Drawing.Point(102, 77);
             this.academicYearComboBox.Name = "academicYearComboBox";
-            this.academicYearComboBox.Size = new System.Drawing.Size(115, 21);
+            this.academicYearComboBox.Size = new System.Drawing.Size(96, 21);
             this.academicYearComboBox.TabIndex = 4;
             // 
             // lecturerBox
@@ -142,10 +144,29 @@ namespace CSCourseworkApp
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 106);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Subject:";
+            // 
+            // subjectsComboBox
+            // 
+            this.subjectsComboBox.FormattingEnabled = true;
+            this.subjectsComboBox.Location = new System.Drawing.Point(66, 103);
+            this.subjectsComboBox.Name = "subjectsComboBox";
+            this.subjectsComboBox.Size = new System.Drawing.Size(132, 21);
+            this.subjectsComboBox.TabIndex = 13;
+            // 
             // EditGroupForm
             // 
             this.ClientSize = new System.Drawing.Size(285, 470);
             this.ControlBox = false;
+            this.Controls.Add(this.subjectsComboBox);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.saveGroupButton);
             this.Controls.Add(this.label3);
@@ -178,5 +199,7 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button saveGroupButton;
         private new System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox subjectsComboBox;
     }
 }

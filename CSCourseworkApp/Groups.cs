@@ -9,10 +9,11 @@ namespace CSCourseworkApp
 {
     class Groups
     {
-        public static List<string> GroupList = new List<string>();
+        public static BindingList<string> GroupList;
 
         public static void PopulateList()
         {
+            GroupList = new BindingList<string>();
             /*
              * populateList gets all the Groups
              * available in the database and adds them
@@ -41,6 +42,14 @@ namespace CSCourseworkApp
             return dt.Rows[0]["AcademicYearName"].ToString();
         }
 
+        public static string GetSubjectName(string groupName)
+        {
+            SqlCommand command = new SqlCommand("SELECT Subjects.SubjectName FROM Groups INNER JOIN Subjects ON Groups.SubjectId=Subjects.SubjectID WHERE Groups.GroupName = @GroupName");
+            command.Parameters.AddWithValue("@GroupName", groupName);
+            DataTable dt = SqlTools.GetTable(command);
+            return dt.Rows[0]["SubjectName"].ToString();
+        }
+
         public static int GetYearIdByName(string academicYearName)
         {
             /*
@@ -54,6 +63,36 @@ namespace CSCourseworkApp
             command.Parameters.AddWithValue("@AcademicYearName", academicYearName);
             DataTable dt = SqlTools.GetTable(command);
             return (int)dt.Rows[0]["AcademicYearId"];
+        }
+
+        public static int GetSubjectIdByName(string subjectName)
+        {
+            /*
+             * GetSubjectIdByName gets the SubjectId assigned to a
+             * subject name and returns the ID.
+             * 
+             * Arguments:
+             * subjectName (string): Name of the subject.
+             */
+            SqlCommand command = new SqlCommand("SELECT SubjectId FROM Subjects WHERE SubjectName = @SubjectName");
+            command.Parameters.AddWithValue("@SubjectName", subjectName);
+            DataTable dt = SqlTools.GetTable(command);
+            return (int)dt.Rows[0]["SubjectId"];
+        }
+
+        public static int GetGroupIdByName(string groupName)
+        {
+            /*
+             * GetSubjectIdByName gets the SubjectId assigned to a
+             * subject name and returns the ID.
+             * 
+             * Arguments:
+             * subjectName (string): Name of the subject.
+             */
+            SqlCommand command = new SqlCommand("SELECT GroupId FROM Groups WHERE GroupName = @GroupName");
+            command.Parameters.AddWithValue("@GroupName", groupName);
+            DataTable dt = SqlTools.GetTable(command);
+            return (int)dt.Rows[0]["GroupId"];
         }
 
         public static BindingList<string> GetStaff(string groupName)

@@ -11,11 +11,7 @@ namespace CSCourseworkApp
         {
             InitializeComponent();
             Groups.PopulateList();
-            foreach (string group in Groups.GroupList)
-            {
-                // add each item from group list into listbox
-                groupsListBox.Items.Add(group);
-            }
+            groupsListBox.DataSource = Groups.GroupList;
         }
 
         private void HidePanels(Panel panelToShow)
@@ -55,6 +51,7 @@ namespace CSCourseworkApp
                 academicYearLabel.Text = $"Academic Year: {Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString())}";
                 // Seperate each lecturer by a line break, \r\n and join each staff.
                 staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.GetStaff(groupsListBox.SelectedItem.ToString()))}";
+                SubjectNameLabel.Text = $"Subject: {Groups.GetSubjectName(groupsListBox.SelectedItem.ToString())}";
                 editClassButton.Show();
                 deleteClassButton.Show();
             }
@@ -63,11 +60,15 @@ namespace CSCourseworkApp
         private void EditClassButton_Click(object sender, EventArgs e)
         {
             // Deploy an edit form with the needed data.
-            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex],
+            EditGroupForm editGroupForm = new EditGroupForm(
+                Groups.GroupList[groupsListBox.SelectedIndex],
                 Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()),
+                Groups.GetSubjectName(groupsListBox.SelectedItem.ToString()),
                 Groups.GetStaff(groupsListBox.SelectedItem.ToString()),
-                groupsListBox.SelectedIndex+1);
+                groupsListBox.SelectedIndex + 1);
             editGroupForm.ShowDialog();
+            Groups.PopulateList();
+            groupsListBox.DataSource = Groups.GroupList;
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
         }
@@ -75,7 +76,11 @@ namespace CSCourseworkApp
         private void AddClassButton_Click(object sender, EventArgs e)
         {
             EditGroupForm editGroupForm = new EditGroupForm();
-            editGroupForm.Show();
+            editGroupForm.ShowDialog();
+            Groups.PopulateList();
+            groupsListBox.DataSource = Groups.GroupList;
+            // Simulate a value change to refresh changed data.
+            GroupsListBox_SelectedValueChanged(this, e);
         }
     }
 }
