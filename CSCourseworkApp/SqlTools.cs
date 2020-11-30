@@ -106,6 +106,37 @@ namespace CSCourseworkApp
             }
         }
 
+        public static void ExecuteNonQuery(SqlCommand comm)
+        {
+            /*
+             * ExecuteNonQuery just does the same as SqlCommand's
+             * normal ExecuteNonQuery but using this method, we
+             * don't need to worry about opening and closing connections.
+             */
+            using(SqlTools t = new SqlTools())
+            {
+                using(connection = new SqlConnection(connectionString))
+                {
+                    comm.Connection = connection;
+                    connection.Open();
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void ExecuteNonQuery(string query)
+        {
+            using (SqlTools t = new SqlTools())
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand comm = new SqlCommand(query, connection);
+                    connection.Open();
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void Dispose()
         {
             /*

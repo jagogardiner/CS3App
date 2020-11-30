@@ -167,8 +167,9 @@ namespace CSCourseworkApp
             this.editClassButton.Name = "editClassButton";
             this.editClassButton.Size = new System.Drawing.Size(121, 29);
             this.editClassButton.TabIndex = 7;
-            this.editClassButton.Text = "Edit class";
+            this.editClassButton.Text = "Edit group";
             this.editClassButton.UseVisualStyleBackColor = true;
+            this.editClassButton.Visible = false;
             this.editClassButton.Click += new System.EventHandler(this.EditClassButton_Click);
             // 
             // addClassButton
@@ -190,8 +191,9 @@ namespace CSCourseworkApp
             this.deleteClassButton.Name = "deleteClassButton";
             this.deleteClassButton.Size = new System.Drawing.Size(121, 29);
             this.deleteClassButton.TabIndex = 5;
-            this.deleteClassButton.Text = "Delete Class";
+            this.deleteClassButton.Text = "Delete group";
             this.deleteClassButton.UseVisualStyleBackColor = false;
+            this.deleteClassButton.Visible = false;
             // 
             // selectedGroupLabel
             // 

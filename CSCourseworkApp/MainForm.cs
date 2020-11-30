@@ -20,7 +20,7 @@ namespace CSCourseworkApp
 
         private void HidePanels(Panel panelToShow)
         {
-            // hide all panels except admin selection panel and desired form passed as an arugment
+            // Hide all panels except admin selection panel and desired form passed as an arugment
             foreach (Panel panel in Controls.OfType<Panel>().Where(p => p != panelToShow && p != adminPanel))
             {
                 panel.Hide();
@@ -48,16 +48,28 @@ namespace CSCourseworkApp
 
         private void GroupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            selectedGroupLabel.Text = Groups.GroupList[groupsListBox.SelectedIndex];
-            academicYearLabel.Text = $"Academic Year: {Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString())}";
-            // Seperate each lecturer by a line break, \r\n and join each staff.
-            staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.GetStaff(groupsListBox.SelectedItem.ToString()))}";
+            if (groupsListBox.SelectedIndex != -1)
+            {
+                // Make sure there isn't any index selected. This will panic otherwise.
+                selectedGroupLabel.Text = Groups.GroupList[groupsListBox.SelectedIndex];
+                academicYearLabel.Text = $"Academic Year: {Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString())}";
+                // Seperate each lecturer by a line break, \r\n and join each staff.
+                staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.GetStaff(groupsListBox.SelectedItem.ToString()))}";
+                editClassButton.Show();
+                deleteClassButton.Show();
+            }
         }
 
         private void EditClassButton_Click(object sender, EventArgs e)
         {
-            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()), Groups.GetStaff(groupsListBox.SelectedItem.ToString()));
-            editGroupForm.Show();
+            // Deploy an edit form with the needed data.
+            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex],
+                Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()),
+                Groups.GetStaff(groupsListBox.SelectedItem.ToString()),
+                groupsListBox.SelectedIndex+1);
+            editGroupForm.ShowDialog();
+            // Simulate a value change to refresh changed data.
+            GroupsListBox_SelectedValueChanged(this, e);
         }
 
         private void AddClassButton_Click(object sender, EventArgs e)
