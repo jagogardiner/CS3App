@@ -115,5 +115,11 @@ namespace CSCourseworkApp
         {
 
         }
+
+        private void addStaffMemberButton_Click(object sender, EventArgs e)
+        {
+            EditStaffForm edf = new EditStaffForm();
+            edf.Show();
+        }
     }
 }

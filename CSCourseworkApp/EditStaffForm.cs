@@ -7,23 +7,32 @@ namespace CSCourseworkApp
     {
         string staffName;
         public static BindingList<string> GroupList = new BindingList<string>();
-        public EditStaffForm(string staffName)
+        public EditStaffForm(string staffName = null)
         {
             InitializeComponent();
-            staffNameBox.Text = staffName;
-            this.staffName = staffName;
-            GroupList = Staff.GetGroups(staffName);
-            // Get permission level, 3 being tutor, 4 being overseer.
-            switch(Staff.GetPermissionLevel(staffName))
+            if (staffName != null)
             {
-                case 3:
-                    tutorCheckBox.Checked = true;
-                    break;
-                case 4:
-                    overseerCheckBox.Checked = true;
-                    break;
+                staffNameBox.Text = staffName;
+                this.staffName = staffName;
+                GroupList = Staff.GetGroups(staffName);
+                // Get permission level, 3 being tutor, 4 being overseer.
+                switch (Staff.GetPermissionLevel(staffName))
+                {
+                    case 3:
+                        tutorCheckBox.Checked = true;
+                        break;
+                    case 4:
+                        overseerCheckBox.Checked = true;
+                        break;
+                }
+                staffUsernameBox.Text = Staff.GetUsername(staffName);
             }
-            staffUsernameBox.Text = Staff.GetUsername(staffName);
+            else
+            {
+                GroupList.Clear();
+                titleLabel.Text = "Add Staff Member";
+                resetPasswordTickBox.Hide();
+            }
         }
 
         private void EditStaffForm_Load(object sender, System.EventArgs e)
@@ -40,6 +49,11 @@ namespace CSCourseworkApp
         {
             AddStaffToGroupForm asf = new AddStaffToGroupForm();
             asf.ShowDialog();
+        }
+
+        private void saveStaffButton_Click(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

@@ -29,7 +29,7 @@ namespace CSCourseworkApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.titleLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.staffNameBox = new System.Windows.Forms.TextBox();
             this.tutorCheckBox = new System.Windows.Forms.CheckBox();
@@ -37,50 +37,45 @@ namespace CSCourseworkApp
             this.staffUsernameBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupsListBox = new System.Windows.Forms.ListBox();
-            this.addToGroupButton = new System.Windows.Forms.Button();
-            this.removeFromGroupButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.resetPasswordTickBox = new System.Windows.Forms.CheckBox();
             this.saveStaffButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.addToGroupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // titleLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(20, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 29);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Edit Staff Member";
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Location = new System.Drawing.Point(13, 13);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(138, 20);
+            this.titleLabel.TabIndex = 0;
+            this.titleLabel.Text = "Edit Staff Member";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 63);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(14, 41);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 20);
+            this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Name:";
             // 
             // staffNameBox
             // 
-            this.staffNameBox.Location = new System.Drawing.Point(87, 58);
-            this.staffNameBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.staffNameBox.Location = new System.Drawing.Point(58, 38);
             this.staffNameBox.Name = "staffNameBox";
-            this.staffNameBox.Size = new System.Drawing.Size(224, 26);
+            this.staffNameBox.Size = new System.Drawing.Size(151, 20);
             this.staffNameBox.TabIndex = 2;
             // 
             // tutorCheckBox
             // 
             this.tutorCheckBox.AutoSize = true;
-            this.tutorCheckBox.Location = new System.Drawing.Point(26, 178);
-            this.tutorCheckBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tutorCheckBox.Location = new System.Drawing.Point(17, 116);
             this.tutorCheckBox.Name = "tutorCheckBox";
-            this.tutorCheckBox.Size = new System.Drawing.Size(72, 24);
+            this.tutorCheckBox.Size = new System.Drawing.Size(51, 17);
             this.tutorCheckBox.TabIndex = 3;
             this.tutorCheckBox.Text = "Tutor";
             this.tutorCheckBox.UseVisualStyleBackColor = true;
@@ -88,113 +83,99 @@ namespace CSCourseworkApp
             // overseerCheckBox
             // 
             this.overseerCheckBox.AutoSize = true;
-            this.overseerCheckBox.Location = new System.Drawing.Point(26, 215);
-            this.overseerCheckBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.overseerCheckBox.Location = new System.Drawing.Point(17, 140);
             this.overseerCheckBox.Name = "overseerCheckBox";
-            this.overseerCheckBox.Size = new System.Drawing.Size(99, 24);
+            this.overseerCheckBox.Size = new System.Drawing.Size(69, 17);
             this.overseerCheckBox.TabIndex = 4;
             this.overseerCheckBox.Text = "Overseer";
             this.overseerCheckBox.UseVisualStyleBackColor = true;
             // 
             // staffUsernameBox
             // 
-            this.staffUsernameBox.Location = new System.Drawing.Point(117, 98);
-            this.staffUsernameBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.staffUsernameBox.Location = new System.Drawing.Point(78, 64);
             this.staffUsernameBox.Name = "staffUsernameBox";
-            this.staffUsernameBox.Size = new System.Drawing.Size(194, 26);
+            this.staffUsernameBox.Size = new System.Drawing.Size(131, 20);
             this.staffUsernameBox.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 103);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(14, 67);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 20);
+            this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Username:";
             // 
             // groupsListBox
             // 
             this.groupsListBox.FormattingEnabled = true;
-            this.groupsListBox.ItemHeight = 20;
-            this.groupsListBox.Location = new System.Drawing.Point(26, 279);
-            this.groupsListBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupsListBox.Location = new System.Drawing.Point(17, 181);
             this.groupsListBox.Name = "groupsListBox";
-            this.groupsListBox.Size = new System.Drawing.Size(286, 224);
+            this.groupsListBox.Size = new System.Drawing.Size(192, 134);
             this.groupsListBox.TabIndex = 8;
-            // 
-            // addToGroupButton
-            // 
-            this.addToGroupButton.Location = new System.Drawing.Point(26, 515);
-            this.addToGroupButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.addToGroupButton.Name = "addToGroupButton";
-            this.addToGroupButton.Size = new System.Drawing.Size(141, 35);
-            this.addToGroupButton.TabIndex = 9;
-            this.addToGroupButton.Text = "Add to Group";
-            this.addToGroupButton.UseVisualStyleBackColor = true;
-            this.addToGroupButton.Click += new System.EventHandler(this.addToGroupButton_Click);
-            // 
-            // removeFromGroupButton
-            // 
-            this.removeFromGroupButton.Location = new System.Drawing.Point(176, 515);
-            this.removeFromGroupButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.removeFromGroupButton.Name = "removeFromGroupButton";
-            this.removeFromGroupButton.Size = new System.Drawing.Size(135, 35);
-            this.removeFromGroupButton.TabIndex = 10;
-            this.removeFromGroupButton.Text = "Remove";
-            this.removeFromGroupButton.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 253);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(14, 164);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 20);
+            this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "Groups:";
             // 
             // resetPasswordTickBox
             // 
             this.resetPasswordTickBox.AutoSize = true;
-            this.resetPasswordTickBox.Location = new System.Drawing.Point(26, 142);
+            this.resetPasswordTickBox.Location = new System.Drawing.Point(17, 92);
+            this.resetPasswordTickBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.resetPasswordTickBox.Name = "resetPasswordTickBox";
-            this.resetPasswordTickBox.Size = new System.Drawing.Size(151, 24);
+            this.resetPasswordTickBox.Size = new System.Drawing.Size(103, 17);
             this.resetPasswordTickBox.TabIndex = 12;
             this.resetPasswordTickBox.Text = "Reset Password";
             this.resetPasswordTickBox.UseVisualStyleBackColor = true;
             // 
             // saveStaffButton
             // 
-            this.saveStaffButton.Location = new System.Drawing.Point(26, 559);
+            this.saveStaffButton.Location = new System.Drawing.Point(17, 363);
+            this.saveStaffButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.saveStaffButton.Name = "saveStaffButton";
-            this.saveStaffButton.Size = new System.Drawing.Size(285, 33);
+            this.saveStaffButton.Size = new System.Drawing.Size(192, 29);
             this.saveStaffButton.TabIndex = 13;
             this.saveStaffButton.Text = "Save Staff Member";
             this.saveStaffButton.UseVisualStyleBackColor = true;
+            this.saveStaffButton.Click += new System.EventHandler(this.saveStaffButton_Click);
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(23, 598);
+            this.cancelButton.Location = new System.Drawing.Point(17, 396);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(288, 27);
+            this.cancelButton.Size = new System.Drawing.Size(192, 30);
             this.cancelButton.TabIndex = 14;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // addToGroupButton
+            // 
+            this.addToGroupButton.Location = new System.Drawing.Point(17, 321);
+            this.addToGroupButton.Name = "addToGroupButton";
+            this.addToGroupButton.Size = new System.Drawing.Size(192, 26);
+            this.addToGroupButton.TabIndex = 9;
+            this.addToGroupButton.Text = "Edit Groups";
+            this.addToGroupButton.UseVisualStyleBackColor = true;
+            this.addToGroupButton.Click += new System.EventHandler(this.addToGroupButton_Click);
+            // 
             // EditStaffForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 637);
+            this.ClientSize = new System.Drawing.Size(221, 432);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveStaffButton);
             this.Controls.Add(this.resetPasswordTickBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.removeFromGroupButton);
             this.Controls.Add(this.addToGroupButton);
             this.Controls.Add(this.groupsListBox);
             this.Controls.Add(this.staffUsernameBox);
@@ -203,7 +184,8 @@ namespace CSCourseworkApp
             this.Controls.Add(this.tutorCheckBox);
             this.Controls.Add(this.staffNameBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.titleLabel);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EditStaffForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Staff";
@@ -215,7 +197,7 @@ namespace CSCourseworkApp
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox staffNameBox;
         private System.Windows.Forms.CheckBox tutorCheckBox;
@@ -223,11 +205,10 @@ namespace CSCourseworkApp
         private System.Windows.Forms.TextBox staffUsernameBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox groupsListBox;
-        private System.Windows.Forms.Button addToGroupButton;
-        private System.Windows.Forms.Button removeFromGroupButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox resetPasswordTickBox;
         private System.Windows.Forms.Button saveStaffButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button addToGroupButton;
     }
 }
