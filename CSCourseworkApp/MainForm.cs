@@ -68,12 +68,7 @@ namespace CSCourseworkApp
         private void EditClassButton_Click(object sender, EventArgs e)
         {
             // Deploy an edit form with the needed data.
-            EditGroupForm editGroupForm = new EditGroupForm(
-                Groups.GroupList[groupsListBox.SelectedIndex],
-                Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()),
-                Subjects.GetSubjectName(groupsListBox.SelectedItem.ToString()),
-                Groups.GetStaff(groupsListBox.SelectedItem.ToString()),
-                groupsListBox.SelectedIndex + 1);
+            EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], groupsListBox.SelectedIndex + 1);
             editGroupForm.ShowDialog();
             Groups.PopulateList();
             // Simulate a value change to refresh changed data.
@@ -109,6 +104,14 @@ namespace CSCourseworkApp
         }
 
         private void editStaffInfoButton_Click(object sender, EventArgs e)
+        {
+            EditStaffForm edf = new EditStaffForm(staffListBox.SelectedItem.ToString());
+            edf.ShowDialog();
+            Staff.PopulateList();
+            staffListBox_SelectedValueChanged(this, e);
+        }
+
+        private void staffListBox_SelectedValueChanged(object sender, EventArgs e)
         {
 
         }

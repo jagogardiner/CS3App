@@ -23,6 +23,18 @@ namespace CSCourseworkApp
             }
         }
 
+        public static int GetPermissionLevel(string staffName)
+        {
+            /*
+             * Returns the integer permission level
+             * based off string staffName.
+             */
+            SqlCommand comm = new SqlCommand("SELECT PermissionLevel FROM Staff WHERE StaffName = @StaffName");
+            comm.Parameters.AddWithValue("@StaffName", staffName);
+            DataTable dt = SqlTools.GetTable(comm);
+            return (int)dt.Rows[0]["PermissionLevel"];
+        }
+
         public static int GetStaffIdByName(string staffName)
         {
             /*
@@ -35,7 +47,7 @@ namespace CSCourseworkApp
             return (int)dt.Rows[0]["StaffId"];
         }
 
-        public static string getUsername(string staffName)
+        public static string GetUsername(string staffName)
         {
             /*
              * getUsername gets the login username of the 

@@ -69,6 +69,12 @@
     <Compile Include="AddStaffByIDForm.Designer.cs">
       <DependentUpon>AddStaffByIDForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddStaffToGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddStaffToGroupForm.Designer.cs">
+      <DependentUpon>AddStaffToGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     <Compile Include="Subjects.cs" />
     <EmbeddedResource Include="AddStaffByIDForm.resx">
       <DependentUpon>AddStaffByIDForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddStaffToGroupForm.resx">
+      <DependentUpon>AddStaffToGroupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditGroupForm.resx">
       <DependentUpon>EditGroupForm.cs</DependentUpon>

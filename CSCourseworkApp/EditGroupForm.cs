@@ -27,16 +27,16 @@ namespace CSCourseworkApp
             saveGroupButton.Text = "Add new group";
         }
 
-        public EditGroupForm(string groupName, string academicYear, string Subject, BindingList<string> staffList, int groupId)
+        public EditGroupForm(string groupName, int groupId)
         {
             /*
              * Used for editing an existing group.
              */
             InitializeComponent();
-            this.academicYear = academicYear;
-            this.staffList = staffList;
+            academicYear = Groups.GetAcademicYear(groupName);
+            staffList = Groups.GetStaff(groupName);
+            Subject = Subjects.GetSubjectName(groupName);
             this.groupId = groupId;
-            this.Subject = Subject;
             groupNameTextBox.Text = groupName;
         }
 

@@ -32,9 +32,9 @@ namespace CSCourseworkApp
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.staffNameBox = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tutorCheckBox = new System.Windows.Forms.CheckBox();
+            this.overseerCheckBox = new System.Windows.Forms.CheckBox();
+            this.staffUsernameBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupsListBox = new System.Windows.Forms.ListBox();
             this.addToGroupButton = new System.Windows.Forms.Button();
@@ -42,6 +42,7 @@ namespace CSCourseworkApp
             this.label4 = new System.Windows.Forms.Label();
             this.resetPasswordTickBox = new System.Windows.Forms.CheckBox();
             this.saveStaffButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -73,35 +74,35 @@ namespace CSCourseworkApp
             this.staffNameBox.Size = new System.Drawing.Size(224, 26);
             this.staffNameBox.TabIndex = 2;
             // 
-            // checkBox1
+            // tutorCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(26, 178);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 24);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Tutor";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.tutorCheckBox.AutoSize = true;
+            this.tutorCheckBox.Location = new System.Drawing.Point(26, 178);
+            this.tutorCheckBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tutorCheckBox.Name = "tutorCheckBox";
+            this.tutorCheckBox.Size = new System.Drawing.Size(72, 24);
+            this.tutorCheckBox.TabIndex = 3;
+            this.tutorCheckBox.Text = "Tutor";
+            this.tutorCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // overseerCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(26, 215);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(80, 24);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Admin";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.overseerCheckBox.AutoSize = true;
+            this.overseerCheckBox.Location = new System.Drawing.Point(26, 215);
+            this.overseerCheckBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.overseerCheckBox.Name = "overseerCheckBox";
+            this.overseerCheckBox.Size = new System.Drawing.Size(99, 24);
+            this.overseerCheckBox.TabIndex = 4;
+            this.overseerCheckBox.Text = "Overseer";
+            this.overseerCheckBox.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // staffUsernameBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(117, 98);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(194, 26);
-            this.textBox2.TabIndex = 6;
+            this.staffUsernameBox.Location = new System.Drawing.Point(117, 98);
+            this.staffUsernameBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.staffUsernameBox.Name = "staffUsernameBox";
+            this.staffUsernameBox.Size = new System.Drawing.Size(194, 26);
+            this.staffUsernameBox.TabIndex = 6;
             // 
             // label3
             // 
@@ -132,13 +133,14 @@ namespace CSCourseworkApp
             this.addToGroupButton.TabIndex = 9;
             this.addToGroupButton.Text = "Add to Group";
             this.addToGroupButton.UseVisualStyleBackColor = true;
+            this.addToGroupButton.Click += new System.EventHandler(this.addToGroupButton_Click);
             // 
             // removeFromGroupButton
             // 
             this.removeFromGroupButton.Location = new System.Drawing.Point(176, 515);
             this.removeFromGroupButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.removeFromGroupButton.Name = "removeFromGroupButton";
-            this.removeFromGroupButton.Size = new System.Drawing.Size(138, 35);
+            this.removeFromGroupButton.Size = new System.Drawing.Size(135, 35);
             this.removeFromGroupButton.TabIndex = 10;
             this.removeFromGroupButton.Text = "Remove";
             this.removeFromGroupButton.UseVisualStyleBackColor = true;
@@ -172,26 +174,40 @@ namespace CSCourseworkApp
             this.saveStaffButton.Text = "Save Staff Member";
             this.saveStaffButton.UseVisualStyleBackColor = true;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(23, 598);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(288, 27);
+            this.cancelButton.TabIndex = 14;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // EditStaffForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 609);
+            this.ClientSize = new System.Drawing.Size(332, 637);
+            this.ControlBox = false;
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveStaffButton);
             this.Controls.Add(this.resetPasswordTickBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.removeFromGroupButton);
             this.Controls.Add(this.addToGroupButton);
             this.Controls.Add(this.groupsListBox);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.staffUsernameBox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.overseerCheckBox);
+            this.Controls.Add(this.tutorCheckBox);
             this.Controls.Add(this.staffNameBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditStaffForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Staff";
+            this.Load += new System.EventHandler(this.EditStaffForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -202,9 +218,9 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox staffNameBox;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox tutorCheckBox;
+        private System.Windows.Forms.CheckBox overseerCheckBox;
+        private System.Windows.Forms.TextBox staffUsernameBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox groupsListBox;
         private System.Windows.Forms.Button addToGroupButton;
@@ -212,5 +228,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox resetPasswordTickBox;
         private System.Windows.Forms.Button saveStaffButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

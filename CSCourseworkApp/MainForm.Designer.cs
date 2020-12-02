@@ -399,6 +399,7 @@ namespace CSCourseworkApp
             this.staffListBox.Name = "staffListBox";
             this.staffListBox.Size = new System.Drawing.Size(254, 384);
             this.staffListBox.TabIndex = 0;
+            this.staffListBox.SelectedValueChanged += new System.EventHandler(this.staffListBox_SelectedValueChanged);
             // 
             // MainForm
             // 
