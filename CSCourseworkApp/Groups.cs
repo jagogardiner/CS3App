@@ -9,21 +9,34 @@ namespace CSCourseworkApp
 {
     class Groups
     {
-        public static BindingList<string> GroupList;
+        public static BindingList<string> GroupList = new BindingList<string>();
 
         public static void PopulateList()
         {
-            GroupList = new BindingList<string>();
             /*
-             * populateList gets all the Groups
+             * PopulateList gets all the Groups
              * available in the database and adds them
              * to the List<string> GroupList.
              */
+            // Make sure list is clear of all entries.
+            GroupList.Clear();
             DataTable dt = SqlTools.GetTable("SELECT GroupName FROM Groups");
             for(int i = 0; i < dt.Rows.Count; i++)
             {
                 GroupList.Add(dt.Rows[i]["GroupName"].ToString());
             }
+        }
+
+        public static void DeleteGroup(string groupName)
+        {
+            /*
+             * DeleteGroup deletes the given group from
+             * the database.
+             * 
+             * Arguments:
+             * groupName (string): The name of the group to delete.
+             */
+            int groupId = GetGroupIdByName(groupName);
         }
 
         public static string GetAcademicYear(string groupName)
@@ -42,14 +55,6 @@ namespace CSCourseworkApp
             return dt.Rows[0]["AcademicYearName"].ToString();
         }
 
-        public static string GetSubjectName(string groupName)
-        {
-            SqlCommand command = new SqlCommand("SELECT Subjects.SubjectName FROM Groups INNER JOIN Subjects ON Groups.SubjectId=Subjects.SubjectID WHERE Groups.GroupName = @GroupName");
-            command.Parameters.AddWithValue("@GroupName", groupName);
-            DataTable dt = SqlTools.GetTable(command);
-            return dt.Rows[0]["SubjectName"].ToString();
-        }
-
         public static int GetYearIdByName(string academicYearName)
         {
             /*
@@ -63,21 +68,6 @@ namespace CSCourseworkApp
             command.Parameters.AddWithValue("@AcademicYearName", academicYearName);
             DataTable dt = SqlTools.GetTable(command);
             return (int)dt.Rows[0]["AcademicYearId"];
-        }
-
-        public static int GetSubjectIdByName(string subjectName)
-        {
-            /*
-             * GetSubjectIdByName gets the SubjectId assigned to a
-             * subject name and returns the ID.
-             * 
-             * Arguments:
-             * subjectName (string): Name of the subject.
-             */
-            SqlCommand command = new SqlCommand("SELECT SubjectId FROM Subjects WHERE SubjectName = @SubjectName");
-            command.Parameters.AddWithValue("@SubjectName", subjectName);
-            DataTable dt = SqlTools.GetTable(command);
-            return (int)dt.Rows[0]["SubjectId"];
         }
 
         public static int GetGroupIdByName(string groupName)

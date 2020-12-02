@@ -112,7 +112,7 @@ namespace CSCourseworkApp
                     SqlTools.ExecuteNonQuery(comm);
                 }
                 comm.CommandText = "UPDATE Groups SET SubjectId = @SubjectId WHERE GroupId = @GroupId";
-                comm.Parameters.AddWithValue("@SubjectId", Groups.GetSubjectIdByName(subjectsComboBox.SelectedItem.ToString()));
+                comm.Parameters.AddWithValue("@SubjectId", Subjects.GetSubjectIdByName(subjectsComboBox.SelectedItem.ToString()));
                 SqlTools.ExecuteNonQuery(comm);
                 comm.CommandText = "UPDATE Groups SET AcademicYearId = @AcademicYearId WHERE GroupId = @GroupId";
                 comm.Parameters.AddWithValue("@AcademicYearId", Groups.GetYearIdByName(academicYearComboBox.SelectedItem.ToString()));
@@ -125,7 +125,7 @@ namespace CSCourseworkApp
                 {
                     SqlCommand comm = new SqlCommand("INSERT INTO Groups (GroupName, SubjectId, AcademicYearId) VALUES (@GroupName, @SubjectId, @AcademicYearId)");
                     comm.Parameters.AddWithValue("@GroupName", groupNameTextBox.Text);
-                    comm.Parameters.AddWithValue("@SubjectId", Groups.GetSubjectIdByName(subjectsComboBox.SelectedItem.ToString()));
+                    comm.Parameters.AddWithValue("@SubjectId", Subjects.GetSubjectIdByName(subjectsComboBox.SelectedItem.ToString()));
                     comm.Parameters.AddWithValue("@AcademicYearId", Groups.GetYearIdByName(academicYearComboBox.SelectedItem.ToString()));
                     SqlTools.ExecuteNonQuery(comm);
                     SqlParameter StaffId = new SqlParameter("@StaffId", "");
@@ -133,8 +133,9 @@ namespace CSCourseworkApp
                     comm.Parameters.AddWithValue("@GroupId", Groups.GetGroupIdByName(groupNameTextBox.Text));
                     foreach (string o in lecturerBox.Items)
                     {
-                        StaffId.Value = o;
+                        StaffId.Value = Staff.GetStaffIdByName(o);
                         comm.CommandText = "INSERT INTO StaffGroupsLink (GroupId, StaffId) VALUES (@GroupId, @StaffId)";
+                        SqlTools.ExecuteNonQuery(comm);
                     }
                     Debug.WriteLine("Written new subject");
                     Close();

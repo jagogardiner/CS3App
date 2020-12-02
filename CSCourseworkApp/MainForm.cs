@@ -44,14 +44,16 @@ namespace CSCourseworkApp
 
         private void GroupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
+            string groupName;
             if (groupsListBox.SelectedIndex != -1)
             {
+                groupName = groupsListBox.SelectedItem.ToString();
                 // Make sure there isn't any index selected. This will panic otherwise.
                 selectedGroupLabel.Text = Groups.GroupList[groupsListBox.SelectedIndex];
                 academicYearLabel.Text = $"Academic Year: {Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString())}";
                 // Seperate each lecturer by a line break, \r\n and join each staff.
                 staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.GetStaff(groupsListBox.SelectedItem.ToString()))}";
-                SubjectNameLabel.Text = $"Subject: {Groups.GetSubjectName(groupsListBox.SelectedItem.ToString())}";
+                SubjectNameLabel.Text = $"Subject: {Subjects.GetSubjectName()}";
                 editClassButton.Show();
                 deleteClassButton.Show();
             }
@@ -63,24 +65,41 @@ namespace CSCourseworkApp
             EditGroupForm editGroupForm = new EditGroupForm(
                 Groups.GroupList[groupsListBox.SelectedIndex],
                 Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString()),
-                Groups.GetSubjectName(groupsListBox.SelectedItem.ToString()),
+                Subjects.GetSubjectName(groupsListBox.SelectedItem.ToString()),
                 Groups.GetStaff(groupsListBox.SelectedItem.ToString()),
                 groupsListBox.SelectedIndex + 1);
             editGroupForm.ShowDialog();
             Groups.PopulateList();
-            groupsListBox.DataSource = Groups.GroupList;
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
         }
 
         private void AddClassButton_Click(object sender, EventArgs e)
         {
+            // Deploy an empty group edit form.
             EditGroupForm editGroupForm = new EditGroupForm();
             editGroupForm.ShowDialog();
+            // Repopulate the list
             Groups.PopulateList();
-            groupsListBox.DataSource = Groups.GroupList;
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
+        }
+
+        private void deleteClassButton_Click(object sender, EventArgs e)
+        {
+            // Create a simple MessageBox for admin confirmation.
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected group?",
+                "Delete group",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            switch(dialogResult) {
+                case DialogResult.Yes:
+                    Groups.DeleteGroup();
+                    break;
+                default:
+                    // Do nothing
+                    break;
+            }
         }
     }
 }
