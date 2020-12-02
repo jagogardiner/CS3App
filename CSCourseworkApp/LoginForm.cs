@@ -35,7 +35,7 @@ namespace CSCourseworkApp
             permId = SqlTools.ExecuteScalar("Select PermissionLevel from Staff where StaffUsername='" + username + "' and StaffPassword='" + password + "'");
             switch (permId)
             {
-                case 1:
+                case 3:
                     MainForm af = new MainForm();
                     Hide();
                     af.FormClosed += (s, args) => Close();
