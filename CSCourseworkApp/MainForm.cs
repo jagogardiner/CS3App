@@ -9,9 +9,14 @@ namespace CSCourseworkApp
     {
         public MainForm()
         {
+            // Populate the group list on startup
+            // and set the Data source of the group
+            // list to it.
             InitializeComponent();
             Groups.PopulateList();
+            Staff.PopulateList();
             groupsListBox.DataSource = Groups.GroupList;
+            staffListBox.DataSource = Staff.StaffList;
         }
 
         private void HidePanels(Panel panelToShow)
@@ -44,16 +49,17 @@ namespace CSCourseworkApp
 
         private void GroupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            string groupName;
             if (groupsListBox.SelectedIndex != -1)
             {
-                groupName = groupsListBox.SelectedItem.ToString();
+                string groupName = groupsListBox.SelectedItem.ToString();
+                int groupIndex = groupsListBox.SelectedIndex;
                 // Make sure there isn't any index selected. This will panic otherwise.
-                selectedGroupLabel.Text = Groups.GroupList[groupsListBox.SelectedIndex];
-                academicYearLabel.Text = $"Academic Year: {Groups.GetAcademicYear(groupsListBox.SelectedItem.ToString())}";
+                selectedGroupLabel.Text = Groups.GroupList[groupIndex];
+                academicYearLabel.Text = $"Academic Year: {Groups.GetAcademicYear(groupName)}";
                 // Seperate each lecturer by a line break, \r\n and join each staff.
-                staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.GetStaff(groupsListBox.SelectedItem.ToString()))}";
-                SubjectNameLabel.Text = $"Subject: {Subjects.GetSubjectName()}";
+                staffListLabel.Text = $"Assigned lecturer(s): {string.Join("\r\n", Groups.GetStaff(groupName))}";
+                SubjectNameLabel.Text = $"Subject: {Subjects.GetSubjectName(groupName)}";
+                // These buttons are hidden by default.
                 editClassButton.Show();
                 deleteClassButton.Show();
             }
@@ -94,12 +100,17 @@ namespace CSCourseworkApp
                 MessageBoxIcon.Warning);
             switch(dialogResult) {
                 case DialogResult.Yes:
-                    Groups.DeleteGroup();
+                    Groups.DeleteGroup(groupsListBox.SelectedItem.ToString());
                     break;
                 default:
                     // Do nothing
                     break;
             }
+        }
+
+        private void editStaffInfoButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

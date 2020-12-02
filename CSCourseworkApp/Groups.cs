@@ -37,6 +37,13 @@ namespace CSCourseworkApp
              * groupName (string): The name of the group to delete.
              */
             int groupId = GetGroupIdByName(groupName);
+            // Delete from Groups table
+            SqlCommand comm = new SqlCommand("DELETE FROM Groups WHERE GroupId = @GroupId");
+            comm.Parameters.AddWithValue("@GroupId", groupId);
+            SqlTools.ExecuteNonQuery(comm);
+            // Delete all references to Group in StaffGroupsLink
+            comm.CommandText = "DELETE FROM StaffGroupsLink WHERE GroupId = @GroupId";
+            SqlTools.ExecuteNonQuery(comm);
         }
 
         public static string GetAcademicYear(string groupName)
