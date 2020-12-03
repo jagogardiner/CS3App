@@ -113,13 +113,44 @@ namespace CSCourseworkApp
 
         private void staffListBox_SelectedValueChanged(object sender, EventArgs e)
         {
+            if(staffListBox.SelectedIndex != -1)
+            {
 
+            }
         }
 
         private void addStaffMemberButton_Click(object sender, EventArgs e)
         {
             EditStaffForm edf = new EditStaffForm();
-            edf.Show();
+            edf.ShowDialog();
+            Staff.PopulateList();
+            staffListBox_SelectedValueChanged(this, e);
+        }
+
+        private void staffListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(staffListBox.SelectedIndex != -1)
+            {
+                staffNameLabel.Text = staffListBox.SelectedItem.ToString();
+            }
+        }
+
+        private void deleteStaffButton_Click(object sender, EventArgs e)
+        {
+            // Create a simple MessageBox for admin confirmation.
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected staff member??",
+                "Delete staff member",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            switch (dialogResult)
+            {
+                case DialogResult.Yes:
+                    Groups.DeleteGroup(groupsListBox.SelectedItem.ToString());
+                    break;
+                default:
+                    // Do nothing
+                    break;
+            }
         }
     }
 }

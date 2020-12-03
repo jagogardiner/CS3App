@@ -11,7 +11,7 @@ namespace CSCourseworkApp
         public static void PopulateList()
         {
             StaffList.Clear();
-            DataTable dt = SqlTools.GetTable("SELECT StaffName from Staff");
+            DataTable dt = SqlTools.GetTable("SELECT StaffName FROM Staff");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 string name = dt.Rows[i]["StaffName"].ToString();
@@ -23,18 +23,13 @@ namespace CSCourseworkApp
             }
         }
 
-        public static int GetPermissionLevel(string staffName)
+        public static PermissionLevel GetPermissionLevel(string staffUsername)
         {
-            /*
-             * Returns the integer permission level
-             * based off string staffName.
-             */
-            SqlCommand comm = new SqlCommand("SELECT PermissionLevel FROM Staff WHERE StaffName = @StaffName");
-            comm.Parameters.AddWithValue("@StaffName", staffName);
+            SqlCommand comm = new SqlCommand("SELECT PermissionLevel FROM Staff WHERE StaffUsername = @StaffUsername");
+            comm.Parameters.AddWithValue("@StaffUsername", staffUsername);
             DataTable dt = SqlTools.GetTable(comm);
-            return (int)dt.Rows[0]["PermissionLevel"];
+            return (PermissionLevel)dt.Rows[0]["PermissionLevel"];
         }
-
         public static int GetStaffIdByName(string staffName)
         {
             /*
@@ -79,6 +74,12 @@ namespace CSCourseworkApp
                 groupList.Add(dt.Rows[i]["GroupName"].ToString());
             }
             return groupList;
+        }
+
+        public static void DeleteStaffMember(string staffName)
+        {
+            int staffId = Staff.GetStaffIdByName(staffName)
+            SqlCommand comm = new SqlCommand("DELETE ");
         }
     }
 }

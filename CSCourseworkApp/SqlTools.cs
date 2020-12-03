@@ -39,7 +39,7 @@ namespace CSCourseworkApp
             return command.ExecuteReader();
         }
 
-        public static int ExecuteScalar(SqlCommand command)
+        private int ExecuteScalar(SqlCommand command)
         {
             /*
              * executeScalar returns an integer-casted scalar
@@ -55,28 +55,6 @@ namespace CSCourseworkApp
                 {
                     connection.Open();
                     command.Connection = connection;
-                    // Make sure we cast int on scalar
-                    return (int)command.ExecuteScalar();
-                }
-            }
-        }
-
-        public static int ExecuteScalar(string query)
-        {
-            /*
-             * executeScalar returns an integer-casted scalar
-             * to read integer values from a query instead of
-             * creating a new reader object.
-             * 
-             * Arguments:
-             * query (string): sql query to read integer from
-             */
-            using(SqlTools t = new SqlTools())
-            {
-                using (connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
                     // Make sure we cast int on scalar
                     return (int)command.ExecuteScalar();
                 }

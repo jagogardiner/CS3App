@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -21,10 +23,14 @@ namespace CSCourseworkApp
                 // Get permission level, 3 being tutor, 4 being overseer.
                 switch (Staff.GetPermissionLevel(staffName))
                 {
-                    case 3:
+                    case PermissionLevel.Tutor:
                         tutorCheckBox.Checked = true;
                         break;
-                    case 4:
+                    case PermissionLevel.Overseer:
+                        overseerCheckBox.Checked = true;
+                        break;
+                    case PermissionLevel.TutorOverseer:
+                        tutorCheckBox.Checked = true;
                         overseerCheckBox.Checked = true;
                         break;
                 }
@@ -57,20 +63,22 @@ namespace CSCourseworkApp
 
         private void saveStaffButton_Click(object sender, System.EventArgs e)
         {
-            int permissionLevel = 1; // Default to teacher value.
-            if(overseerCheckBox.Checked)
+            PermissionLevel permissionLevel = PermissionLevel.Teacher;
+            if (tutorCheckBox.Checked && overseerCheckBox.Checked)
             {
-                permissionLevel = 4;
+                permissionLevel = PermissionLevel.TutorOverseer;
+            } else if (tutorCheckBox.Checked)
+            {
+                permissionLevel = PermissionLevel.Tutor;
             }
-            if(tutorCheckBox.Checked)
-            {
-                permissionLevel = 2;
+            else if (overseerCheckBox.Checked) {
+                permissionLevel = PermissionLevel.Overseer;
             }
             if(!newMember)
             {
                 SqlCommand comm = new SqlCommand("UPDATE Staff SET StaffName = @StaffName, PermissionLevel = @PermissionLevel, StaffUsername = @StaffUsername WHERE StaffId = @StaffId");
                 comm.Parameters.AddWithValue("@StaffName", staffNameBox.Text);
-                comm.Parameters.AddWithValue("@PermissionLevel", permissionLevel);
+                comm.Parameters.AddWithValue("@PermissionLevel", (int)permissionLevel);
                 comm.Parameters.AddWithValue("@StaffUsername", staffUsernameBox.Text);
                 comm.Parameters.AddWithValue("@StaffId", Staff.GetStaffIdByName(staffName));
                 SqlTools.ExecuteNonQuery(comm);
@@ -95,12 +103,13 @@ namespace CSCourseworkApp
             {
                 SqlCommand comm = new SqlCommand("INSERT INTO Staff (StaffName, PermissionLevel, StaffUsername, StaffPassword) VALUES (@StaffName, @PermissionLevel, @StaffUsername, @StaffPassword)");
                 comm.Parameters.AddWithValue("@StaffName", staffNameBox.Text);
-                comm.Parameters.AddWithValue("@PermissionLevel", permissionLevel);
+                comm.Parameters.AddWithValue("@PermissionLevel", (int)permissionLevel);
                 comm.Parameters.AddWithValue("@StaffUsername", staffUsernameBox.Text);
                 comm.Parameters.AddWithValue("@StaffPassword", "");
                 SqlTools.ExecuteNonQuery(comm);
                 comm.Parameters.AddWithValue("@StaffId", Staff.GetStaffIdByName(staffNameBox.Text));
                 SqlParameter p = new SqlParameter("@GroupId", "");
+                comm.Parameters.Add(p);
                 comm.CommandText = "INSERT INTO StaffGroupsLink (GroupId, StaffId) VALUES (@GroupId, @StaffId)";
                 foreach (string o in GroupList)
                 {
