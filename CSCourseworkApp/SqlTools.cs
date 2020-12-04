@@ -39,7 +39,7 @@ namespace CSCourseworkApp
             return command.ExecuteReader();
         }
 
-        private int ExecuteScalar(SqlCommand command)
+        public static int ExecuteScalar(SqlCommand command)
         {
             /*
              * executeScalar returns an integer-casted scalar

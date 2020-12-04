@@ -78,8 +78,19 @@ namespace CSCourseworkApp
 
         public static void DeleteStaffMember(string staffName)
         {
-            int staffId = Staff.GetStaffIdByName(staffName)
-            SqlCommand comm = new SqlCommand("DELETE ");
+            /*
+             * Delete staff member by specified staff name,
+             * and group links with that staff member in.
+             */
+            int staffId = Staff.GetStaffIdByName(staffName);
+            SqlCommand comm = new SqlCommand("DELETE FROM Groups WHERE StaffId = @StaffId");
+            comm.Parameters.AddWithValue("@StaffId", staffId);
+            SqlTools.ExecuteNonQuery(comm);
+            comm.CommandText = "DELETE FROM Staff WHERE StaffName = @StaffName";
+            comm.Parameters.AddWithValue("@StaffName", staffName);
+            SqlTools.ExecuteNonQuery(comm);
+            // Repopulate list.
+            MainForm.RefreshLists();
         }
     }
 }

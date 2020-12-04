@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -13,10 +14,10 @@ namespace CSCourseworkApp
             // and set the Data source of the group
             // list to it.
             InitializeComponent();
-            Groups.PopulateList();
-            Staff.PopulateList();
+            RefreshLists();
             groupsListBox.DataSource = Groups.GroupList;
             staffListBox.DataSource = Staff.StaffList;
+            subjectsListBox.DataSource = Subjects.SubjectList;
         }
 
         private void HidePanels(Panel panelToShow)
@@ -47,6 +48,12 @@ namespace CSCourseworkApp
             HidePanels(manageStudentsPanel);
         }
 
+        private void manageSubjectsButton_Click(object sender, EventArgs e)
+        {
+            // Show Subjects panel
+            HidePanels(manageSubjectsPanel);
+        }
+
         private void GroupsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if (groupsListBox.SelectedIndex != -1)
@@ -70,7 +77,6 @@ namespace CSCourseworkApp
             // Deploy an edit form with the needed data.
             EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], groupsListBox.SelectedIndex + 1);
             editGroupForm.ShowDialog();
-            Groups.PopulateList();
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
         }
@@ -80,8 +86,6 @@ namespace CSCourseworkApp
             // Deploy an empty group edit form.
             EditGroupForm editGroupForm = new EditGroupForm();
             editGroupForm.ShowDialog();
-            // Repopulate the list
-            Groups.PopulateList();
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
         }
@@ -107,7 +111,6 @@ namespace CSCourseworkApp
         {
             EditStaffForm edf = new EditStaffForm(staffListBox.SelectedItem.ToString());
             edf.ShowDialog();
-            Staff.PopulateList();
             staffListBox_SelectedValueChanged(this, e);
         }
 
@@ -123,7 +126,6 @@ namespace CSCourseworkApp
         {
             EditStaffForm edf = new EditStaffForm();
             edf.ShowDialog();
-            Staff.PopulateList();
             staffListBox_SelectedValueChanged(this, e);
         }
 
@@ -145,12 +147,58 @@ namespace CSCourseworkApp
             switch (dialogResult)
             {
                 case DialogResult.Yes:
-                    Groups.DeleteGroup(groupsListBox.SelectedItem.ToString());
+                    Staff.DeleteStaffMember(groupsListBox.SelectedItem.ToString());
                     break;
                 default:
                     // Do nothing
                     break;
             }
+        }
+
+        private void addNewSubjectButton_Click(object sender, EventArgs e)
+        {
+            Subjects.AddNewSubject((string)subjectsListBox.SelectedItem);
+        }
+
+        private void deleteSubjectButton_Click(object sender, EventArgs e)
+        {
+            string selectedGroup = (string)subjectsListBox.SelectedItem;
+            SqlCommand comm = new SqlCommand("SELECT COUNT(*) FROM Groups WHERE SubjectId = @SubjectId");
+            comm.Parameters.AddWithValue("@SubjectId", Subjects.GetSubjectIdByName(selectedGroup));
+            int groupsAffected = SqlTools.ExecuteScalar(comm);
+            // Create a simple MessageBox for admin confirmation.
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected subject?\r\n" +
+                groupsAffected +" groups will be deleted!",
+                "Delete subject",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            switch (dialogResult)
+            {
+                case DialogResult.Yes:
+                    Subjects.DeleteSubject(selectedGroup);
+                    break;
+                default:
+                    // Do nothing
+                    break;
+            }
+        }
+
+        private void subjectsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public static void RefreshLists()
+        {
+            /*
+             * Refreshes all the available lists.
+             * Should be called after any database transaction
+             * modifying groups, staff or subject. They are closely
+             * intertwined.
+             */
+            Groups.PopulateList();
+            Staff.PopulateList();
+            Subjects.PopulateList();
         }
     }
 }

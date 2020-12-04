@@ -117,6 +117,8 @@ namespace CSCourseworkApp
                 comm.CommandText = "UPDATE Groups SET AcademicYearId = @AcademicYearId WHERE GroupId = @GroupId";
                 comm.Parameters.AddWithValue("@AcademicYearId", Groups.GetYearIdByName(academicYearComboBox.SelectedItem.ToString()));
                 SqlTools.ExecuteNonQuery(comm);
+                // Repopulate the list with the new group.
+                MainForm.RefreshLists();
                 Close();
             }
             else
@@ -138,6 +140,7 @@ namespace CSCourseworkApp
                         SqlTools.ExecuteNonQuery(comm);
                     }
                     Debug.WriteLine("Written new subject");
+                    MainForm.RefreshLists();
                     Close();
                 }
             }
