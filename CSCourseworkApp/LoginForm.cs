@@ -52,7 +52,7 @@ namespace CSCourseworkApp
                     switch (Staff.GetPermissionLevel(username))
                     {
                         case PermissionLevel.Admin:
-                            MainForm af = new MainForm();
+                            AdminForm af = new AdminForm();
                             Hide();
                             af.FormClosed += (s, args) => Close();
                             af.Show();

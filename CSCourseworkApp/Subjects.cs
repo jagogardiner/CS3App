@@ -30,7 +30,7 @@ namespace CSCourseworkApp
             SqlCommand comm = new SqlCommand("INSERT INTO Subjects (SubjectName) VALUES (@SubjectName)");
             comm.Parameters.AddWithValue("@SubjectName", subjectName);
             SqlTools.ExecuteNonQuery(comm);
-            MainForm.RefreshLists();
+            AdminForm.RefreshLists();
         }
 
         public static void DeleteSubject(string subjectName)
@@ -57,7 +57,7 @@ namespace CSCourseworkApp
             comm.CommandText = "DELETE FROM Subjects WHERE SubjectName = @SubjectName";
             comm.Parameters.AddWithValue("@SubjectName", subjectName);
             SqlTools.ExecuteNonQuery(comm);
-            MainForm.RefreshLists();
+            AdminForm.RefreshLists();
         }
 
         public static string GetSubjectName(string groupName)

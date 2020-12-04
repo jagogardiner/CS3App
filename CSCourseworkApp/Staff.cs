@@ -90,7 +90,7 @@ namespace CSCourseworkApp
             comm.Parameters.AddWithValue("@StaffName", staffName);
             SqlTools.ExecuteNonQuery(comm);
             // Repopulate list.
-            MainForm.RefreshLists();
+            AdminForm.RefreshLists();
         }
     }
 }

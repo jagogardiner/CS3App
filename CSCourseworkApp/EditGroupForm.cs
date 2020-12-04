@@ -42,12 +42,12 @@ namespace CSCourseworkApp
 
         private void EditGroupForm_Load(object sender, EventArgs e)
         {
-            PopulateYears();
+            PopulateYears(academicYearComboBox, newGroup, academicYear);
             PopulateSubjects();
             lecturerBox.DataSource = staffList;
         }
-        
-        private void PopulateYears()
+
+        public static void PopulateYears(ComboBox cb, bool newItem = false, string academicYear = null)
         {
             /*
              * Fill the combo box with all the available years
@@ -58,11 +58,11 @@ namespace CSCourseworkApp
             DataTable dt = SqlTools.GetTable("SELECT AcademicYearName FROM AcademicYears");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                academicYearComboBox.Items.Add(dt.Rows[i]["AcademicYearName"].ToString());
+                cb.Items.Add(dt.Rows[i]["AcademicYearName"].ToString());
             }
-            if (!newGroup)
+            if (!newItem)
             {
-                academicYearComboBox.SelectedIndex = academicYearComboBox.FindStringExact(academicYear);
+                cb.SelectedIndex = cb.FindStringExact(academicYear);
             }
         }
 
@@ -118,7 +118,7 @@ namespace CSCourseworkApp
                 comm.Parameters.AddWithValue("@AcademicYearId", Groups.GetYearIdByName(academicYearComboBox.SelectedItem.ToString()));
                 SqlTools.ExecuteNonQuery(comm);
                 // Repopulate the list with the new group.
-                MainForm.RefreshLists();
+                AdminForm.RefreshLists();
                 Close();
             }
             else
@@ -140,7 +140,7 @@ namespace CSCourseworkApp
                         SqlTools.ExecuteNonQuery(comm);
                     }
                     Debug.WriteLine("Written new subject");
-                    MainForm.RefreshLists();
+                    AdminForm.RefreshLists();
                     Close();
                 }
             }

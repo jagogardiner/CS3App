@@ -45,7 +45,7 @@ namespace CSCourseworkApp
             comm.CommandText = "DELETE FROM StaffGroupsLink WHERE GroupId = @GroupId";
             SqlTools.ExecuteNonQuery(comm);
             // Repopulate the list to view affected groups.
-            MainForm.RefreshLists();
+            AdminForm.RefreshLists();
         }
 
         public static string GetAcademicYear(string groupName)
