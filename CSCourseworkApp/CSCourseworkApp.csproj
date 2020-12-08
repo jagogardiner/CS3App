@@ -75,6 +75,12 @@
     <Compile Include="AddStaffToGroupForm.Designer.cs">
       <DependentUpon>AddStaffToGroupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddStudentToGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddStudentToGroupForm.Designer.cs">
+      <DependentUpon>AddStudentToGroupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddStaffToGroupForm.resx">
       <DependentUpon>AddStaffToGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddStudentToGroupForm.resx">
+      <DependentUpon>AddStudentToGroupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditGroupForm.resx">
       <DependentUpon>EditGroupForm.cs</DependentUpon>

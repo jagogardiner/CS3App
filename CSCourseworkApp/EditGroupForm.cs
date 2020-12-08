@@ -42,12 +42,15 @@ namespace CSCourseworkApp
 
         private void EditGroupForm_Load(object sender, EventArgs e)
         {
-            PopulateYears(academicYearComboBox, newGroup, academicYear);
+            // Populate the available years, including the pre-existing academic year
+            PopulateYears(academicYearComboBox, academicYear);
+            // Populate the subject box
             PopulateSubjects();
+            // Set the listbox datasource to the binding staff list
             lecturerBox.DataSource = staffList;
         }
 
-        public static void PopulateYears(ComboBox cb, bool newItem = false, string academicYear = null)
+        public static void PopulateYears(ComboBox cb, string academicYear = null)
         {
             /*
              * Fill the combo box with all the available years
@@ -60,7 +63,7 @@ namespace CSCourseworkApp
             {
                 cb.Items.Add(dt.Rows[i]["AcademicYearName"].ToString());
             }
-            if (!newItem)
+            if (academicYear != null)
             {
                 cb.SelectedIndex = cb.FindStringExact(academicYear);
             }
@@ -87,6 +90,10 @@ namespace CSCourseworkApp
 
         private void AddStaffIDButton_Click(object sender, EventArgs e)
         {
+            /*
+             * Add a staff member via their ID.
+             * Pop up a new form to do this.
+             */
             AddStaffByIDForm addStaff = new AddStaffByIDForm();
             addStaff.ShowDialog();
             if(staffName != null)
@@ -98,22 +105,33 @@ namespace CSCourseworkApp
 
         private void SaveGroupButton_Click(object sender, EventArgs e)
         {
+            /*
+             * SaveButton executes the SQL query needed for inserting
+             * a new Group and its related staff members.
+             * newGroup defines whether a group is being edited or
+             * a new group is being created.
+             */
             if (!newGroup)
             {
+                // Delete all cases of the group beforehand to avoid conflicts.
                 SqlCommand comm = new SqlCommand("DELETE FROM StaffGroupsLink WHERE GroupId = @GroupId");
                 comm.Parameters.AddWithValue("@GroupId", groupId);
                 SqlTools.ExecuteNonQuery(comm);
                 SqlParameter staffId = new SqlParameter("@StaffId", "");
+                // Insert the new group-staff links with the selected staff
                 comm.CommandText = "INSERT INTO StaffGroupsLink (GroupId, StaffId) VALUES (@GroupId, @StaffId)";
                 comm.Parameters.Add(staffId);
                 foreach (string o in staffList)
                 {
+                    // Loop over each Staff ID in the list.
                     staffId.Value =  Staff.GetStaffIdByName(o);
                     SqlTools.ExecuteNonQuery(comm);
                 }
+                // Update with the new subject if changed
                 comm.CommandText = "UPDATE Groups SET SubjectId = @SubjectId WHERE GroupId = @GroupId";
                 comm.Parameters.AddWithValue("@SubjectId", Subjects.GetSubjectIdByName(subjectsComboBox.SelectedItem.ToString()));
                 SqlTools.ExecuteNonQuery(comm);
+                // Update with the new Academic Year if changed
                 comm.CommandText = "UPDATE Groups SET AcademicYearId = @AcademicYearId WHERE GroupId = @GroupId";
                 comm.Parameters.AddWithValue("@AcademicYearId", Groups.GetYearIdByName(academicYearComboBox.SelectedItem.ToString()));
                 SqlTools.ExecuteNonQuery(comm);
@@ -123,8 +141,10 @@ namespace CSCourseworkApp
             }
             else
             {
+                // New group
                 if(groupNameTextBox.Text != "" && academicYearComboBox.SelectedIndex != -1 && subjectsComboBox.SelectedIndex != -1 && lecturerBox.Items.Count != 0)
                 {
+                    // Insert the parameters into the query.
                     SqlCommand comm = new SqlCommand("INSERT INTO Groups (GroupName, SubjectId, AcademicYearId) VALUES (@GroupName, @SubjectId, @AcademicYearId)");
                     comm.Parameters.AddWithValue("@GroupName", groupNameTextBox.Text);
                     comm.Parameters.AddWithValue("@SubjectId", Subjects.GetSubjectIdByName(subjectsComboBox.SelectedItem.ToString()));
@@ -132,14 +152,15 @@ namespace CSCourseworkApp
                     SqlTools.ExecuteNonQuery(comm);
                     SqlParameter StaffId = new SqlParameter("@StaffId", "");
                     comm.Parameters.Add(StaffId);
+                    // Get the newly created group ID
                     comm.Parameters.AddWithValue("@GroupId", Groups.GetGroupIdByName(groupNameTextBox.Text));
+                    comm.CommandText = "INSERT INTO StaffGroupsLink (GroupId, StaffId) VALUES (@GroupId, @StaffId)";
                     foreach (string o in lecturerBox.Items)
                     {
+                        // Loop through the staff ID's and add them
                         StaffId.Value = Staff.GetStaffIdByName(o);
-                        comm.CommandText = "INSERT INTO StaffGroupsLink (GroupId, StaffId) VALUES (@GroupId, @StaffId)";
                         SqlTools.ExecuteNonQuery(comm);
                     }
-                    Debug.WriteLine("Written new subject");
                     AdminForm.RefreshLists();
                     Close();
                 }
@@ -156,6 +177,7 @@ namespace CSCourseworkApp
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
+            // Make sure we have a cancel button
             Close();
         }
     }
