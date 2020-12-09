@@ -72,6 +72,7 @@ namespace CSCourseworkApp
             {
                 Debug.WriteLine(ex);
                 invalidUsernameLabel.Show();
+                throw ex;
             }
 
         }

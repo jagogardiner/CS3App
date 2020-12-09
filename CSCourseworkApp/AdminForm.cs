@@ -18,6 +18,7 @@ namespace CSCourseworkApp
             groupsListBox.DataSource = Groups.GroupList;
             staffListBox.DataSource = Staff.StaffList;
             subjectsListBox.DataSource = Subjects.SubjectList;
+            studentsListBox.DataSource = Students.StudentList;
         }
 
         private void HidePanels(Panel panelToShow)

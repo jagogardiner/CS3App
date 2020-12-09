@@ -16,7 +16,7 @@ namespace CSCourseworkApp
         public static void PopulateList()
         {
             StudentList.Clear();
-            DataTable dt = SqlTools.GetTable("SELECTS StudentName FROM Students");
+            DataTable dt = SqlTools.GetTable("SELECT StudentName FROM Students");
             for(int i = 0; i < dt.Rows.Count; i++)
             {
                 StudentList.Add((string)dt.Rows[i]["StudentName"]);
