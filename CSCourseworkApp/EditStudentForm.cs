@@ -45,7 +45,7 @@ namespace CSCourseworkApp
 
         private void editGroupsButton_Click(object sender, EventArgs e)
         {
-            AddStudentToGroupForm asgf = new AddStudentToGroupForm(GroupList);
+            AddStudentToGroupForm asgf = new AddStudentToGroupForm();
             asgf.Show();
         }
     }

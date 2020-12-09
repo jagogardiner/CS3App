@@ -41,6 +41,7 @@ namespace CSCourseworkApp
         private void LoginButton_Click(object sender, EventArgs e)
         {
             string username = usernameBox.Text;
+            Debug.WriteLine(username);
             string password = HashingAlgorithm(passwordBox.Text);
             try
             {
