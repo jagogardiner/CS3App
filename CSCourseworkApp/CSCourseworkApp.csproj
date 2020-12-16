@@ -118,6 +118,12 @@
     <Compile Include="Staff.cs" />
     <Compile Include="Students.cs" />
     <Compile Include="Subjects.cs" />
+    <Compile Include="TeacherMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeacherMainForm.Designer.cs">
+      <DependentUpon>TeacherMainForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddStaffByIDForm.resx">
       <DependentUpon>AddStaffByIDForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,6 +157,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TeacherMainForm.resx">
+      <DependentUpon>TeacherMainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

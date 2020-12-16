@@ -328,6 +328,7 @@ namespace CSCourseworkApp
             this.studentsListBox.Name = "studentsListBox";
             this.studentsListBox.Size = new System.Drawing.Size(254, 384);
             this.studentsListBox.TabIndex = 0;
+            this.studentsListBox.SelectedIndexChanged += new System.EventHandler(this.studentsListBox_SelectedIndexChanged);
             // 
             // manageStaffPanel
             // 

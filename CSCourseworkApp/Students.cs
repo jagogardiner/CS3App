@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSCourseworkApp
 {
@@ -52,6 +47,18 @@ namespace CSCourseworkApp
             return dt.Rows[0]["AcademicYearName"].ToString();
         }
 
+        public static int GetStudentTableId(string studentName)
+        {
+            /*
+             * GetStudentTableId gets the actual identity value assigned to
+             * a student in the database by the student name.
+             */
+            SqlCommand comm = new SqlCommand("SELECT StudentId FROM Students WHERE StudentName = @StudentName");
+            comm.Parameters.AddWithValue("@StudentName", studentName);
+            DataTable dt = SqlTools.GetTable(comm);
+            return (int)dt.Rows[0]["StudentId"];
+        }
+
         public static BindingList<string> GetGroups(string studentName)
         {
             /*
@@ -73,9 +80,25 @@ namespace CSCourseworkApp
             return groupList;
         }
 
-        public static void AddStudent(string studentName, string academicYearName)
+        public static void DeleteStudent(string studentName)
         {
+            /*
+             * Deletes the student with the specified student name
+             * from the students table and any links to it.
+             */
+            int studentId = GetStudentTableId(studentName);
+            SqlCommand comm = new SqlCommand("DELETE FROM Students WHERE StudentId = @StudentId");
+            comm.Parameters.AddWithValue("@StudentId", studentId);
+            SqlTools.ExecuteNonQuery(comm);
+            AdminForm.RefreshLists();
+        }
 
+        public static void AddStudent(string studentName, string studentCollegeId, string academicYearName)
+        {
+            /*
+             * Adds a new student.
+             */
+            SqlCommand comm = new SqlCommand("");
         }
     }
 }

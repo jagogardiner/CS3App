@@ -205,17 +205,31 @@ namespace CSCourseworkApp
 
         private void addStudentButton_Click(object sender, EventArgs e)
         {
-
+            EditStudentForm edf = new EditStudentForm();
+            edf.ShowDialog();
         }
 
         private void deleteStudentButton_Click(object sender, EventArgs e)
         {
-
+            Students.DeleteStudent(studentsListBox.SelectedItem.ToString());
         }
 
         private void editStudentButton_Click(object sender, EventArgs e)
         {
+            if(studentsListBox.SelectedIndex != -1)
+            {
+                EditStudentForm edf = new EditStudentForm(studentsListBox.SelectedItem.ToString());
+                edf.ShowDialog();
+            }
+        }
 
+        private void studentsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(studentsListBox.SelectedIndex != -1)
+            {
+                selectedStudentLabel.Text = $"{studentsListBox.SelectedItem}";
+                stuAcademicYearLabel.Text = $"Academic Year: {Students.GetAcademicYear(studentsListBox.SelectedItem.ToString())}";
+            }
         }
     }
 }
