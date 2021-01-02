@@ -85,5 +85,22 @@ namespace CSCourseworkApp
             DataTable dt = SqlTools.GetTable(command);
             return (int)dt.Rows[0]["SubjectId"];
         }
+
+        public static double GetSubjectCoefficient(string subjectName)
+        {
+            /*
+             * GetCoefficient gets the subject weight based from previous results of that subject.
+             * This is stored in the database and refreshed only when an admin modifies previous subject
+             * results. This is to avoid the heavy processing at runtime - the coefficient will never
+             * change until new exam results are added.
+             * 
+             * Arguments:
+             * subjectName (string): Name of the subject to get the coeff of.
+             */
+            SqlCommand command = new SqlCommand("SELECT SubjectCoefficient FROM Subjects WHERE SubjectName = @SubjectName");
+            command.Parameters.AddWithValue("@SubjectName", subjectName);
+            DataTable dt = SqlTools.GetTable(command);
+            return (double)dt.Rows[0]["SubjectCoefficient"];
+        }
     }
 }

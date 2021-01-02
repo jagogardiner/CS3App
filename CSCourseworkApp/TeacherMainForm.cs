@@ -16,5 +16,11 @@ namespace CSCourseworkApp
         {
             InitializeComponent();
         }
+
+        private void TeacherMainForm_Load(object sender, EventArgs e)
+        {
+            // Set teacher name
+            teacherOverviewLabel.Text = $"Teacher Overview | {teacherOverviewLabel.Text}";
+        }
     }
 }
