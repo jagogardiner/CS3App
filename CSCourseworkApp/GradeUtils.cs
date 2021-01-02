@@ -10,53 +10,90 @@ namespace CSCourseworkApp
 {
     class GradeUtils
     {
-        // TODO: work out actual weights
-        readonly Dictionary<string, double> Grades = new Dictionary<string, double>()
+        public static Dictionary<string, double> Grades = new Dictionary<string, double>()
         {
-            ["A*"] = 10.0,
-            ["A"] = 8.0,
-            ["B"] = 7.0,
-            ["C"] = 6.0,
-            ["D"] = 5.0,
-            ["E"] = 3.5,
-            ["U"] = 1.5
+            /*
+             * These are based somewhat off of the GCSE 9-1/A-U
+             * comparisons. C is known as 4/5 depending on the pass,
+             * so I decided to split the difference.
+             * U has some weight as it is extremely unlikely a student
+             * will get 0%.
+             * 
+             * This is just my interpretation - this can be adjusted freely.
+             */
+            ["A*"] = 9.0,
+            ["A"] = 7.0,
+            ["B"] = 6.0,
+            ["C"] = 4.5,
+            ["D"] = 3.5,
+            ["E"] = 2.0,
+            ["U"] = 0.5
         };
 
+        /*
+         * calculateSubjectCoefficient returns a multiple linear
+         * regression line based off of previous results and performance
+         * in a specific subject.
+         * 
+         * In the database, there are previous results and their according
+         * homework, test and minimum target grade grades.
+         * This algorithm feeds them all in and does a multiple linear
+         * regression calculation.
+         * 
+         * This is then used later in calculateGrade to make a grade prediciton.
+         */
         public static double[] calculateSubjectCoefficient(
             List<double> HomeworkResults,
-            List<double> MockResults,
+            List<double> TestResults,
             List<double> MTGResults,
             List<double> FinalResults)
         {
-            double[][] x = new double[HomeworkResults.Count][];
-            // populate x
+            // Create a jagged array, performanceGrades, with the homework, test and mtg grades.
+            double[][] performanceGrades = new double[HomeworkResults.Count][];
+            // populate x - jagged arrays don't like being uninitalised.
             for (int i = 0; i < HomeworkResults.Count; i++)
             {
-                x[i] = new double[3];
+                performanceGrades[i] = new double[3];
             }
-            double[] y = new double[FinalResults.Count];
+            // Array finalGrades is just the resulting final grades.
+            double[] finalGrades = new double[FinalResults.Count];
+            // Populate these arrays with the input of grades and their according final result.
             for (int i = 0; i < HomeworkResults.Count; i++)
             {
-                x[i][0] = HomeworkResults[i];
-                x[i][1] = MockResults[i];
-                x[i][2] = MTGResults[i];
-                y[i] = FinalResults[i];
+                performanceGrades[i][0] = HomeworkResults[i];
+                performanceGrades[i][1] = TestResults[i];
+                performanceGrades[i][2] = MTGResults[i];
+                finalGrades[i] = FinalResults[i];
             }
-            return Fit.MultiDim(x, y, intercept: true);
+            // Return the multilinear regression line.
+            return Fit.MultiDim(performanceGrades, finalGrades, intercept: true);
         }
 
-        double calculateGrade(double HomeworkGrade, double MockGrade, double MTG, double[] subjectCoefficient)
-        {
-            // TODO: remove just checking coeff values to make sure
-            Debug.WriteLine(subjectCoefficient.Length);
-            Debug.WriteLine(subjectCoefficient[0]);
-            Debug.WriteLine(subjectCoefficient[1]);
-            Debug.WriteLine(subjectCoefficient[2]);
-            Debug.WriteLine(subjectCoefficient[3]);
-            // using that y = algoritm, p[0] is always the constant
-            double predict = subjectCoefficient[0] + subjectCoefficient[1] * HomeworkGrade + subjectCoefficient[2] * MockGrade + subjectCoefficient[3] * MTG;
-            Debug.WriteLine(predict);
-            return predict;
-        }
+        /*
+         * calculateGrade is responsible for interpreting a
+         * predicted grade based off of current homework, test
+         * and minimum target grade results, using the subject's 
+         * previous results and performance in each element.
+         * 
+         * subjectMLRLine is the result of a multiple linear regression
+         * calculation, calculated in calculateSubjectCoefficient().
+         * 
+         * subjectMLRLine: c + x[1] + x[2] + x[3]
+         * c: y-intercept of the line, constant term
+         * x[1]: Slope coefficient for homework performance.
+         * x[2]: Slope coefficient for test performance.
+         * x[3]: Slope coefficient for minimum target grade.
+         * 
+         * A slope coefficient may also be known as the "weight" each
+         * variable carries.
+         * 
+         * We then multiply these weights against our results, add
+         * them together, and we have a predicited final result.
+         */
+        double calculateGrade(double HomeworkGrade, double TestGrade, double MTG, double[] subjectMLRLine) 
+            => subjectMLRLine[0] // Constant
+                + subjectMLRLine[1] * HomeworkGrade // Homework performance weight calculation
+                + subjectMLRLine[2] * TestGrade // Test grade performance weight calculation
+                + subjectMLRLine[3] * MTG; // Minimum target grade weight calculation.
     }
 }
