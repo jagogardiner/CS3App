@@ -75,7 +75,16 @@ namespace CSCourseworkApp
                     switch (Staff.GetPermissionLevel(username))
                     {
                         case PermissionLevel.TutorOverseer:
-                            // TODO: Prototype - TutorOverseer can do EVERYTHING - showcase that.
+                            // TODO: Make all options available (prototype)
+                            int staffId = Staff.GetStaffIdByUsername(username);
+                            TeacherMainForm tf = new TeacherMainForm
+                            {
+                                StaffId = staffId,
+                                StaffName = Staff.GetStaffNameById(staffId),
+                            };
+                            Hide();
+                            tf.FormClosed += (s, args) => Close();
+                            tf.Show();
                             break;
                         case PermissionLevel.Overseer:
                             break;

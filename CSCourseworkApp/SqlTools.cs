@@ -75,13 +75,7 @@ namespace CSCourseworkApp
         public static DataTable GetTable(string query)
         {
             SqlCommand sql = new SqlCommand(query);
-            DataTable dt = new DataTable();
-            using (SqlTools t = new SqlTools())
-            {
-                t.reader = t.ExecuteReader(sql);
-                dt.Load(t.reader);
-                return dt;
-            }
+            return GetTable(sql);
         }
 
         public static void ExecuteNonQuery(SqlCommand comm)
@@ -104,15 +98,8 @@ namespace CSCourseworkApp
 
         public static void ExecuteNonQuery(string query)
         {
-            using (SqlTools t = new SqlTools())
-            {
-                using (connection = new SqlConnection(connectionString))
-                {
-                    SqlCommand comm = new SqlCommand(query, connection);
-                    connection.Open();
-                    comm.ExecuteNonQuery();
-                }
-            }
+            SqlCommand comm = new SqlCommand(query);
+            ExecuteNonQuery(comm);
         }
 
         public void Dispose()

@@ -31,7 +31,7 @@ namespace CSCourseworkApp
         };
 
         /*
-         * calculateSubjectCoefficient returns a multiple linear
+         * calculateSubjectMLR returns a multiple linear
          * regression line based off of previous results and performance
          * in a specific subject.
          * 
@@ -42,7 +42,7 @@ namespace CSCourseworkApp
          * 
          * This is then used later in calculateGrade to make a grade prediciton.
          */
-        public static double[] calculateSubjectCoefficient(
+        public static double[] calculateSubjectMLR(
             List<double> HomeworkResults,
             List<double> TestResults,
             List<double> MTGResults,
@@ -90,7 +90,7 @@ namespace CSCourseworkApp
          * We then multiply these weights against our results, add
          * them together, and we have a predicited final result.
          */
-        double calculateGrade(double HomeworkGrade, double TestGrade, double MTG, double[] subjectMLRLine) 
+        public static double calculateGrade(double HomeworkGrade, double TestGrade, double MTG, double[] subjectMLRLine) 
             => subjectMLRLine[0] // Constant
                 + subjectMLRLine[1] * HomeworkGrade // Homework performance weight calculation
                 + subjectMLRLine[2] * TestGrade // Test grade performance weight calculation

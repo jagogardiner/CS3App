@@ -30,6 +30,7 @@ namespace CSCourseworkApp
             DataTable dt = SqlTools.GetTable(comm);
             return (PermissionLevel)dt.Rows[0]["PermissionLevel"];
         }
+
         public static int GetStaffIdByName(string staffName)
         {
             /*
@@ -40,6 +41,30 @@ namespace CSCourseworkApp
             comm.Parameters.AddWithValue("@StaffName", staffName);
             DataTable dt = SqlTools.GetTable(comm);
             return (int)dt.Rows[0]["StaffId"];
+        }
+
+        public static int GetStaffIdByUsername(string staffUsername)
+        {
+            /*
+             * Returns the integer of the StaffId based
+             * on the given string staffUsername.
+             */
+            SqlCommand comm = new SqlCommand("SELECT StaffId FROM Staff WHERE StaffUsername = @StaffUsername");
+            comm.Parameters.AddWithValue("@StaffUsername", staffUsername);
+            DataTable dt = SqlTools.GetTable(comm);
+            return (int)dt.Rows[0]["StaffId"];
+        }
+
+        public static string GetStaffNameById(int staffId)
+        {
+            /*
+             * Returns the string of the StaffName based
+             * on the given string staffId.
+             */
+            SqlCommand comm = new SqlCommand("SELECT StaffName FROM Staff WHERE StaffId = @StaffId");
+            comm.Parameters.AddWithValue("@StaffId", staffId);
+            DataTable dt = SqlTools.GetTable(comm);
+            return (string)dt.Rows[0]["StaffName"];
         }
 
         public static string GetUsername(string staffName)

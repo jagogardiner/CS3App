@@ -38,7 +38,7 @@ namespace CSCourseworkApp
             // 
             this.teacherOverviewLabel.AutoSize = true;
             this.teacherOverviewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.teacherOverviewLabel.Location = new System.Drawing.Point(11, 7);
+            this.teacherOverviewLabel.Location = new System.Drawing.Point(11, 5);
             this.teacherOverviewLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.teacherOverviewLabel.Name = "teacherOverviewLabel";
             this.teacherOverviewLabel.Size = new System.Drawing.Size(147, 20);
@@ -52,6 +52,7 @@ namespace CSCourseworkApp
             this.teacherClassListBox.Name = "teacherClassListBox";
             this.teacherClassListBox.Size = new System.Drawing.Size(143, 303);
             this.teacherClassListBox.TabIndex = 1;
+            this.teacherClassListBox.SelectedIndexChanged += new System.EventHandler(this.teacherClassListBox_SelectedIndexChanged);
             // 
             // panel1
             // 
