@@ -108,7 +108,7 @@ namespace CSCourseworkApp
              * and group links with that staff member in.
              */
             int staffId = Staff.GetStaffIdByName(staffName);
-            SqlCommand comm = new SqlCommand("DELETE FROM Groups WHERE StaffId = @StaffId");
+            SqlCommand comm = new SqlCommand("DELETE FROM StaffGroupsLink WHERE StaffId = @StaffId");
             comm.Parameters.AddWithValue("@StaffId", staffId);
             SqlTools.ExecuteNonQuery(comm);
             comm.CommandText = "DELETE FROM Staff WHERE StaffName = @StaffName";

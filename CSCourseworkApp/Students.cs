@@ -25,7 +25,7 @@ namespace CSCourseworkApp
              * specified student defined by string 
              * studentName.
              */
-            SqlCommand comm = new SqlCommand("SELECT StudentCollegeId FROM Staff WHERE StudentName = @StudentName");
+            SqlCommand comm = new SqlCommand("SELECT StudentCollegeId FROM Students WHERE StudentName = @StudentName");
             comm.Parameters.AddWithValue("@StudentName", studentName);
             DataTable dt = SqlTools.GetTable(comm);
             return (string)dt.Rows[0]["StudentCollegeId"];

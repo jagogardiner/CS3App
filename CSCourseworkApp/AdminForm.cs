@@ -149,7 +149,7 @@ namespace CSCourseworkApp
             switch (dialogResult)
             {
                 case DialogResult.Yes:
-                    Staff.DeleteStaffMember(groupsListBox.SelectedItem.ToString());
+                    Staff.DeleteStaffMember(staffListBox.SelectedItem.ToString());
                     break;
                 default:
                     // Do nothing
@@ -159,7 +159,10 @@ namespace CSCourseworkApp
 
         private void addNewSubjectButton_Click(object sender, EventArgs e)
         {
-            Subjects.AddNewSubject((string)subjectsListBox.SelectedItem);
+            if(subjectNewNameBox.Text.Length != 0)
+            {
+                Subjects.AddNewSubject(subjectNewNameBox.Text);
+            }
         }
 
         private void deleteSubjectButton_Click(object sender, EventArgs e)
@@ -183,11 +186,6 @@ namespace CSCourseworkApp
                     // Do nothing
                     break;
             }
-        }
-
-        private void subjectsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         public static void RefreshLists()

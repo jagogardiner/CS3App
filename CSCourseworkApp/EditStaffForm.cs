@@ -9,6 +9,7 @@ namespace CSCourseworkApp
     public partial class EditStaffForm : Form
     {
         string staffName;
+        string staffUsername;
         bool newMember;
         public static BindingList<string> GroupList = new BindingList<string>();
         public EditStaffForm(string staffName = null)
@@ -19,9 +20,10 @@ namespace CSCourseworkApp
                 newMember = false;
                 staffNameBox.Text = staffName;
                 this.staffName = staffName;
-                GroupList = Staff.GetGroups(staffName);
+                staffUsername = Staff.GetUsername(staffName);
+                GroupList = Staff.GetGroups(staffUsername);
                 // Get permission level, 3 being tutor, 4 being overseer.
-                switch (Staff.GetPermissionLevel(staffName))
+                switch (Staff.GetPermissionLevel(staffUsername))
                 {
                     case PermissionLevel.Tutor:
                         tutorCheckBox.Checked = true;
@@ -34,7 +36,7 @@ namespace CSCourseworkApp
                         overseerCheckBox.Checked = true;
                         break;
                 }
-                staffUsernameBox.Text = Staff.GetUsername(staffName);
+                staffUsernameBox.Text = staffUsername;
             }
             else
             {

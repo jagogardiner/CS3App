@@ -21,7 +21,7 @@ namespace CSCourseworkApp
             // Make sure list is clear of all entries.
             GroupList.Clear();
             DataTable dt = SqlTools.GetTable("SELECT GroupName FROM Groups");
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for(int i = 1; i <= dt.Rows.Count; i++)
             {
                 GroupList.Add(dt.Rows[i]["GroupName"].ToString());
             }
@@ -37,12 +37,12 @@ namespace CSCourseworkApp
              * groupName (string): The name of the group to delete.
              */
             int groupId = GetGroupIdByName(groupName);
-            // Delete from Groups table
-            SqlCommand comm = new SqlCommand("DELETE FROM Groups WHERE GroupId = @GroupId");
+            // Delete all references to Group in StaffGroupsLink
+            SqlCommand comm = new SqlCommand("DELETE FROM StaffGroupsLink WHERE GroupId = @GroupId");
             comm.Parameters.AddWithValue("@GroupId", groupId);
             SqlTools.ExecuteNonQuery(comm);
-            // Delete all references to Group in StaffGroupsLink
-            comm.CommandText = "DELETE FROM StaffGroupsLink WHERE GroupId = @GroupId";
+            // Delete from Groups table
+            comm.CommandText = "DELETE FROM Groups WHERE GroupId = @GroupId";
             SqlTools.ExecuteNonQuery(comm);
             // Repopulate the list to view affected groups.
             AdminForm.RefreshLists();

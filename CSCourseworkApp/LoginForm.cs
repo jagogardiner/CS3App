@@ -32,7 +32,7 @@ namespace CSCourseworkApp
          * This could be reversed by any capable enough computer,
          * but it's more secure than storing passwords in plaintext.
          */
-        private string HashingAlgorithm(string plain)
+        public static string HashingAlgorithm(string plain)
         {
             double val = 1;
             // Convert plaintext password to a char array
@@ -61,6 +61,7 @@ namespace CSCourseworkApp
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
+            Subjects.UpdateSubjectMLR("Mathematics");
             string username = usernameBox.Text;
             Debug.WriteLine(username);
             // Run plain-text password through algorithm
@@ -70,53 +71,61 @@ namespace CSCourseworkApp
                 SqlCommand comm = new SqlCommand("SELECT StaffPassword FROM Staff WHERE StaffUsername = @StaffUsername");
                 comm.Parameters.AddWithValue("@StaffUsername", username);
                 DataTable dt = SqlTools.GetTable(comm);
-                if((string)dt.Rows[0]["StaffPassword"] == password)
+                // If password needs to be reset, don't continue
+                if((string)dt.Rows[0]["StaffPassword"] == "")
                 {
-                    switch (Staff.GetPermissionLevel(username))
+                    ResetPasswordForm pwForm = new ResetPasswordForm(username);
+                    pwForm.ShowDialog();
+                } else
+                {
+                    if ((string)dt.Rows[0]["StaffPassword"] == password)
                     {
-                        case PermissionLevel.TutorOverseer:
-                            // TODO: Make all options available (prototype)
-                            int staffId = Staff.GetStaffIdByUsername(username);
-                            TeacherMainForm tf = new TeacherMainForm
-                            {
-                                StaffId = staffId,
-                                StaffName = Staff.GetStaffNameById(staffId),
-                            };
-                            Hide();
-                            tf.FormClosed += (s, args) => Close();
-                            tf.Show();
-                            break;
-                        case PermissionLevel.Overseer:
-                            break;
-                        case PermissionLevel.Admin:
-                            /*
-                            AdminForm af = new AdminForm();
-                            Hide();
-                            af.FormClosed += (s, args) => Close();
-                            af.Show();
-                            */
-                            break;
-                        case PermissionLevel.Tutor:
-                            break;
-                        case PermissionLevel.Teacher:
-                            /*
-                            TeacherMainForm tf = new TeacherMainForm();
-                            Hide();
-                            tf.FormClosed += (s, args) => Close();
-                            tf.Show();
-                            */
-                            break;
-                        default:
-                            MessageBox.Show("Future system will have lower permission levels");
-                            break;
+                        switch (Staff.GetPermissionLevel(username))
+                        {
+                            case PermissionLevel.TutorOverseer:
+                                // TODO: Make all options available (prototype)
+                                int staffId = Staff.GetStaffIdByUsername(username);
+                                TeacherMainForm tf = new TeacherMainForm
+                                {
+                                    StaffId = staffId,
+                                    StaffName = Staff.GetStaffNameById(staffId),
+                                };
+                                Hide();
+                                tf.FormClosed += (s, args) => Close();
+                                tf.Show();
+                                break;
+                            case PermissionLevel.Overseer:
+                                break;
+                            case PermissionLevel.Admin:
+                                /*
+                                AdminForm af = new AdminForm();
+                                Hide();
+                                af.FormClosed += (s, args) => Close();
+                                af.Show();
+                                */
+                                break;
+                            case PermissionLevel.Tutor:
+                                break;
+                            case PermissionLevel.Teacher:
+                                /*
+                                TeacherMainForm tf = new TeacherMainForm();
+                                Hide();
+                                tf.FormClosed += (s, args) => Close();
+                                tf.Show();
+                                */
+                                break;
+                            default:
+                                MessageBox.Show("Future system will have lower permission levels");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        // The password must be wrong if the username is right.
+                        invalidPasswordLabel.Show();
                     }
                 }
-                else
-                {
-                    // The password must be wrong if the username is right.
-                    invalidPasswordLabel.Show();
-                }
-            } 
+            }
             catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -124,8 +133,6 @@ namespace CSCourseworkApp
                 // The end-user can't have done much else wrong - except a bad
                 // username.
                 invalidUsernameLabel.Show();
-                // TODO: Don't throw here on production.
-                throw ex;
             }
 
         }

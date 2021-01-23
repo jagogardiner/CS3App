@@ -5,11 +5,22 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using MathNet.Numerics;
+using System.Data;
+using System.Linq;
 
 namespace CSCourseworkApp
 {
     class GradeUtils
     {
+
+        public struct GradeData
+        {
+            public double[] hw;
+            public double[] tests;
+            public double mtg;
+            public double predicted;
+        }
+
         public static Dictionary<string, double> Grades = new Dictionary<string, double>()
         {
             /*
@@ -95,5 +106,52 @@ namespace CSCourseworkApp
                 + subjectMLRLine[1] * HomeworkGrade // Homework performance weight calculation
                 + subjectMLRLine[2] * TestGrade // Test grade performance weight calculation
                 + subjectMLRLine[3] * MTG; // Minimum target grade weight calculation.
+
+        public static GradeData pullStudentGrades(int studentId, int groupId)
+        {
+            GradeData gd;
+            // grab homeworks
+            SqlCommand comm = new SqlCommand("SELECT HomeworkId FROM Homeworks WHERE GroupId=@GroupId");
+            comm.Parameters.AddWithValue("@GroupId", groupId);
+            DataTable homeworkIds = SqlTools.GetTable(comm);
+            // define parameter outside for loop.
+            SqlParameter hwId = new SqlParameter("@HomeworkId", null);
+            comm.Parameters.AddWithValue("@StudentId", studentId);
+            comm.Parameters.Add(hwId);
+            // define array of homework grades
+            double[] hwGrades = new double[homeworkIds.Rows.Count];
+            for (int i = 1; i <= homeworkIds.Rows.Count; i++)
+            {
+                comm.CommandText = "SELECT FinalGrade FROM HomeworkResultsLink WHERE HomeworkId=@HomeworkId AND StudentId=@StudentId";
+                hwId.Value = i;
+                DataTable num = SqlTools.GetTable(comm);
+                hwGrades[i - 1] = (double)num.Rows[0]["FinalGrade"];
+            }
+            // place new array in gradedata struct
+            gd.hw = hwGrades;
+
+            // grab tests
+            comm.CommandText = "SELECT TestId FROM Tests WHERE GroupId=@GroupId";
+            comm.Parameters.AddWithValue("@GroupId", groupId);
+            DataTable testIds = SqlTools.GetTable(comm);
+            // define parameter outside for loop.
+            SqlParameter testId = new SqlParameter("@HomeworkId", null);
+            comm.Parameters.AddWithValue("@StudentId", studentId);
+            comm.Parameters.Add(hwId);
+            // define array of homework grades
+            double[] testGrades = new double[testIds.Rows.Count];
+            for (int i = 1; i <= testIds.Rows.Count; i++)
+            {
+                comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE TestId=@TestId AND StudentId=@StudentId";
+                testId.Value = i;
+                DataTable num = SqlTools.GetTable(comm);
+                testGrades[i - 1] = (double)num.Rows[0]["FinalGrade"];
+            }
+            gd.tests = testGrades;
+
+            gd.mtg = 0;
+            gd.predicted = 0;
+            return gd;
+        }
     }
 }

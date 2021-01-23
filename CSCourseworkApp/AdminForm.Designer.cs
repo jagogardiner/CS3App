@@ -30,6 +30,7 @@ namespace CSCourseworkApp
         private void InitializeComponent()
         {
             this.adminPanel = new System.Windows.Forms.Panel();
+            this.backToOverseerButton = new System.Windows.Forms.Button();
             this.manageSubjectsButton = new System.Windows.Forms.Button();
             this.adminStudentsButton = new System.Windows.Forms.Button();
             this.adminStaffButton = new System.Windows.Forms.Button();
@@ -63,12 +64,11 @@ namespace CSCourseworkApp
             this.staffListBox = new System.Windows.Forms.ListBox();
             this.manageSubjectsPanel = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.subjectNewNameBox = new System.Windows.Forms.TextBox();
             this.addNewSubjectButton = new System.Windows.Forms.Button();
             this.deleteSubjectButton = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.subjectsListBox = new System.Windows.Forms.ListBox();
-            this.backToOverseerButton = new System.Windows.Forms.Button();
             this.adminPanel.SuspendLayout();
             this.manageGroupsPanel.SuspendLayout();
             this.manageStudentsPanel.SuspendLayout();
@@ -85,15 +85,24 @@ namespace CSCourseworkApp
             this.adminPanel.Controls.Add(this.adminGroupsButton);
             this.adminPanel.Controls.Add(this.label1);
             this.adminPanel.Location = new System.Drawing.Point(8, 8);
-            this.adminPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminPanel.Margin = new System.Windows.Forms.Padding(2);
             this.adminPanel.Name = "adminPanel";
             this.adminPanel.Size = new System.Drawing.Size(139, 277);
             this.adminPanel.TabIndex = 0;
             // 
+            // backToOverseerButton
+            // 
+            this.backToOverseerButton.Location = new System.Drawing.Point(7, 222);
+            this.backToOverseerButton.Name = "backToOverseerButton";
+            this.backToOverseerButton.Size = new System.Drawing.Size(121, 50);
+            this.backToOverseerButton.TabIndex = 7;
+            this.backToOverseerButton.Text = "Back to Overseer functions";
+            this.backToOverseerButton.UseVisualStyleBackColor = true;
+            // 
             // manageSubjectsButton
             // 
             this.manageSubjectsButton.Location = new System.Drawing.Point(7, 123);
-            this.manageSubjectsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manageSubjectsButton.Margin = new System.Windows.Forms.Padding(2);
             this.manageSubjectsButton.Name = "manageSubjectsButton";
             this.manageSubjectsButton.Size = new System.Drawing.Size(121, 29);
             this.manageSubjectsButton.TabIndex = 6;
@@ -104,7 +113,7 @@ namespace CSCourseworkApp
             // adminStudentsButton
             // 
             this.adminStudentsButton.Location = new System.Drawing.Point(7, 91);
-            this.adminStudentsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminStudentsButton.Margin = new System.Windows.Forms.Padding(2);
             this.adminStudentsButton.Name = "adminStudentsButton";
             this.adminStudentsButton.Size = new System.Drawing.Size(121, 29);
             this.adminStudentsButton.TabIndex = 5;
@@ -115,7 +124,7 @@ namespace CSCourseworkApp
             // adminStaffButton
             // 
             this.adminStaffButton.Location = new System.Drawing.Point(7, 58);
-            this.adminStaffButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminStaffButton.Margin = new System.Windows.Forms.Padding(2);
             this.adminStaffButton.Name = "adminStaffButton";
             this.adminStaffButton.Size = new System.Drawing.Size(121, 29);
             this.adminStaffButton.TabIndex = 2;
@@ -126,7 +135,7 @@ namespace CSCourseworkApp
             // adminGroupsButton
             // 
             this.adminGroupsButton.Location = new System.Drawing.Point(7, 26);
-            this.adminGroupsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.adminGroupsButton.Margin = new System.Windows.Forms.Padding(2);
             this.adminGroupsButton.Name = "adminGroupsButton";
             this.adminGroupsButton.Size = new System.Drawing.Size(121, 29);
             this.adminGroupsButton.TabIndex = 1;
@@ -157,7 +166,7 @@ namespace CSCourseworkApp
             this.manageGroupsPanel.Controls.Add(this.label2);
             this.manageGroupsPanel.Controls.Add(this.groupsListBox);
             this.manageGroupsPanel.Location = new System.Drawing.Point(151, 8);
-            this.manageGroupsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manageGroupsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.manageGroupsPanel.Name = "manageGroupsPanel";
             this.manageGroupsPanel.Size = new System.Drawing.Size(390, 277);
             this.manageGroupsPanel.TabIndex = 1;
@@ -195,7 +204,7 @@ namespace CSCourseworkApp
             // editClassButton
             // 
             this.editClassButton.Location = new System.Drawing.Point(183, 140);
-            this.editClassButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.editClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.editClassButton.Name = "editClassButton";
             this.editClassButton.Size = new System.Drawing.Size(121, 29);
             this.editClassButton.TabIndex = 7;
@@ -207,7 +216,7 @@ namespace CSCourseworkApp
             // addGroupButton
             // 
             this.addGroupButton.Location = new System.Drawing.Point(267, 246);
-            this.addGroupButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addGroupButton.Margin = new System.Windows.Forms.Padding(2);
             this.addGroupButton.Name = "addGroupButton";
             this.addGroupButton.Size = new System.Drawing.Size(121, 29);
             this.addGroupButton.TabIndex = 6;
@@ -219,7 +228,7 @@ namespace CSCourseworkApp
             // 
             this.deleteClassButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.deleteClassButton.Location = new System.Drawing.Point(183, 172);
-            this.deleteClassButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteClassButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteClassButton.Name = "deleteClassButton";
             this.deleteClassButton.Size = new System.Drawing.Size(121, 29);
             this.deleteClassButton.TabIndex = 5;
@@ -254,7 +263,7 @@ namespace CSCourseworkApp
             // 
             this.groupsListBox.FormattingEnabled = true;
             this.groupsListBox.Location = new System.Drawing.Point(3, 26);
-            this.groupsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.groupsListBox.Name = "groupsListBox";
             this.groupsListBox.Size = new System.Drawing.Size(171, 251);
             this.groupsListBox.TabIndex = 0;
@@ -270,7 +279,7 @@ namespace CSCourseworkApp
             this.manageStudentsPanel.Controls.Add(this.label6);
             this.manageStudentsPanel.Controls.Add(this.studentsListBox);
             this.manageStudentsPanel.Location = new System.Drawing.Point(151, 8);
-            this.manageStudentsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manageStudentsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.manageStudentsPanel.Name = "manageStudentsPanel";
             this.manageStudentsPanel.Size = new System.Drawing.Size(390, 277);
             this.manageStudentsPanel.TabIndex = 10;
@@ -289,7 +298,7 @@ namespace CSCourseworkApp
             // editStudentButton
             // 
             this.editStudentButton.Location = new System.Drawing.Point(180, 107);
-            this.editStudentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.editStudentButton.Margin = new System.Windows.Forms.Padding(2);
             this.editStudentButton.Name = "editStudentButton";
             this.editStudentButton.Size = new System.Drawing.Size(121, 29);
             this.editStudentButton.TabIndex = 7;
@@ -300,7 +309,7 @@ namespace CSCourseworkApp
             // addStudentButton
             // 
             this.addStudentButton.Location = new System.Drawing.Point(267, 246);
-            this.addStudentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addStudentButton.Margin = new System.Windows.Forms.Padding(2);
             this.addStudentButton.Name = "addStudentButton";
             this.addStudentButton.Size = new System.Drawing.Size(121, 29);
             this.addStudentButton.TabIndex = 6;
@@ -312,7 +321,7 @@ namespace CSCourseworkApp
             // 
             this.deleteStudentButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.deleteStudentButton.Location = new System.Drawing.Point(180, 139);
-            this.deleteStudentButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteStudentButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteStudentButton.Name = "deleteStudentButton";
             this.deleteStudentButton.Size = new System.Drawing.Size(121, 29);
             this.deleteStudentButton.TabIndex = 5;
@@ -346,7 +355,7 @@ namespace CSCourseworkApp
             // 
             this.studentsListBox.FormattingEnabled = true;
             this.studentsListBox.Location = new System.Drawing.Point(3, 26);
-            this.studentsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.studentsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.studentsListBox.Name = "studentsListBox";
             this.studentsListBox.Size = new System.Drawing.Size(171, 251);
             this.studentsListBox.TabIndex = 0;
@@ -362,7 +371,7 @@ namespace CSCourseworkApp
             this.manageStaffPanel.Controls.Add(this.label10);
             this.manageStaffPanel.Controls.Add(this.staffListBox);
             this.manageStaffPanel.Location = new System.Drawing.Point(151, 8);
-            this.manageStaffPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manageStaffPanel.Margin = new System.Windows.Forms.Padding(2);
             this.manageStaffPanel.Name = "manageStaffPanel";
             this.manageStaffPanel.Size = new System.Drawing.Size(390, 277);
             this.manageStaffPanel.TabIndex = 10;
@@ -380,7 +389,7 @@ namespace CSCourseworkApp
             // editStaffInfoButton
             // 
             this.editStaffInfoButton.Location = new System.Drawing.Point(183, 152);
-            this.editStaffInfoButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.editStaffInfoButton.Margin = new System.Windows.Forms.Padding(2);
             this.editStaffInfoButton.Name = "editStaffInfoButton";
             this.editStaffInfoButton.Size = new System.Drawing.Size(121, 29);
             this.editStaffInfoButton.TabIndex = 7;
@@ -391,7 +400,7 @@ namespace CSCourseworkApp
             // addStaffMemberButton
             // 
             this.addStaffMemberButton.Location = new System.Drawing.Point(267, 246);
-            this.addStaffMemberButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addStaffMemberButton.Margin = new System.Windows.Forms.Padding(2);
             this.addStaffMemberButton.Name = "addStaffMemberButton";
             this.addStaffMemberButton.Size = new System.Drawing.Size(121, 29);
             this.addStaffMemberButton.TabIndex = 6;
@@ -403,7 +412,7 @@ namespace CSCourseworkApp
             // 
             this.deleteStaffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.deleteStaffButton.Location = new System.Drawing.Point(183, 184);
-            this.deleteStaffButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteStaffButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteStaffButton.Name = "deleteStaffButton";
             this.deleteStaffButton.Size = new System.Drawing.Size(121, 29);
             this.deleteStaffButton.TabIndex = 5;
@@ -437,7 +446,7 @@ namespace CSCourseworkApp
             // 
             this.staffListBox.FormattingEnabled = true;
             this.staffListBox.Location = new System.Drawing.Point(3, 26);
-            this.staffListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.staffListBox.Margin = new System.Windows.Forms.Padding(2);
             this.staffListBox.Name = "staffListBox";
             this.staffListBox.Size = new System.Drawing.Size(171, 251);
             this.staffListBox.TabIndex = 0;
@@ -447,13 +456,13 @@ namespace CSCourseworkApp
             // manageSubjectsPanel
             // 
             this.manageSubjectsPanel.Controls.Add(this.label3);
-            this.manageSubjectsPanel.Controls.Add(this.textBox1);
+            this.manageSubjectsPanel.Controls.Add(this.subjectNewNameBox);
             this.manageSubjectsPanel.Controls.Add(this.addNewSubjectButton);
             this.manageSubjectsPanel.Controls.Add(this.deleteSubjectButton);
             this.manageSubjectsPanel.Controls.Add(this.label9);
             this.manageSubjectsPanel.Controls.Add(this.subjectsListBox);
             this.manageSubjectsPanel.Location = new System.Drawing.Point(151, 8);
-            this.manageSubjectsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.manageSubjectsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.manageSubjectsPanel.Name = "manageSubjectsPanel";
             this.manageSubjectsPanel.Size = new System.Drawing.Size(390, 277);
             this.manageSubjectsPanel.TabIndex = 11;
@@ -469,18 +478,18 @@ namespace CSCourseworkApp
             this.label3.TabIndex = 8;
             this.label3.Text = "New subject name:";
             // 
-            // textBox1
+            // subjectNewNameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(209, 86);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(123, 20);
-            this.textBox1.TabIndex = 7;
+            this.subjectNewNameBox.Location = new System.Drawing.Point(209, 86);
+            this.subjectNewNameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.subjectNewNameBox.Name = "subjectNewNameBox";
+            this.subjectNewNameBox.Size = new System.Drawing.Size(123, 20);
+            this.subjectNewNameBox.TabIndex = 7;
             // 
             // addNewSubjectButton
             // 
             this.addNewSubjectButton.Location = new System.Drawing.Point(209, 107);
-            this.addNewSubjectButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addNewSubjectButton.Margin = new System.Windows.Forms.Padding(2);
             this.addNewSubjectButton.Name = "addNewSubjectButton";
             this.addNewSubjectButton.Size = new System.Drawing.Size(121, 29);
             this.addNewSubjectButton.TabIndex = 6;
@@ -492,7 +501,7 @@ namespace CSCourseworkApp
             // 
             this.deleteSubjectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.deleteSubjectButton.Location = new System.Drawing.Point(209, 26);
-            this.deleteSubjectButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteSubjectButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteSubjectButton.Name = "deleteSubjectButton";
             this.deleteSubjectButton.Size = new System.Drawing.Size(121, 29);
             this.deleteSubjectButton.TabIndex = 5;
@@ -515,20 +524,10 @@ namespace CSCourseworkApp
             // 
             this.subjectsListBox.FormattingEnabled = true;
             this.subjectsListBox.Location = new System.Drawing.Point(3, 26);
-            this.subjectsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.subjectsListBox.Margin = new System.Windows.Forms.Padding(2);
             this.subjectsListBox.Name = "subjectsListBox";
             this.subjectsListBox.Size = new System.Drawing.Size(195, 251);
             this.subjectsListBox.TabIndex = 0;
-            this.subjectsListBox.SelectedIndexChanged += new System.EventHandler(this.subjectsListBox_SelectedIndexChanged);
-            // 
-            // backToOverseerButton
-            // 
-            this.backToOverseerButton.Location = new System.Drawing.Point(7, 222);
-            this.backToOverseerButton.Name = "backToOverseerButton";
-            this.backToOverseerButton.Size = new System.Drawing.Size(121, 50);
-            this.backToOverseerButton.TabIndex = 7;
-            this.backToOverseerButton.Text = "Back to Overseer functions";
-            this.backToOverseerButton.UseVisualStyleBackColor = true;
             // 
             // AdminForm
             // 
@@ -540,7 +539,7 @@ namespace CSCourseworkApp
             this.Controls.Add(this.manageSubjectsPanel);
             this.Controls.Add(this.manageStaffPanel);
             this.Controls.Add(this.adminPanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AdminForm";
             this.Text = "Admin Panel";
             this.adminPanel.ResumeLayout(false);
@@ -596,7 +595,7 @@ namespace CSCourseworkApp
         private System.Windows.Forms.ListBox subjectsListBox;
         private System.Windows.Forms.Button addNewSubjectButton;
         private System.Windows.Forms.Button manageSubjectsButton;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox subjectNewNameBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button backToOverseerButton;
     }
