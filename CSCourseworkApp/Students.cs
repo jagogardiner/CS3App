@@ -100,5 +100,12 @@ namespace CSCourseworkApp
              */
             SqlCommand comm = new SqlCommand("");
         }
+
+        public static int GetStudentIdByName(string studentName)
+        {
+            SqlCommand comm = new SqlCommand("SELECT StudentId FROM Students WHERE StudentName=@StudentName");
+            comm.Parameters.AddWithValue("@StudentName", studentName);
+            return (int)SqlTools.GetTable(comm).Rows[0]["StudentId"];
+        }
     }
 }

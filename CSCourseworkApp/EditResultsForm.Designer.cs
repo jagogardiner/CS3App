@@ -33,7 +33,7 @@ namespace CSCourseworkApp
             this.studentsListBox = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.resultComboBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.saveResultButton = new System.Windows.Forms.Button();
             this.assignmentsBox = new System.Windows.Forms.ComboBox();
             this.Result = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -54,6 +54,7 @@ namespace CSCourseworkApp
             this.studentsListBox.Name = "studentsListBox";
             this.studentsListBox.Size = new System.Drawing.Size(138, 199);
             this.studentsListBox.TabIndex = 2;
+            this.studentsListBox.SelectedIndexChanged += new System.EventHandler(this.studentsListBox_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -72,14 +73,15 @@ namespace CSCourseworkApp
             this.resultComboBox.Size = new System.Drawing.Size(107, 21);
             this.resultComboBox.TabIndex = 4;
             // 
-            // button1
+            // saveResultButton
             // 
-            this.button1.Location = new System.Drawing.Point(158, 234);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Save result";
-            this.button1.UseVisualStyleBackColor = true;
+            this.saveResultButton.Location = new System.Drawing.Point(158, 234);
+            this.saveResultButton.Name = "saveResultButton";
+            this.saveResultButton.Size = new System.Drawing.Size(108, 23);
+            this.saveResultButton.TabIndex = 5;
+            this.saveResultButton.Text = "Save result";
+            this.saveResultButton.UseVisualStyleBackColor = true;
+            this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
             // 
             // assignmentsBox
             // 
@@ -88,6 +90,7 @@ namespace CSCourseworkApp
             this.assignmentsBox.Name = "assignmentsBox";
             this.assignmentsBox.Size = new System.Drawing.Size(154, 21);
             this.assignmentsBox.TabIndex = 6;
+            this.assignmentsBox.SelectedIndexChanged += new System.EventHandler(this.assignmentsBox_SelectedIndexChanged);
             // 
             // Result
             // 
@@ -105,7 +108,7 @@ namespace CSCourseworkApp
             this.ClientSize = new System.Drawing.Size(277, 266);
             this.Controls.Add(this.Result);
             this.Controls.Add(this.assignmentsBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.saveResultButton);
             this.Controls.Add(this.resultComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.studentsListBox);
@@ -124,7 +127,7 @@ namespace CSCourseworkApp
         private System.Windows.Forms.ListBox studentsListBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox resultComboBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveResultButton;
         private System.Windows.Forms.ComboBox assignmentsBox;
         private System.Windows.Forms.Label Result;
     }

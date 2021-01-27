@@ -73,7 +73,8 @@ namespace CSCourseworkApp
 
         private void editAssignmentsButton_Click(object sender, EventArgs e)
         {
-            EditResultsForm erf = new EditResultsForm(GroupId, true);
+            EditResultsForm erf = new EditResultsForm(studentsList, GroupId, true);
+            erf.Show();
         }
     }
 }

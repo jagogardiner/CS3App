@@ -153,5 +153,27 @@ namespace CSCourseworkApp
             gd.predicted = 0;
             return gd;
         }
+
+        /*
+         * Get the ID of any assignment - there are only two different types of assignment,
+         * homeworks and tests, so just check if it's a homework or not 
+         */
+        public static int getAssignmentId(string assignmentName, bool isHomework)
+        {
+            SqlCommand comm = new SqlCommand();
+            if(isHomework)
+            {
+                comm.CommandText = "SELECT HomeworkId FROM Homeworks WHERE HomeworkName=@HomeworkName";
+                comm.Parameters.AddWithValue("@HomeworkName", assignmentName);
+                DataTable dt = SqlTools.GetTable(comm);
+                return (int)dt.Rows[0]["HomeworkId"];
+            } else
+            {
+                comm.CommandText = "SELECT TestId FROM Tests WHERE TestName=@TestName";
+                comm.Parameters.AddWithValue("@TestName", assignmentName);
+                DataTable dt = SqlTools.GetTable(comm);
+                return (int)dt.Rows[0]["TestId"];
+            }
+        }
     }
 }

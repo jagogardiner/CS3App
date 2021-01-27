@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,18 +14,25 @@ namespace CSCourseworkApp
 {
     public partial class EditResultsForm : Form
     {
-        bool isAssignment;
+        bool isHomework;
         int groupId;
         string assignmentName;
-        BindingList<string> Assignments = new BindingList<string>();
+        int assignmentId;
+        BindingList<string> AssignmentsList = new BindingList<string>();
+        BindingList<string> StudentsList = new BindingList<string>();
 
-        public EditResultsForm(int groupId, bool isAssignment = true, string assignmentName = null)
+        public EditResultsForm(BindingList<string> StudentsList, int groupId, bool isHomework = true, string assignmentName = null)
         {
             InitializeComponent();
-            this.isAssignment = isAssignment;
+            this.isHomework = isHomework;
             this.groupId = groupId;
             this.assignmentName = assignmentName;
-            if(!isAssignment)
+            this.StudentsList = StudentsList;
+            if(assignmentName != null)
+            {
+                assignmentId = GradeUtils.getAssignmentId(assignmentName, isHomework);
+            }
+            if (!isHomework)
             {
                 assignmentLabel.Text = "Test name:";
             }
@@ -36,32 +44,88 @@ namespace CSCourseworkApp
 
         private void PopulateList()
         {
-            if (isAssignment)
+            SqlCommand comm = new SqlCommand();
+            if (isHomework)
             {
-                SqlCommand comm = new SqlCommand("SELECT HomeworkName FROM Homeworks WHERE GroupId=@GroupId");
+                comm.CommandText = "SELECT HomeworkName FROM Homeworks WHERE GroupId=@GroupId";
                 comm.Parameters.AddWithValue("@GroupId", groupId);
                 DataTable dt = SqlTools.GetTable(comm);
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    Assignments.Add((string)dt.Rows[i]["HomeworkName"]);
+                    AssignmentsList.Add((string)dt.Rows[i]["HomeworkName"]);
                 }
             }
             else
             {
-                SqlCommand comm = new SqlCommand("SELECT TestName FROM Tests WHERE GroupId=@GroupId");
+                comm.CommandText = "SELECT TestName FROM Tests WHERE GroupId=@GroupId";
                 comm.Parameters.AddWithValue("@GroupId", groupId);
                 DataTable dt = SqlTools.GetTable(comm);
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    Assignments.Add((string)dt.Rows[i]["TestName"]);
+                    AssignmentsList.Add((string)dt.Rows[i]["TestName"]);
                 }
             }
         }
 
         private void EditResultsForm_Load(object sender, EventArgs e)
         {
-            assignmentsBox.DataSource = Assignments;
+            assignmentsBox.DataSource = AssignmentsList;
+            studentsListBox.DataSource = StudentsList;
             PopulateList();
+            foreach(KeyValuePair<string, double> grade in GradeUtils.Grades)
+            {
+                resultComboBox.Items.Add(grade.Key);
+            }
+        }
+
+        private void saveResultButton_Click(object sender, EventArgs e)
+        {
+            /*
+             * Insert result into results table
+             */
+            SqlCommand comm = new SqlCommand();
+            comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
+            comm.Parameters.AddWithValue("@FinalGrade", GradeUtils.Grades[(string)resultComboBox.SelectedItem]);
+            comm.Parameters.AddWithValue("@assignmentId", assignmentId);
+            if (isHomework)
+            {
+                comm.CommandText = "INSERT INTO HomeworkResultsLink VALUES (@assignmentId, @StudentId, @FinalGrade)";
+                SqlTools.ExecuteNonQuery(comm);
+            } else
+            {
+                comm.CommandText = "INSERT INTO TestResults VALUES (@assignmentId, @StudentId, @FinalGrade)";
+                SqlTools.ExecuteNonQuery(comm);
+            }
+        }
+
+        private void assignmentsBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            assignmentName = assignmentsBox.SelectedItem.ToString();
+            assignmentId = GradeUtils.getAssignmentId(assignmentName, isHomework);
+        }
+
+        private void studentsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlCommand comm = new SqlCommand();
+            comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
+            comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
+            if(isHomework)
+            {
+                comm.CommandText = "SELECT FinalGrade FROM HomeworkResultsLink WHERE StudentId=@StudentId, HomeworkId=@AssignmentId";
+            } else
+            {
+                comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE StudentId=@StudentId, TestId=@AssignmentId";
+            }
+            try
+            {
+                double grade = (double)SqlTools.GetTable(comm).Rows[0]["FinalGrade"];
+                string gradeKey = GradeUtils.Grades.FirstOrDefault(x => x.Value == grade).Key;
+                resultComboBox.SelectedItem = gradeKey;
+            }
+            catch (Exception)
+            {
+                // There isn't a result for them yet.
+            }
         }
     }
 }

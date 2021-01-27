@@ -15,11 +15,13 @@ namespace CSCourseworkApp
     {
         bool isAssignment;
         int groupId;
-        public AddResultDialogForm(int groupId, bool isAssignment)
+        BindingList<string> Students = new BindingList<string>();
+        public AddResultDialogForm(BindingList<string> Students, int groupId, bool isAssignment)
         {
             InitializeComponent();
             this.isAssignment = isAssignment;
             this.groupId = groupId;
+            this.Students = Students;
         }
 
         private void continueButton_Click(object sender, EventArgs e)
@@ -40,7 +42,7 @@ namespace CSCourseworkApp
                 command.Parameters.AddWithValue("@TestName", assignmentNameTextBox.Text);
                 SqlTools.ExecuteNonQuery(command);
             }
-            EditResultsForm erf = new EditResultsForm(groupId, isAssignment, assignmentNameTextBox.Text);
+            EditResultsForm erf = new EditResultsForm(Students, groupId, isAssignment, assignmentNameTextBox.Text);
         }
     }
 }
