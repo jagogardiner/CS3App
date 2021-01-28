@@ -56,6 +56,7 @@ namespace CSCourseworkApp
             PopulateGroupList();
             teacherClassListBox.DataSource = teacherGroups;
             StudentsListBox.DataSource = studentsList;
+            Subjects.UpdateSubjectMLR(1);
         }
 
         private void teacherClassListBox_SelectedIndexChanged(object sender, EventArgs e)

@@ -28,18 +28,6 @@ namespace CSCourseworkApp
             this.groupId = groupId;
             this.assignmentName = assignmentName;
             this.StudentsList = StudentsList;
-            if(assignmentName != null)
-            {
-                assignmentId = GradeUtils.getAssignmentId(assignmentName, isHomework);
-            }
-            if (!isHomework)
-            {
-                assignmentLabel.Text = "Test name:";
-            }
-            if(assignmentName != null)
-            {
-                assignmentsBox.SelectedItem = assignmentName;
-            }
         }
 
         private void PopulateList()
@@ -76,6 +64,18 @@ namespace CSCourseworkApp
             {
                 resultComboBox.Items.Add(grade.Key);
             }
+            if (assignmentName != null)
+            {
+                assignmentId = GradeUtils.getAssignmentId(assignmentName, isHomework);
+                assignmentsBox.SelectedItem = assignmentName;
+            } else
+            {
+                assignmentId = GradeUtils.getAssignmentId((string)assignmentsBox.SelectedItem, isHomework);
+            }
+            if (!isHomework)
+            {
+                assignmentLabel.Text = "Test name:";
+            }
         }
 
         private void saveResultButton_Click(object sender, EventArgs e)
@@ -87,13 +87,14 @@ namespace CSCourseworkApp
             comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
             comm.Parameters.AddWithValue("@FinalGrade", GradeUtils.Grades[(string)resultComboBox.SelectedItem]);
             comm.Parameters.AddWithValue("@assignmentId", assignmentId);
+            // ON DUPLICATE KEY UPDATE makes sure that if an assignment needs to be edited, it will update instead of inserting a new result.
             if (isHomework)
             {
                 comm.CommandText = "INSERT INTO HomeworkResultsLink VALUES (@assignmentId, @StudentId, @FinalGrade)";
                 SqlTools.ExecuteNonQuery(comm);
             } else
             {
-                comm.CommandText = "INSERT INTO TestResults VALUES (@assignmentId, @StudentId, @FinalGrade)";
+                comm.CommandText = "INSERT INTO TestResults VALUES (@assignmentId, @StudentId, @FinalGrade) ON DUPLICATE KEY UPDATE FinalGrade=@FinalGrade";
                 SqlTools.ExecuteNonQuery(comm);
             }
         }
@@ -111,10 +112,10 @@ namespace CSCourseworkApp
             comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
             if(isHomework)
             {
-                comm.CommandText = "SELECT FinalGrade FROM HomeworkResultsLink WHERE StudentId=@StudentId, HomeworkId=@AssignmentId";
+                comm.CommandText = "SELECT FinalGrade FROM HomeworkResultsLink WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId";
             } else
             {
-                comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE StudentId=@StudentId, TestId=@AssignmentId";
+                comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE StudentId=@StudentId AND TestId=@AssignmentId";
             }
             try
             {
