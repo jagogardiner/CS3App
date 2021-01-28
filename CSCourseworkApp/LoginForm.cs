@@ -76,6 +76,7 @@ namespace CSCourseworkApp
                 {
                     ResetPasswordForm pwForm = new ResetPasswordForm(username);
                     pwForm.ShowDialog();
+                    pwForm.Dispose();
                 } else
                 {
                     if (true/*(string)dt.Rows[0]["StaffPassword"] == password*/)

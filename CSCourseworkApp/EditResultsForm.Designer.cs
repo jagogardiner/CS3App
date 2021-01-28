@@ -36,6 +36,7 @@ namespace CSCourseworkApp
             this.saveResultButton = new System.Windows.Forms.Button();
             this.assignmentsBox = new System.Windows.Forms.ComboBox();
             this.Result = new System.Windows.Forms.Label();
+            this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // assignmentLabel
@@ -68,14 +69,14 @@ namespace CSCourseworkApp
             // resultComboBox
             // 
             this.resultComboBox.FormattingEnabled = true;
-            this.resultComboBox.Location = new System.Drawing.Point(158, 204);
+            this.resultComboBox.Location = new System.Drawing.Point(159, 175);
             this.resultComboBox.Name = "resultComboBox";
-            this.resultComboBox.Size = new System.Drawing.Size(107, 21);
+            this.resultComboBox.Size = new System.Drawing.Size(108, 21);
             this.resultComboBox.TabIndex = 4;
             // 
             // saveResultButton
             // 
-            this.saveResultButton.Location = new System.Drawing.Point(158, 234);
+            this.saveResultButton.Location = new System.Drawing.Point(159, 205);
             this.saveResultButton.Name = "saveResultButton";
             this.saveResultButton.Size = new System.Drawing.Size(108, 23);
             this.saveResultButton.TabIndex = 5;
@@ -95,17 +96,28 @@ namespace CSCourseworkApp
             // Result
             // 
             this.Result.AutoSize = true;
-            this.Result.Location = new System.Drawing.Point(155, 188);
+            this.Result.Location = new System.Drawing.Point(156, 159);
             this.Result.Name = "Result";
             this.Result.Size = new System.Drawing.Size(40, 13);
             this.Result.TabIndex = 7;
             this.Result.Text = "Result:";
+            // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(159, 234);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(108, 23);
+            this.exitButton.TabIndex = 8;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // EditResultsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(277, 266);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.Result);
             this.Controls.Add(this.assignmentsBox);
             this.Controls.Add(this.saveResultButton);
@@ -130,5 +142,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Button saveResultButton;
         private System.Windows.Forms.ComboBox assignmentsBox;
         private System.Windows.Forms.Label Result;
+        private System.Windows.Forms.Button exitButton;
     }
 }

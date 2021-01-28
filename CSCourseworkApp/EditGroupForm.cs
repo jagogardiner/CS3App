@@ -96,6 +96,7 @@ namespace CSCourseworkApp
              */
             AddStaffByIDForm addStaff = new AddStaffByIDForm();
             addStaff.ShowDialog();
+            addStaff.Dispose();
             if(staffName != null)
             {
                 staffList.Add(staffName);

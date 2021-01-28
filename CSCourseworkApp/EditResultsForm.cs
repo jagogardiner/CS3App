@@ -70,7 +70,13 @@ namespace CSCourseworkApp
                 assignmentsBox.SelectedItem = assignmentName;
             } else
             {
-                assignmentId = GradeUtils.getAssignmentId((string)assignmentsBox.SelectedItem, isHomework);
+                try
+                {
+                    assignmentId = GradeUtils.getAssignmentId((string)assignmentsBox.SelectedItem, isHomework);
+                } catch (Exception)
+                {
+                    // No assignment exists.
+                }
             }
             if (!isHomework)
             {
@@ -86,15 +92,17 @@ namespace CSCourseworkApp
             SqlCommand comm = new SqlCommand();
             comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
             comm.Parameters.AddWithValue("@FinalGrade", GradeUtils.Grades[(string)resultComboBox.SelectedItem]);
-            comm.Parameters.AddWithValue("@assignmentId", assignmentId);
-            // ON DUPLICATE KEY UPDATE makes sure that if an assignment needs to be edited, it will update instead of inserting a new result.
+            comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
+            // Update the result, however if the affected rowcount is 0, insert a new result as there is nothing to update.
             if (isHomework)
             {
-                comm.CommandText = "INSERT INTO HomeworkResultsLink VALUES (@assignmentId, @StudentId, @FinalGrade)";
+                comm.CommandText = "UPDATE HomeworkResultsLink SET FinalGrade=@FinalGrade WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId ";
+                comm.CommandText += "IF @@ROWCOUNT = 0 INSERT INTO HomeworkResultsLink VALUES (@assignmentId, @StudentId, @FinalGrade)";
                 SqlTools.ExecuteNonQuery(comm);
             } else
             {
-                comm.CommandText = "INSERT INTO TestResults VALUES (@assignmentId, @StudentId, @FinalGrade) ON DUPLICATE KEY UPDATE FinalGrade=@FinalGrade";
+                comm.CommandText = "UPDATE TestResults SET FinalGrade=@FinalGrade WHERE StudentId=@StudentId AND TestId=@AssignmentId ";
+                comm.CommandText += "IF @@ROWCOUNT = 0 INSERT INTO TestResults VALUES (@assignmentId, @StudentId, @FinalGrade)";
                 SqlTools.ExecuteNonQuery(comm);
             }
         }
@@ -127,6 +135,12 @@ namespace CSCourseworkApp
             {
                 // There isn't a result for them yet.
             }
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            this.Dispose();
         }
     }
 }

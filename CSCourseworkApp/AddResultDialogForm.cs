@@ -43,6 +43,9 @@ namespace CSCourseworkApp
                 SqlTools.ExecuteNonQuery(command);
             }
             EditResultsForm erf = new EditResultsForm(Students, groupId, isAssignment, assignmentNameTextBox.Text);
+            Hide();
+            erf.ShowDialog();
+            erf.Dispose();
         }
     }
 }

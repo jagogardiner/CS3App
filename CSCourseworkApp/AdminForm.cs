@@ -79,6 +79,7 @@ namespace CSCourseworkApp
             // Deploy an edit form with the needed data.
             EditGroupForm editGroupForm = new EditGroupForm(Groups.GroupList[groupsListBox.SelectedIndex], groupsListBox.SelectedIndex + 1);
             editGroupForm.ShowDialog();
+            editGroupForm.Dispose();
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
         }
@@ -88,6 +89,7 @@ namespace CSCourseworkApp
             // Deploy an empty group edit form.
             EditGroupForm editGroupForm = new EditGroupForm();
             editGroupForm.ShowDialog();
+            editGroupForm.Dispose();
             // Simulate a value change to refresh changed data.
             GroupsListBox_SelectedValueChanged(this, e);
         }
@@ -113,6 +115,7 @@ namespace CSCourseworkApp
         {
             EditStaffForm edf = new EditStaffForm(staffListBox.SelectedItem.ToString());
             edf.ShowDialog();
+            edf.Dispose();
             staffListBox_SelectedValueChanged(this, e);
         }
 
@@ -128,6 +131,7 @@ namespace CSCourseworkApp
         {
             EditStaffForm edf = new EditStaffForm();
             edf.ShowDialog();
+            edf.Dispose();
             staffListBox_SelectedValueChanged(this, e);
         }
 
@@ -206,6 +210,7 @@ namespace CSCourseworkApp
         {
             EditStudentForm edf = new EditStudentForm();
             edf.ShowDialog();
+            edf.Dispose();
         }
 
         private void deleteStudentButton_Click(object sender, EventArgs e)
@@ -219,6 +224,7 @@ namespace CSCourseworkApp
             {
                 EditStudentForm edf = new EditStudentForm(studentsListBox.SelectedItem.ToString());
                 edf.ShowDialog();
+                edf.Dispose();
             }
         }
 

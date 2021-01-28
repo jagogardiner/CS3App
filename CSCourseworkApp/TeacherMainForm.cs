@@ -70,12 +70,30 @@ namespace CSCourseworkApp
 
         private void addAssignmentButton_Click(object sender, EventArgs e)
         {
+            AddResultDialogForm ardf = new AddResultDialogForm(studentsList, GroupId, true);
+            ardf.ShowDialog();
+            ardf.Dispose();
         }
 
         private void editAssignmentsButton_Click(object sender, EventArgs e)
         {
             EditResultsForm erf = new EditResultsForm(studentsList, GroupId, true);
-            erf.Show();
+            erf.ShowDialog();
+            erf.Dispose();
+        }
+
+        private void addTestResultButton_Click(object sender, EventArgs e)
+        {
+            AddResultDialogForm ardf = new AddResultDialogForm(studentsList, GroupId, false);
+            ardf.ShowDialog();
+            ardf.Dispose();
+        }
+
+        private void editTestResultsButton_Click(object sender, EventArgs e)
+        {
+            EditResultsForm erf = new EditResultsForm(studentsList, GroupId, false);
+            erf.ShowDialog();
+            erf.Dispose();
         }
     }
 }

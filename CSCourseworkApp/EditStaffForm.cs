@@ -61,6 +61,7 @@ namespace CSCourseworkApp
         {
             AddStaffToGroupForm asf = new AddStaffToGroupForm();
             asf.ShowDialog();
+            asf.Dispose();
         }
 
         private void saveStaffButton_Click(object sender, System.EventArgs e)

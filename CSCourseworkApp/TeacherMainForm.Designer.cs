@@ -35,7 +35,7 @@ namespace CSCourseworkApp
             this.label1 = new System.Windows.Forms.Label();
             this.StudentsListBox = new System.Windows.Forms.ListBox();
             this.addAssignmentButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.addTestResultButton = new System.Windows.Forms.Button();
             this.editAssignmentsButton = new System.Windows.Forms.Button();
             this.editTestResultsButton = new System.Windows.Forms.Button();
             this.subjectPanel.SuspendLayout();
@@ -96,14 +96,15 @@ namespace CSCourseworkApp
             this.addAssignmentButton.UseVisualStyleBackColor = true;
             this.addAssignmentButton.Click += new System.EventHandler(this.addAssignmentButton_Click);
             // 
-            // button2
+            // addTestResultButton
             // 
-            this.button2.Location = new System.Drawing.Point(164, 60);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Add test result";
-            this.button2.UseVisualStyleBackColor = true;
+            this.addTestResultButton.Location = new System.Drawing.Point(164, 60);
+            this.addTestResultButton.Name = "addTestResultButton";
+            this.addTestResultButton.Size = new System.Drawing.Size(94, 23);
+            this.addTestResultButton.TabIndex = 5;
+            this.addTestResultButton.Text = "Add test result";
+            this.addTestResultButton.UseVisualStyleBackColor = true;
+            this.addTestResultButton.Click += new System.EventHandler(this.addTestResultButton_Click);
             // 
             // editAssignmentsButton
             // 
@@ -123,6 +124,7 @@ namespace CSCourseworkApp
             this.editTestResultsButton.TabIndex = 7;
             this.editTestResultsButton.Text = "Edit tests";
             this.editTestResultsButton.UseVisualStyleBackColor = true;
+            this.editTestResultsButton.Click += new System.EventHandler(this.editTestResultsButton_Click);
             // 
             // TeacherMainForm
             // 
@@ -131,7 +133,7 @@ namespace CSCourseworkApp
             this.ClientSize = new System.Drawing.Size(629, 341);
             this.Controls.Add(this.editTestResultsButton);
             this.Controls.Add(this.editAssignmentsButton);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.addTestResultButton);
             this.Controls.Add(this.addAssignmentButton);
             this.Controls.Add(this.StudentsListBox);
             this.Controls.Add(this.subjectPanel);
@@ -156,7 +158,7 @@ namespace CSCourseworkApp
         private System.Windows.Forms.ListBox StudentsListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button addAssignmentButton;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button addTestResultButton;
         private System.Windows.Forms.Button editAssignmentsButton;
         private System.Windows.Forms.Button editTestResultsButton;
     }
