@@ -25,7 +25,7 @@ namespace CSCourseworkApp
         private void HidePanels(System.Windows.Forms.Panel panelToShow)
         {
             // Hide all panels except admin selection panel and desired form passed as an arugment
-            foreach (Panel panel in Controls.OfType<Panel>().Where(p => p != panelToShow && p != adminPanel))
+            foreach (System.Windows.Forms.Panel panel in Controls.OfType<System.Windows.Forms.Panel>().Where(p => p != panelToShow && p != adminPanel))
             {
                 panel.Hide();
             }
