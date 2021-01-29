@@ -141,25 +141,25 @@ namespace CSCourseworkApp
             DataTable dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                homeworkResults.Add(Grades[dt.Rows[i]["HomeworkResult"].ToString().Trim()]);
+                homeworkResults.Add(Grades[(string)dt.Rows[i]["HomeworkResult"]]);
             }
             command.CommandText = "SELECT TestResult FROM PreviousResults WHERE SubjectId = @SubjectId";
             dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                testResults.Add(Grades[(string)dt.Rows[i]["TestResult"].ToString().Trim()]);
+                testResults.Add(Grades[(string)dt.Rows[i]["TestResult"]]);
             }
             command.CommandText = "SELECT MTGResult FROM PreviousResults WHERE SubjectId = @SubjectId";
             dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                minimumTargetGrades.Add(Grades[(string)dt.Rows[i]["MTGResult"].ToString().Trim()]);
+                minimumTargetGrades.Add(Grades[(string)dt.Rows[i]["MTGResult"]]);
             }
             command.CommandText = "SELECT FinalResult FROM PreviousResults WHERE SubjectId = @SubjectId";
             dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                finalResults.Add(Grades[(string)dt.Rows[i]["FinalResult"].ToString().Trim()]);
+                finalResults.Add(Grades[(string)dt.Rows[i]["FinalResult"]]);
             }
 
             /*
