@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -94,7 +93,7 @@ namespace CSCourseworkApp
              */
             SqlCommand comm = new SqlCommand();
             comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
-            comm.Parameters.AddWithValue("@FinalGrade", GradeUtils.Grades[(string)resultsComboBox.SelectedItem]);
+            comm.Parameters.AddWithValue("@FinalGrade", (string)resultsComboBox.SelectedItem);
             comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
             // Update the result, however if the affected rowcount is 0, insert a new result as there is nothing to update.
             if (isHomework)
@@ -132,9 +131,8 @@ namespace CSCourseworkApp
             }
             try
             {
-                double grade = (double)SqlTools.GetTable(comm).Rows[0]["FinalGrade"];
-                string gradeKey = GradeUtils.Grades.FirstOrDefault(x => x.Value == grade).Key;
-                resultsComboBox.SelectedItem = gradeKey;
+                string grade = (string)SqlTools.GetTable(comm).Rows[0]["FinalGrade"];
+                resultsComboBox.SelectedItem = grade;
             }
             catch (Exception)
             {

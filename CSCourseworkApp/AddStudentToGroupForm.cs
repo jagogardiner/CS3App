@@ -53,6 +53,8 @@ namespace CSCourseworkApp
             {
                 currentGroups.Add(availableGroups[availableGroupsListBox.SelectedIndex]);
                 availableGroups.RemoveAt(availableGroupsListBox.SelectedIndex);
+                // Reset the minimum target grade box
+                mtgComboBox.SelectedIndex = -1;
             }
         }
 
@@ -63,7 +65,19 @@ namespace CSCourseworkApp
             {
                 EditStudentForm.GroupList.Add(o);
                 // Lookup subject ID by group ID and the corresponding double to the grade.
-                EditStudentForm.minimumTargetGrades.Add(Groups.GetSubjectId(Groups.GetGroupIdByName(o)), GradeUtils.Grades[(string)mtgComboBox.SelectedItem]);
+                if (mtgComboBox.SelectedIndex != -1)
+                {
+                    try
+                    {
+                        EditStudentForm.minimumTargetGrades.Add(Groups.GetSubjectId(Groups.GetGroupIdByName(o)), (string)mtgComboBox.SelectedItem);
+                    }
+                    catch (Exception)
+                    {
+                        // They are in two duplicate groups. This doesn't really matter as it's not fatal,
+                        // but check the user to see.
+                        MessageBox.Show("Warning: There already exists a minimum target grade for this student in this subject. Have you added them to two groups of the same subject?", "Warning", MessageBoxButtons.OK);
+                    }
+                }
             }
             Close();
         }

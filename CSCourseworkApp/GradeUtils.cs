@@ -145,7 +145,7 @@ namespace CSCourseworkApp
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    hwAverage += (double)dt.Rows[i]["FinalGrade"];
+                    hwAverage += Grades[(string)dt.Rows[i]["FinalGrade"]];
                 }
                 hwAverage /= dt.Rows.Count;
                 // Use LINQ to find the closest value to the divided average.
@@ -160,7 +160,7 @@ namespace CSCourseworkApp
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    testAverage += (double)dt.Rows[i]["FinalGrade"];
+                    testAverage += Grades[(string)dt.Rows[i]["FinalGrade"]];
                 }
                 testAverage /= dt.Rows.Count;
                 testAverage = GradeVals.Aggregate((x, y) => Math.Abs(x - testAverage) < Math.Abs(y - testAverage) ? x : y);
@@ -173,7 +173,7 @@ namespace CSCourseworkApp
             dt = SqlTools.GetTable(comm);
             if (dt.Rows.Count != 0)
             {
-                mtg = (double)dt.Rows[0]["Grade"];
+                mtg = Grades[(string)dt.Rows[0]["Grade"]];
             }
             // Work out their predicted grade based from this average data.
             double[] MLR = Subjects.GetSubjectMLR(subjectId);

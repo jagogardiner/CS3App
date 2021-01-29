@@ -86,6 +86,7 @@ namespace CSCourseworkApp
             this.addToGroupsButton.TabIndex = 9;
             this.addToGroupsButton.Text = "Add to student groups";
             this.addToGroupsButton.UseVisualStyleBackColor = true;
+            this.addToGroupsButton.Click += new System.EventHandler(this.addToGroupsButton_Click);
             // 
             // label2
             // 

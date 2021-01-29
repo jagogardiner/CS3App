@@ -218,6 +218,7 @@ namespace CSCourseworkApp
             this.exitButton.TabIndex = 8;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // TeacherMainForm
             // 
@@ -235,7 +236,7 @@ namespace CSCourseworkApp
             this.Controls.Add(this.teacherOverviewLabel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TeacherMainForm";
-            this.Text = "TeacherMainForm";
+            this.Text = "Teacher Form";
             this.Load += new System.EventHandler(this.TeacherMainForm_Load);
             this.subjectPanel.ResumeLayout(false);
             this.subjectPanel.PerformLayout();
@@ -262,6 +263,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label mtgLabel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label predictedGradeLabel;
-        private System.Windows.Forms.Button exitButton;
+        public System.Windows.Forms.Button exitButton;
     }
 }

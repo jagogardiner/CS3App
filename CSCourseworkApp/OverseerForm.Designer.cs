@@ -1,7 +1,7 @@
 ﻿
 namespace CSCourseworkApp
 {
-    partial class Panel
+    partial class OverseerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,8 +31,8 @@ namespace CSCourseworkApp
         {
             this.label1 = new System.Windows.Forms.Label();
             this.teachingFunctionsButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.adminButton = new System.Windows.Forms.Button();
+            this.tutorButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -54,24 +54,26 @@ namespace CSCourseworkApp
             this.teachingFunctionsButton.TabIndex = 1;
             this.teachingFunctionsButton.Text = "Go to teacher overview";
             this.teachingFunctionsButton.UseVisualStyleBackColor = true;
+            this.teachingFunctionsButton.Click += new System.EventHandler(this.teachingFunctionsButton_Click);
             // 
-            // button1
+            // adminButton
             // 
-            this.button1.Location = new System.Drawing.Point(16, 82);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 39);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Go to admin overview";
-            this.button1.UseVisualStyleBackColor = true;
+            this.adminButton.Location = new System.Drawing.Point(16, 82);
+            this.adminButton.Name = "adminButton";
+            this.adminButton.Size = new System.Drawing.Size(138, 39);
+            this.adminButton.TabIndex = 2;
+            this.adminButton.Text = "Go to admin overview";
+            this.adminButton.UseVisualStyleBackColor = true;
+            this.adminButton.Click += new System.EventHandler(this.adminButton_Click);
             // 
-            // button2
+            // tutorButton
             // 
-            this.button2.Location = new System.Drawing.Point(16, 127);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(138, 39);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Go to tutor overview";
-            this.button2.UseVisualStyleBackColor = true;
+            this.tutorButton.Location = new System.Drawing.Point(16, 127);
+            this.tutorButton.Name = "tutorButton";
+            this.tutorButton.Size = new System.Drawing.Size(138, 39);
+            this.tutorButton.TabIndex = 3;
+            this.tutorButton.Text = "Go to tutor overview";
+            this.tutorButton.UseVisualStyleBackColor = true;
             // 
             // exitButton
             // 
@@ -81,19 +83,21 @@ namespace CSCourseworkApp
             this.exitButton.TabIndex = 4;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // Panel
+            // OverseerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(166, 224);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tutorButton);
+            this.Controls.Add(this.adminButton);
             this.Controls.Add(this.teachingFunctionsButton);
             this.Controls.Add(this.label1);
-            this.Name = "Panel";
+            this.Name = "OverseerForm";
             this.Text = "OverseerForm";
+            this.Load += new System.EventHandler(this.OverseerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,8 +107,8 @@ namespace CSCourseworkApp
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button teachingFunctionsButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button adminButton;
+        private System.Windows.Forms.Button tutorButton;
         private System.Windows.Forms.Button exitButton;
     }
 }

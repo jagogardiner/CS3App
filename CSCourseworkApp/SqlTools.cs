@@ -102,6 +102,26 @@ namespace CSCourseworkApp
             ExecuteNonQuery(comm);
         }
 
+        public static void UpdateDatabaseFromTable(SqlCommand command, DataTable dt)
+        {
+            // Generates an update command based off the previous data in the database
+            // provided in the command, and the new data in the datatable, dt.
+            using (SqlTools t = new SqlTools())
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    command.Connection = connection;
+                    SqlDataAdapter sqlDa = new SqlDataAdapter();
+                    sqlDa.SelectCommand = command;
+                    SqlCommandBuilder cb = new SqlCommandBuilder(sqlDa);
+                    sqlDa.Fill(dt);
+                    sqlDa.UpdateCommand = cb.GetUpdateCommand();
+                    sqlDa.Update(dt);
+                }
+            }
+        }
+
         public void Dispose()
         {
             /*

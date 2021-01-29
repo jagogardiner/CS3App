@@ -8,7 +8,7 @@ namespace CSCourseworkApp
     public partial class EditStudentForm : Form
     {
         public static BindingList<string> GroupList = new BindingList<string>();
-        public static Dictionary<int, double> minimumTargetGrades = new Dictionary<int, double>();
+        public static Dictionary<int, string> minimumTargetGrades = new Dictionary<int, string>();
 
         int studentId;
         bool newStudent = false;
@@ -64,6 +64,7 @@ namespace CSCourseworkApp
             }
             // Finally, update the student's minimum target grades.
             Students.UpdateMTGs(studentId, minimumTargetGrades);
+            Close();
         }
     }
 }

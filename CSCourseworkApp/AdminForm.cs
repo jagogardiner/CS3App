@@ -19,13 +19,12 @@ namespace CSCourseworkApp
             staffListBox.DataSource = Staff.StaffList;
             subjectsListBox.DataSource = Subjects.SubjectList;
             studentsListBox.DataSource = Students.StudentList;
-            exitButton.Hide();
         }
 
         private void HidePanels(System.Windows.Forms.Panel panelToShow)
         {
             // Hide all panels except admin selection panel and desired form passed as an arugment
-            foreach (System.Windows.Forms.Panel panel in Controls.OfType<System.Windows.Forms.Panel>().Where(p => p != panelToShow && p != adminPanel))
+            foreach (Panel panel in Controls.OfType<Panel>().Where(p => p != panelToShow && p != adminPanel))
             {
                 panel.Hide();
             }
@@ -240,7 +239,21 @@ namespace CSCourseworkApp
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            Close();
+            Dispose();
+        }
 
+        private void editPrevResultsButton_Click(object sender, EventArgs e)
+        {
+            if (subjectsListBox.SelectedIndex != -1)
+            {
+                AddPreviousResultsForm aprf = new AddPreviousResultsForm
+                {
+                    subjectId = subjectsListBox.SelectedIndex + 1
+                };
+                aprf.ShowDialog();
+                aprf.Dispose();
+            }
         }
     }
 }

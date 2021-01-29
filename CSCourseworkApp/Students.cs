@@ -146,7 +146,7 @@ namespace CSCourseworkApp
             return (int)SqlTools.GetTable(comm).Rows[0]["StudentId"];
         }
 
-        public static void UpdateMTGs(int studentId, Dictionary<int, double> grades)
+        public static void UpdateMTGs(int studentId, Dictionary<int, string> grades)
         {
             /*
              * Update a students minimum target grades.
@@ -154,6 +154,7 @@ namespace CSCourseworkApp
             // Delete all the mtg's. This is easier than finding what changed and updating them.
             SqlCommand comm = new SqlCommand("DELETE FROM MinimumTargetGrades WHERE StudentId=@StudentId");
             comm.Parameters.AddWithValue("@StudentId", studentId);
+            SqlTools.ExecuteNonQuery(comm);
             comm.CommandText = "INSERT INTO MinimumTargetGrades VALUES (@StudentId, @SubjectId, @Grade)";
             SqlParameter subjectParameter = new SqlParameter("@SubjectId", 0);
             SqlParameter gradeParameter = new SqlParameter("@Grade", 0);

@@ -57,9 +57,9 @@ namespace CSCourseworkApp
 
         private void teacherClassListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GroupId = Groups.GetGroupIdByName(teacherClassListBox.SelectedItem.ToString());
             if (teacherClassListBox.SelectedIndex != -1)
             {
+                GroupId = Groups.GetGroupIdByName(teacherClassListBox.SelectedItem.ToString());
                 PopulateStudentsList(GroupId);
             }
         }
@@ -95,11 +95,20 @@ namespace CSCourseworkApp
         private void StudentsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Load average and predicted for the selected student.
-            GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex + 1, GroupId);
-            homeworkAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.HwAverage).Key;
-            testsAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.TestAverage).Key;
-            mtgLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.MTG).Key;
-            predictedGradeLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.Predicted).Key;
+            if (StudentsListBox.Items.Count != 0)
+            {
+                GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex + 1, GroupId);
+                homeworkAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.HwAverage).Key;
+                testsAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.TestAverage).Key;
+                mtgLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.MTG).Key;
+                predictedGradeLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.Predicted).Key;
+            }
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            Close();
+            Dispose();
         }
     }
 }

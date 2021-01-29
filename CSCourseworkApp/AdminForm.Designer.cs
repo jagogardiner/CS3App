@@ -69,6 +69,7 @@ namespace CSCourseworkApp
             this.deleteSubjectButton = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.subjectsListBox = new System.Windows.Forms.ListBox();
+            this.editPrevResultsButton = new System.Windows.Forms.Button();
             this.adminPanel.SuspendLayout();
             this.manageGroupsPanel.SuspendLayout();
             this.manageStudentsPanel.SuspendLayout();
@@ -92,9 +93,9 @@ namespace CSCourseworkApp
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(7, 222);
+            this.exitButton.Location = new System.Drawing.Point(7, 240);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(121, 50);
+            this.exitButton.Size = new System.Drawing.Size(121, 32);
             this.exitButton.TabIndex = 7;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -456,6 +457,7 @@ namespace CSCourseworkApp
             // 
             // manageSubjectsPanel
             // 
+            this.manageSubjectsPanel.Controls.Add(this.editPrevResultsButton);
             this.manageSubjectsPanel.Controls.Add(this.label3);
             this.manageSubjectsPanel.Controls.Add(this.subjectNewNameBox);
             this.manageSubjectsPanel.Controls.Add(this.addNewSubjectButton);
@@ -530,14 +532,24 @@ namespace CSCourseworkApp
             this.subjectsListBox.Size = new System.Drawing.Size(195, 251);
             this.subjectsListBox.TabIndex = 0;
             // 
+            // editPrevResultsButton
+            // 
+            this.editPrevResultsButton.Location = new System.Drawing.Point(209, 164);
+            this.editPrevResultsButton.Name = "editPrevResultsButton";
+            this.editPrevResultsButton.Size = new System.Drawing.Size(121, 37);
+            this.editPrevResultsButton.TabIndex = 9;
+            this.editPrevResultsButton.Text = "Edit Previous Results";
+            this.editPrevResultsButton.UseVisualStyleBackColor = true;
+            this.editPrevResultsButton.Click += new System.EventHandler(this.editPrevResultsButton_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 292);
+            this.Controls.Add(this.manageSubjectsPanel);
             this.Controls.Add(this.manageStudentsPanel);
             this.Controls.Add(this.manageGroupsPanel);
-            this.Controls.Add(this.manageSubjectsPanel);
             this.Controls.Add(this.manageStaffPanel);
             this.Controls.Add(this.adminPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -599,5 +611,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.TextBox subjectNewNameBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button editPrevResultsButton;
     }
 }

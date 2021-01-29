@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using static CSCourseworkApp.GradeUtils;
 
 namespace CSCourseworkApp
 {
@@ -102,10 +104,20 @@ namespace CSCourseworkApp
             SqlCommand command = new SqlCommand("SELECT SubjectWeightConstant, SubjectHomeworkWeight, SubjectTestWeight, SubjectMTGWeight FROM Subjects WHERE SubjectId = @SubjectId");
             command.Parameters.AddWithValue("@SubjectId", subjectId);
             DataTable dt = SqlTools.GetTable(command);
-            return new double[] { (double)dt.Rows[0]["SubjectWeightConstant"],
+            try
+            {
+                // Try to return values. They might not exist for the subject yet so it could throw an error.
+                return new double[] { (double)dt.Rows[0]["SubjectWeightConstant"],
                 (double)dt.Rows[0]["SubjectHomeworkWeight"],
                 (double)dt.Rows[0]["SubjectTestWeight"],
                 (double)dt.Rows[0]["SubjectMTGWeight"] };
+            }
+            catch (Exception)
+            {
+                // If it doesn't exist, don't worry, just return nothing.
+                return new double[] { 0, 0, 0, 0 };
+            }
+
         }
 
         public static void UpdateSubjectMLR(int subjectId)
@@ -122,31 +134,32 @@ namespace CSCourseworkApp
             List<double> minimumTargetGrades = new List<double>();
             List<double> finalResults = new List<double>();
 
-            /* Populate all the lists. */
+            /* Populate all the lists.
+             * Remember to convert grades to their double eqv. using the dictonary. */
             SqlCommand command = new SqlCommand("SELECT HomeworkResult FROM PreviousResults WHERE SubjectId = @SubjectId");
             command.Parameters.AddWithValue("@SubjectId", subjectId);
             DataTable dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                homeworkResults.Add((double)dt.Rows[i]["HomeworkResult"]);
+                homeworkResults.Add(Grades[dt.Rows[i]["HomeworkResult"].ToString().Trim()]);
             }
             command.CommandText = "SELECT TestResult FROM PreviousResults WHERE SubjectId = @SubjectId";
             dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                testResults.Add((double)dt.Rows[i]["TestResult"]);
+                testResults.Add(Grades[(string)dt.Rows[i]["TestResult"].ToString().Trim()]);
             }
             command.CommandText = "SELECT MTGResult FROM PreviousResults WHERE SubjectId = @SubjectId";
             dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                minimumTargetGrades.Add((double)dt.Rows[i]["MTGResult"]);
+                minimumTargetGrades.Add(Grades[(string)dt.Rows[i]["MTGResult"].ToString().Trim()]);
             }
             command.CommandText = "SELECT FinalResult FROM PreviousResults WHERE SubjectId = @SubjectId";
             dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                finalResults.Add((double)dt.Rows[i]["FinalResult"]);
+                finalResults.Add(Grades[(string)dt.Rows[i]["FinalResult"].ToString().Trim()]);
             }
 
             /*

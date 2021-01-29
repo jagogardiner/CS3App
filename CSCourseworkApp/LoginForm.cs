@@ -65,7 +65,7 @@ namespace CSCourseworkApp
             string username = usernameBox.Text;
             Debug.WriteLine(username);
             // Run plain-text password through algorithm
-            //string password = HashingAlgorithm(passwordBox.Text);
+            string password = HashingAlgorithm(passwordBox.Text);
             try
             {
                 SqlCommand comm = new SqlCommand("SELECT StaffPassword FROM Staff WHERE StaffUsername = @StaffUsername");
@@ -80,48 +80,51 @@ namespace CSCourseworkApp
                 }
                 else
                 {
-                    if (true/*(string)dt.Rows[0]["StaffPassword"] == password*/)
+                    if ((string)dt.Rows[0]["StaffPassword"] == password)
                     {
                         switch (Staff.GetPermissionLevel(username))
                         {
                             case PermissionLevel.TutorOverseer:
-                                // TODO: Make all options available (prototype)
-                                //int staffId = Staff.GetStaffIdByUsername(username);
-                                //TeacherMainForm tf = new TeacherMainForm
-                                //{
-                                //    StaffId = staffId,
-                                //    StaffName = Staff.GetStaffNameById(staffId),
-                                //};
-                                //Hide();
-                                //tf.FormClosed += (s, args) => Close();
-                                //tf.Show();
-
-                                AdminForm af = new AdminForm();
+                                int staffId = Staff.GetStaffIdByUsername(username);
+                                OverseerForm otf = new OverseerForm
+                                {
+                                    StaffId = staffId,
+                                    isTutor = true
+                                };
                                 Hide();
-                                af.FormClosed += (s, args) => Close();
-                                af.Show();
-
+                                otf.FormClosed += (s, args) => Close();
+                                otf.Show();
                                 break;
-                            case PermissionLevel.Overseer:
-                                break;
-                            case PermissionLevel.Admin:
-                                /*
-                                AdminForm af = new AdminForm();
-                                Hide();
-                                af.FormClosed += (s, args) => Close();
-                                af.Show();
-                                */
-                                break;
-                            case PermissionLevel.Tutor:
-                                break;
-                            case PermissionLevel.Teacher:
-                                /*
-                                TeacherMainForm tf = new TeacherMainForm();
-                                Hide();
-                                tf.FormClosed += (s, args) => Close();
-                                tf.Show();
-                                */
-                                break;
+                            //case PermissionLevel.Overseer:
+                            //    staffId = Staff.GetStaffIdByUsername(username);
+                            //    OverseerForm of = new OverseerForm
+                            //    {
+                            //        StaffId = staffId,
+                            //        isTutor = false
+                            //    };
+                            //    Hide();
+                            //    of.FormClosed += (s, args) => Close();
+                            //    of.Show();
+                            //    break;
+                            //case PermissionLevel.Admin:
+                            //    AdminForm af = new AdminForm();
+                            //    Hide();
+                            //    af.FormClosed += (s, args) => Close();
+                            //    af.Show();
+                            //    break;
+                            //case PermissionLevel.Tutor:
+                            //    break;
+                            //case PermissionLevel.Teacher:
+                            //    staffId = Staff.GetStaffIdByUsername(username);
+                            //    TeacherMainForm tf = new TeacherMainForm
+                            //    {
+                            //        StaffId = staffId,
+                            //        StaffName = Staff.GetStaffNameById(staffId),
+                            //    };
+                            //    Hide();
+                            //    tf.FormClosed += (s, args) => Close();
+                            //    tf.Show();
+                            //    break;
                             default:
                                 MessageBox.Show("Future system will have lower permission levels");
                                 break;
