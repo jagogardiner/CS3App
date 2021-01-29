@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -82,7 +81,7 @@ namespace CSCourseworkApp
             {
                 subjectsComboBox.Items.Add(dt.Rows[i]["SubjectName"].ToString());
             }
-            if(!newGroup)
+            if (!newGroup)
             {
                 subjectsComboBox.SelectedIndex = subjectsComboBox.FindStringExact(Subject);
             }
@@ -97,7 +96,7 @@ namespace CSCourseworkApp
             AddStaffByIDForm addStaff = new AddStaffByIDForm();
             addStaff.ShowDialog();
             addStaff.Dispose();
-            if(staffName != null)
+            if (staffName != null)
             {
                 staffList.Add(staffName);
                 staffName = null;
@@ -125,7 +124,7 @@ namespace CSCourseworkApp
                 foreach (string o in staffList)
                 {
                     // Loop over each Staff ID in the list.
-                    staffId.Value =  Staff.GetStaffIdByName(o);
+                    staffId.Value = Staff.GetStaffIdByName(o);
                     SqlTools.ExecuteNonQuery(comm);
                 }
                 // Update with the new subject if changed
@@ -143,7 +142,7 @@ namespace CSCourseworkApp
             else
             {
                 // New group
-                if(groupNameTextBox.Text != "" && academicYearComboBox.SelectedIndex != -1 && subjectsComboBox.SelectedIndex != -1 && lecturerBox.Items.Count != 0)
+                if (groupNameTextBox.Text != "" && academicYearComboBox.SelectedIndex != -1 && subjectsComboBox.SelectedIndex != -1 && lecturerBox.Items.Count != 0)
                 {
                     // Insert the parameters into the query.
                     SqlCommand comm = new SqlCommand("INSERT INTO Groups (GroupName, SubjectId, AcademicYearId) VALUES (@GroupName, @SubjectId, @AcademicYearId)");
@@ -170,7 +169,7 @@ namespace CSCourseworkApp
 
         private void RemoveStaffButton_Click(object sender, EventArgs e)
         {
-            if(lecturerBox.SelectedIndex != -1)
+            if (lecturerBox.SelectedIndex != -1)
             {
                 staffList.RemoveAt(lecturerBox.SelectedIndex);
             }

@@ -17,7 +17,7 @@ namespace CSCourseworkApp
              */
             SubjectList.Clear();
             DataTable dt = SqlTools.GetTable("SELECT SubjectName FROM Subjects");
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 SubjectList.Add((string)dt.Rows[i]["SubjectName"]);
             }
@@ -126,7 +126,7 @@ namespace CSCourseworkApp
             SqlCommand command = new SqlCommand("SELECT HomeworkResult FROM PreviousResults WHERE SubjectId = @SubjectId");
             command.Parameters.AddWithValue("@SubjectId", subjectId);
             DataTable dt = SqlTools.GetTable(command);
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 homeworkResults.Add((double)dt.Rows[i]["HomeworkResult"]);
             }

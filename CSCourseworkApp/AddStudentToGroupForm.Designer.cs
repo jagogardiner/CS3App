@@ -36,7 +36,7 @@ namespace CSCourseworkApp
             this.addToGroupsButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.availableGroupsListBox = new System.Windows.Forms.ListBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.mtgComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -70,7 +70,7 @@ namespace CSCourseworkApp
             // saveButton
             // 
             this.saveButton.Location = new System.Drawing.Point(13, 412);
-            this.saveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(2);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(235, 23);
             this.saveButton.TabIndex = 6;
@@ -104,13 +104,13 @@ namespace CSCourseworkApp
             this.availableGroupsListBox.Size = new System.Drawing.Size(235, 134);
             this.availableGroupsListBox.TabIndex = 7;
             // 
-            // comboBox1
+            // mtgComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(187, 170);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(63, 21);
-            this.comboBox1.TabIndex = 10;
+            this.mtgComboBox.FormattingEnabled = true;
+            this.mtgComboBox.Location = new System.Drawing.Point(187, 170);
+            this.mtgComboBox.Name = "mtgComboBox";
+            this.mtgComboBox.Size = new System.Drawing.Size(63, 21);
+            this.mtgComboBox.TabIndex = 10;
             // 
             // label3
             // 
@@ -128,7 +128,7 @@ namespace CSCourseworkApp
             this.ClientSize = new System.Drawing.Size(262, 450);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.mtgComboBox);
             this.Controls.Add(this.addToGroupsButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.availableGroupsListBox);
@@ -153,7 +153,7 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Button addToGroupsButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox availableGroupsListBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox mtgComboBox;
         private System.Windows.Forms.Label label3;
     }
 }

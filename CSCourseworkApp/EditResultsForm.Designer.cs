@@ -32,7 +32,7 @@ namespace CSCourseworkApp
             this.assignmentLabel = new System.Windows.Forms.Label();
             this.studentsListBox = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.resultComboBox = new System.Windows.Forms.ComboBox();
+            this.resultsComboBox = new System.Windows.Forms.ComboBox();
             this.saveResultButton = new System.Windows.Forms.Button();
             this.assignmentsBox = new System.Windows.Forms.ComboBox();
             this.Result = new System.Windows.Forms.Label();
@@ -66,13 +66,13 @@ namespace CSCourseworkApp
             this.label2.TabIndex = 3;
             this.label2.Text = "Students:";
             // 
-            // resultComboBox
+            // resultsComboBox
             // 
-            this.resultComboBox.FormattingEnabled = true;
-            this.resultComboBox.Location = new System.Drawing.Point(159, 175);
-            this.resultComboBox.Name = "resultComboBox";
-            this.resultComboBox.Size = new System.Drawing.Size(108, 21);
-            this.resultComboBox.TabIndex = 4;
+            this.resultsComboBox.FormattingEnabled = true;
+            this.resultsComboBox.Location = new System.Drawing.Point(159, 175);
+            this.resultsComboBox.Name = "resultsComboBox";
+            this.resultsComboBox.Size = new System.Drawing.Size(108, 21);
+            this.resultsComboBox.TabIndex = 4;
             // 
             // saveResultButton
             // 
@@ -121,7 +121,7 @@ namespace CSCourseworkApp
             this.Controls.Add(this.Result);
             this.Controls.Add(this.assignmentsBox);
             this.Controls.Add(this.saveResultButton);
-            this.Controls.Add(this.resultComboBox);
+            this.Controls.Add(this.resultsComboBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.studentsListBox);
             this.Controls.Add(this.assignmentLabel);
@@ -138,7 +138,7 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label assignmentLabel;
         private System.Windows.Forms.ListBox studentsListBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox resultComboBox;
+        private System.Windows.Forms.ComboBox resultsComboBox;
         private System.Windows.Forms.Button saveResultButton;
         private System.Windows.Forms.ComboBox assignmentsBox;
         private System.Windows.Forms.Label Result;

@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace CSCourseworkApp
 {
@@ -21,7 +18,7 @@ namespace CSCourseworkApp
             // Make sure list is clear of all entries.
             GroupList.Clear();
             DataTable dt = SqlTools.GetTable("SELECT GroupName FROM Groups");
-            for(int i = 1; i <= dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 GroupList.Add(dt.Rows[i]["GroupName"].ToString());
             }

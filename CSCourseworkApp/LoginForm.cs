@@ -37,7 +37,7 @@ namespace CSCourseworkApp
             double val = 1;
             // Convert plaintext password to a char array
             char[] plainarr = plain.ToCharArray();
-            foreach(char ch in plainarr)
+            foreach (char ch in plainarr)
             {
                 // Add each ASCII character value of each character to a total.
                 val += ch;
@@ -50,7 +50,7 @@ namespace CSCourseworkApp
             */
             val += plainarr[0] + plainarr[plainarr.Length - 1];
             // Multiply the Sin of the value of by the Tan of the value.
-            val = Math.Sin(val)*Math.Tan(val);
+            val = Math.Sin(val) * Math.Tan(val);
             // Store the double value into a string.
             string hash = val.ToString();
             // Remove the first three characters to make this less reversible.
@@ -72,12 +72,13 @@ namespace CSCourseworkApp
                 comm.Parameters.AddWithValue("@StaffUsername", username);
                 DataTable dt = SqlTools.GetTable(comm);
                 // If password needs to be reset, don't continue
-                if((string)dt.Rows[0]["StaffPassword"] == "")
+                if ((string)dt.Rows[0]["StaffPassword"] == "")
                 {
                     ResetPasswordForm pwForm = new ResetPasswordForm(username);
                     pwForm.ShowDialog();
                     pwForm.Dispose();
-                } else
+                }
+                else
                 {
                     if (true/*(string)dt.Rows[0]["StaffPassword"] == password*/)
                     {
@@ -85,15 +86,21 @@ namespace CSCourseworkApp
                         {
                             case PermissionLevel.TutorOverseer:
                                 // TODO: Make all options available (prototype)
-                                int staffId = Staff.GetStaffIdByUsername(username);
-                                TeacherMainForm tf = new TeacherMainForm
-                                {
-                                    StaffId = staffId,
-                                    StaffName = Staff.GetStaffNameById(staffId),
-                                };
+                                //int staffId = Staff.GetStaffIdByUsername(username);
+                                //TeacherMainForm tf = new TeacherMainForm
+                                //{
+                                //    StaffId = staffId,
+                                //    StaffName = Staff.GetStaffNameById(staffId),
+                                //};
+                                //Hide();
+                                //tf.FormClosed += (s, args) => Close();
+                                //tf.Show();
+
+                                AdminForm af = new AdminForm();
                                 Hide();
-                                tf.FormClosed += (s, args) => Close();
-                                tf.Show();
+                                af.FormClosed += (s, args) => Close();
+                                af.Show();
+
                                 break;
                             case PermissionLevel.Overseer:
                                 break;
@@ -127,13 +134,14 @@ namespace CSCourseworkApp
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
                 // Unfortunately, we have to assume the username is wrong.
                 // The end-user can't have done much else wrong - except a bad
                 // username.
                 invalidUsernameLabel.Show();
+                throw ex;
             }
 
         }

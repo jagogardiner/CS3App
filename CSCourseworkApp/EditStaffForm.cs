@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -70,14 +68,16 @@ namespace CSCourseworkApp
             if (tutorCheckBox.Checked && overseerCheckBox.Checked)
             {
                 permissionLevel = PermissionLevel.TutorOverseer;
-            } else if (tutorCheckBox.Checked)
+            }
+            else if (tutorCheckBox.Checked)
             {
                 permissionLevel = PermissionLevel.Tutor;
             }
-            else if (overseerCheckBox.Checked) {
+            else if (overseerCheckBox.Checked)
+            {
                 permissionLevel = PermissionLevel.Overseer;
             }
-            if(!newMember)
+            if (!newMember)
             {
                 SqlCommand comm = new SqlCommand("UPDATE Staff SET StaffName = @StaffName, PermissionLevel = @PermissionLevel, StaffUsername = @StaffUsername WHERE StaffId = @StaffId");
                 comm.Parameters.AddWithValue("@StaffName", staffNameBox.Text);
@@ -85,7 +85,7 @@ namespace CSCourseworkApp
                 comm.Parameters.AddWithValue("@StaffUsername", staffUsernameBox.Text);
                 comm.Parameters.AddWithValue("@StaffId", Staff.GetStaffIdByName(staffName));
                 SqlTools.ExecuteNonQuery(comm);
-                if(resetPasswordTickBox.Checked)
+                if (resetPasswordTickBox.Checked)
                 {
                     comm.CommandText = "UPDATE Staff SET StaffPassword = '' WHERE StaffId = @StaffId";
                     SqlTools.ExecuteNonQuery(comm);
@@ -95,7 +95,7 @@ namespace CSCourseworkApp
                 SqlParameter p = new SqlParameter("@GroupId", "");
                 comm.Parameters.Add(p);
                 comm.CommandText = "INSERT INTO StaffGroupsLink (GroupId, StaffId) VALUES (@GroupId, @StaffId)";
-                foreach(string o in GroupList)
+                foreach (string o in GroupList)
                 {
                     p.Value = Groups.GetGroupIdByName(o);
                     SqlTools.ExecuteNonQuery(comm);

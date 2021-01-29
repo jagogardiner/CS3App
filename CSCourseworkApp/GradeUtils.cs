@@ -1,11 +1,8 @@
-﻿using System;
+﻿using MathNet.Numerics;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Windows.Forms;
-using System.Threading.Tasks;
-using MathNet.Numerics;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace CSCourseworkApp
@@ -104,7 +101,7 @@ namespace CSCourseworkApp
          * We then multiply these weights against our results, add
          * them together, and we have a predicited final result.
          */
-        public static double calculateGrade(double HomeworkGrade, double TestGrade, double MTG, double[] subjectMLRLine) 
+        public static double calculateGrade(double HomeworkGrade, double TestGrade, double MTG, double[] subjectMLRLine)
             => subjectMLRLine[0] // Constant
                 + subjectMLRLine[1] * HomeworkGrade // Homework performance weight calculation
                 + subjectMLRLine[2] * TestGrade // Test grade performance weight calculation
@@ -117,13 +114,14 @@ namespace CSCourseworkApp
         public static int getAssignmentId(string assignmentName, bool isHomework)
         {
             SqlCommand comm = new SqlCommand();
-            if(isHomework)
+            if (isHomework)
             {
                 comm.CommandText = "SELECT HomeworkId FROM Homeworks WHERE HomeworkName=@HomeworkName";
                 comm.Parameters.AddWithValue("@HomeworkName", assignmentName);
                 DataTable dt = SqlTools.GetTable(comm);
                 return (int)dt.Rows[0]["HomeworkId"];
-            } else
+            }
+            else
             {
                 comm.CommandText = "SELECT TestId FROM Tests WHERE TestName=@TestName";
                 comm.Parameters.AddWithValue("@TestName", assignmentName);

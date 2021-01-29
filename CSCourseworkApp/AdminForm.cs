@@ -19,10 +19,10 @@ namespace CSCourseworkApp
             staffListBox.DataSource = Staff.StaffList;
             subjectsListBox.DataSource = Subjects.SubjectList;
             studentsListBox.DataSource = Students.StudentList;
-            backToOverseerButton.Hide();
+            exitButton.Hide();
         }
 
-        private void HidePanels(Panel panelToShow)
+        private void HidePanels(System.Windows.Forms.Panel panelToShow)
         {
             // Hide all panels except admin selection panel and desired form passed as an arugment
             foreach (Panel panel in Controls.OfType<Panel>().Where(p => p != panelToShow && p != adminPanel))
@@ -37,7 +37,7 @@ namespace CSCourseworkApp
             // Show Group panel
             HidePanels(manageGroupsPanel);
         }
-        
+
         private void AdminStaffButton_Click(object sender, EventArgs e)
         {
             // Show Staff panel
@@ -101,7 +101,8 @@ namespace CSCourseworkApp
                 "Delete group",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
-            switch(dialogResult) {
+            switch (dialogResult)
+            {
                 case DialogResult.Yes:
                     Groups.DeleteGroup(groupsListBox.SelectedItem.ToString());
                     break;
@@ -121,7 +122,7 @@ namespace CSCourseworkApp
 
         private void staffListBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if(staffListBox.SelectedIndex != -1)
+            if (staffListBox.SelectedIndex != -1)
             {
 
             }
@@ -137,7 +138,7 @@ namespace CSCourseworkApp
 
         private void staffListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(staffListBox.SelectedIndex != -1)
+            if (staffListBox.SelectedIndex != -1)
             {
                 staffNameLabel.Text = staffListBox.SelectedItem.ToString();
             }
@@ -163,7 +164,7 @@ namespace CSCourseworkApp
 
         private void addNewSubjectButton_Click(object sender, EventArgs e)
         {
-            if(subjectNewNameBox.Text.Length != 0)
+            if (subjectNewNameBox.Text.Length != 0)
             {
                 Subjects.AddNewSubject(subjectNewNameBox.Text);
             }
@@ -177,7 +178,7 @@ namespace CSCourseworkApp
             int groupsAffected = SqlTools.ExecuteScalar(comm);
             // Create a simple MessageBox for admin confirmation.
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected subject?\r\n" +
-                groupsAffected +" groups will be deleted!",
+                groupsAffected + " groups will be deleted!",
                 "Delete subject",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
@@ -220,7 +221,7 @@ namespace CSCourseworkApp
 
         private void editStudentButton_Click(object sender, EventArgs e)
         {
-            if(studentsListBox.SelectedIndex != -1)
+            if (studentsListBox.SelectedIndex != -1)
             {
                 EditStudentForm edf = new EditStudentForm(studentsListBox.SelectedItem.ToString());
                 edf.ShowDialog();
@@ -230,11 +231,16 @@ namespace CSCourseworkApp
 
         private void studentsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(studentsListBox.SelectedIndex != -1)
+            if (studentsListBox.SelectedIndex != -1)
             {
                 selectedStudentLabel.Text = $"{studentsListBox.SelectedItem}";
                 stuAcademicYearLabel.Text = $"Academic Year: {Students.GetAcademicYear(studentsListBox.SelectedItem.ToString())}";
             }
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

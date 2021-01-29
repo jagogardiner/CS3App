@@ -45,6 +45,7 @@ namespace CSCourseworkApp
             this.addTestResultButton = new System.Windows.Forms.Button();
             this.editAssignmentsButton = new System.Windows.Forms.Button();
             this.editTestResultsButton = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
             this.subjectPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -209,11 +210,21 @@ namespace CSCourseworkApp
             this.editTestResultsButton.UseVisualStyleBackColor = true;
             this.editTestResultsButton.Click += new System.EventHandler(this.editTestResultsButton_Click);
             // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(165, 309);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(93, 23);
+            this.exitButton.TabIndex = 8;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            // 
             // TeacherMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 341);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.editTestResultsButton);
             this.Controls.Add(this.editAssignmentsButton);
             this.Controls.Add(this.addTestResultButton);
@@ -251,5 +262,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label mtgLabel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label predictedGradeLabel;
+        private System.Windows.Forms.Button exitButton;
     }
 }

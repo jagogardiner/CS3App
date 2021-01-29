@@ -30,7 +30,7 @@ namespace CSCourseworkApp
         private void InitializeComponent()
         {
             this.adminPanel = new System.Windows.Forms.Panel();
-            this.backToOverseerButton = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
             this.manageSubjectsButton = new System.Windows.Forms.Button();
             this.adminStudentsButton = new System.Windows.Forms.Button();
             this.adminStaffButton = new System.Windows.Forms.Button();
@@ -78,7 +78,7 @@ namespace CSCourseworkApp
             // 
             // adminPanel
             // 
-            this.adminPanel.Controls.Add(this.backToOverseerButton);
+            this.adminPanel.Controls.Add(this.exitButton);
             this.adminPanel.Controls.Add(this.manageSubjectsButton);
             this.adminPanel.Controls.Add(this.adminStudentsButton);
             this.adminPanel.Controls.Add(this.adminStaffButton);
@@ -90,14 +90,15 @@ namespace CSCourseworkApp
             this.adminPanel.Size = new System.Drawing.Size(139, 277);
             this.adminPanel.TabIndex = 0;
             // 
-            // backToOverseerButton
+            // exitButton
             // 
-            this.backToOverseerButton.Location = new System.Drawing.Point(7, 222);
-            this.backToOverseerButton.Name = "backToOverseerButton";
-            this.backToOverseerButton.Size = new System.Drawing.Size(121, 50);
-            this.backToOverseerButton.TabIndex = 7;
-            this.backToOverseerButton.Text = "Back to Overseer functions";
-            this.backToOverseerButton.UseVisualStyleBackColor = true;
+            this.exitButton.Location = new System.Drawing.Point(7, 222);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(121, 50);
+            this.exitButton.TabIndex = 7;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // manageSubjectsButton
             // 
@@ -597,6 +598,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Button manageSubjectsButton;
         private System.Windows.Forms.TextBox subjectNewNameBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button backToOverseerButton;
+        private System.Windows.Forms.Button exitButton;
     }
 }

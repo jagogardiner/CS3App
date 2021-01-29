@@ -64,7 +64,7 @@ namespace CSCourseworkApp
         public static DataTable GetTable(SqlCommand command)
         {
             DataTable dt = new DataTable();
-            using(SqlTools t = new SqlTools())
+            using (SqlTools t = new SqlTools())
             {
                 t.reader = t.ExecuteReader(command);
                 dt.Load(t.reader);
@@ -85,9 +85,9 @@ namespace CSCourseworkApp
              * normal ExecuteNonQuery but using this method, we
              * don't need to worry about opening and closing connections.
              */
-            using(SqlTools t = new SqlTools())
+            using (SqlTools t = new SqlTools())
             {
-                using(connection = new SqlConnection(connectionString))
+                using (connection = new SqlConnection(connectionString))
                 {
                     comm.Connection = connection;
                     connection.Open();

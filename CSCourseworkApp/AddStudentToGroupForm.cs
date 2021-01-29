@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -36,6 +31,11 @@ namespace CSCourseworkApp
             }
             availableGroupsListBox.DataSource = availableGroups;
             currentGroupsListBox.DataSource = currentGroups;
+            // Add grades into the combobox
+            foreach (KeyValuePair<string, double> grade in GradeUtils.Grades)
+            {
+                mtgComboBox.Items.Add(grade.Key);
+            }
         }
 
         private void removeGroupButton_Click(object sender, EventArgs e)
@@ -62,6 +62,8 @@ namespace CSCourseworkApp
             foreach (string o in currentGroups)
             {
                 EditStudentForm.GroupList.Add(o);
+                // Lookup subject ID by group ID and the corresponding double to the grade.
+                EditStudentForm.minimumTargetGrades.Add(Groups.GetSubjectId(Groups.GetGroupIdByName(o)), GradeUtils.Grades[(string)mtgComboBox.SelectedItem]);
             }
             Close();
         }

@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -23,7 +16,7 @@ namespace CSCourseworkApp
         private void savePasswordButton_Click(object sender, EventArgs e)
         {
             string password = pwBox.Text;
-            if(password.Length > 0)
+            if (password.Length > 0)
             {
                 if (password == pwBoxConfirm.Text)
                 {
@@ -32,7 +25,8 @@ namespace CSCourseworkApp
                     comm.Parameters.AddWithValue("@StaffUsername", username);
                     SqlTools.ExecuteNonQuery(comm);
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Password cannot be empty!");
             }

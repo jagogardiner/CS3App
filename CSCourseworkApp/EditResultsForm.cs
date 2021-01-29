@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CSCourseworkApp
@@ -63,22 +59,24 @@ namespace CSCourseworkApp
             assignmentsBox.DataSource = AssignmentsList;
             studentsListBox.DataSource = StudentsList;
             // Add grades into the combobox
-            foreach(KeyValuePair<string, double> grade in GradeUtils.Grades)
+            foreach (KeyValuePair<string, double> grade in GradeUtils.Grades)
             {
-                resultComboBox.Items.Add(grade.Key);
+                resultsComboBox.Items.Add(grade.Key);
             }
             // If assignment is provided, select the assignment that was just created.
             if (assignmentName != null)
             {
                 assignmentId = GradeUtils.getAssignmentId(assignmentName, isHomework);
                 assignmentsBox.SelectedItem = assignmentName;
-            } else
+            }
+            else
             {
                 try
                 {
                     // Encase in try to stop errors if there are no assignments
                     assignmentId = GradeUtils.getAssignmentId((string)assignmentsBox.SelectedItem, isHomework);
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                     // No assignment exists.
                 }
@@ -96,7 +94,7 @@ namespace CSCourseworkApp
              */
             SqlCommand comm = new SqlCommand();
             comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
-            comm.Parameters.AddWithValue("@FinalGrade", GradeUtils.Grades[(string)resultComboBox.SelectedItem]);
+            comm.Parameters.AddWithValue("@FinalGrade", GradeUtils.Grades[(string)resultsComboBox.SelectedItem]);
             comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
             // Update the result, however if the affected rowcount is 0, insert a new result as there is nothing to update.
             if (isHomework)
@@ -104,7 +102,8 @@ namespace CSCourseworkApp
                 comm.CommandText = "UPDATE HomeworkResults SET FinalGrade=@FinalGrade WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId ";
                 comm.CommandText += "IF @@ROWCOUNT = 0 INSERT INTO HomeworkResults VALUES (@assignmentId, @StudentId, @FinalGrade)";
                 SqlTools.ExecuteNonQuery(comm);
-            } else
+            }
+            else
             {
                 comm.CommandText = "UPDATE TestResults SET FinalGrade=@FinalGrade WHERE StudentId=@StudentId AND TestId=@AssignmentId ";
                 comm.CommandText += "IF @@ROWCOUNT = 0 INSERT INTO TestResults VALUES (@assignmentId, @StudentId, @FinalGrade)";
@@ -123,10 +122,11 @@ namespace CSCourseworkApp
             SqlCommand comm = new SqlCommand();
             comm.Parameters.AddWithValue("@StudentId", Students.GetStudentIdByName(studentsListBox.SelectedItem.ToString()));
             comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
-            if(isHomework)
+            if (isHomework)
             {
                 comm.CommandText = "SELECT FinalGrade FROM HomeworkResults WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId";
-            } else
+            }
+            else
             {
                 comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE StudentId=@StudentId AND TestId=@AssignmentId";
             }
@@ -134,7 +134,7 @@ namespace CSCourseworkApp
             {
                 double grade = (double)SqlTools.GetTable(comm).Rows[0]["FinalGrade"];
                 string gradeKey = GradeUtils.Grades.FirstOrDefault(x => x.Value == grade).Key;
-                resultComboBox.SelectedItem = gradeKey;
+                resultsComboBox.SelectedItem = gradeKey;
             }
             catch (Exception)
             {

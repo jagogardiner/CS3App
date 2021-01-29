@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static CSCourseworkApp.GradeUtils;
 
@@ -31,7 +26,7 @@ namespace CSCourseworkApp
             SqlCommand command = new SqlCommand("SELECT Groups.GroupName FROM StaffGroupsLink INNER JOIN Staff ON StaffGroupsLink.StaffId=Staff.StaffId INNER JOIN Groups ON StaffGroupsLink.GroupId=Groups.GroupId WHERE StaffGroupsLink.StaffId = @StaffId");
             command.Parameters.AddWithValue("@StaffId", StaffId);
             DataTable dt = SqlTools.GetTable(command);
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 teacherGroups.Add((string)dt.Rows[i]["GroupName"]);
             }
@@ -43,7 +38,7 @@ namespace CSCourseworkApp
             SqlCommand command = new SqlCommand("SELECT StudentName FROM StudentGroupsLink INNER JOIN Students ON StudentGroupsLink.StudentId=Students.StudentId WHERE StudentGroupsLink.GroupId=@GroupId");
             command.Parameters.AddWithValue("@GroupId", GroupId);
             DataTable dt = SqlTools.GetTable(command);
-            for(int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
                 studentsList.Add((string)dt.Rows[i]["StudentName"]);
             }
@@ -100,7 +95,7 @@ namespace CSCourseworkApp
         private void StudentsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Load average and predicted for the selected student.
-            GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex+1, GroupId);
+            GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex + 1, GroupId);
             homeworkAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.HwAverage).Key;
             testsAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.TestAverage).Key;
             mtgLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.MTG).Key;
