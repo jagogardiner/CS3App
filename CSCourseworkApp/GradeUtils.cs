@@ -15,10 +15,10 @@ namespace CSCourseworkApp
 
         public struct GradeData
         {
-            public double[] hw;
-            public double[] tests;
-            public double mtg;
-            public double predicted;
+            public double HwAverage;
+            public double TestAverage;
+            public double MTG;
+            public double Predicted;
         }
 
         public static Dictionary<string, double> Grades = new Dictionary<string, double>()
@@ -40,6 +40,9 @@ namespace CSCourseworkApp
             ["E"] = 2.0,
             ["U"] = 0.5
         };
+
+        // List of sorted doubles for grades, not for lookup usage
+        public static List<double> GradeVals = Grades.Values.ToList();
 
         /*
          * calculateSubjectMLR returns a multiple linear
@@ -107,53 +110,6 @@ namespace CSCourseworkApp
                 + subjectMLRLine[2] * TestGrade // Test grade performance weight calculation
                 + subjectMLRLine[3] * MTG; // Minimum target grade weight calculation.
 
-        public static GradeData pullStudentGrades(int studentId, int groupId)
-        {
-            GradeData gd;
-            // grab homeworks
-            SqlCommand comm = new SqlCommand("SELECT HomeworkId FROM Homeworks WHERE GroupId=@GroupId");
-            comm.Parameters.AddWithValue("@GroupId", groupId);
-            DataTable homeworkIds = SqlTools.GetTable(comm);
-            // define parameter outside for loop.
-            SqlParameter hwId = new SqlParameter("@HomeworkId", null);
-            comm.Parameters.AddWithValue("@StudentId", studentId);
-            comm.Parameters.Add(hwId);
-            // define array of homework grades
-            double[] hwGrades = new double[homeworkIds.Rows.Count];
-            for (int i = 1; i <= homeworkIds.Rows.Count; i++)
-            {
-                comm.CommandText = "SELECT FinalGrade FROM HomeworkResultsLink WHERE HomeworkId=@HomeworkId AND StudentId=@StudentId";
-                hwId.Value = i;
-                DataTable num = SqlTools.GetTable(comm);
-                hwGrades[i - 1] = (double)num.Rows[0]["FinalGrade"];
-            }
-            // place new array in gradedata struct
-            gd.hw = hwGrades;
-
-            // grab tests
-            comm.CommandText = "SELECT TestId FROM Tests WHERE GroupId=@GroupId";
-            comm.Parameters.AddWithValue("@GroupId", groupId);
-            DataTable testIds = SqlTools.GetTable(comm);
-            // define parameter outside for loop.
-            SqlParameter testId = new SqlParameter("@HomeworkId", null);
-            comm.Parameters.AddWithValue("@StudentId", studentId);
-            comm.Parameters.Add(hwId);
-            // define array of homework grades
-            double[] testGrades = new double[testIds.Rows.Count];
-            for (int i = 1; i <= testIds.Rows.Count; i++)
-            {
-                comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE TestId=@TestId AND StudentId=@StudentId";
-                testId.Value = i;
-                DataTable num = SqlTools.GetTable(comm);
-                testGrades[i - 1] = (double)num.Rows[0]["FinalGrade"];
-            }
-            gd.tests = testGrades;
-
-            gd.mtg = 0;
-            gd.predicted = 0;
-            return gd;
-        }
-
         /*
          * Get the ID of any assignment - there are only two different types of assignment,
          * homeworks and tests, so just check if it's a homework or not 
@@ -174,6 +130,64 @@ namespace CSCourseworkApp
                 DataTable dt = SqlTools.GetTable(comm);
                 return (int)dt.Rows[0]["TestId"];
             }
+        }
+
+        public static GradeData calculateStudentGrades(int studentId, int groupId)
+        {
+            double hwAverage = 0, testAverage = 0, mtg = 0;
+            SqlCommand comm = new SqlCommand();
+            comm.CommandText = "SELECT FinalGrade FROM HomeworkResults ";
+            comm.CommandText += "INNER JOIN Homeworks ON HomeworkResults.HomeworkId=Homeworks.HomeworkId ";
+            comm.CommandText += "WHERE HomeworkResults.StudentId=@StudentId AND Homeworks.GroupId=@GroupId";
+            comm.Parameters.AddWithValue("@StudentId", studentId);
+            comm.Parameters.AddWithValue("@GroupId", groupId);
+            // Get a table of all homework results.
+            DataTable dt = SqlTools.GetTable(comm);
+            if (dt.Rows.Count != 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    hwAverage += (double)dt.Rows[i]["FinalGrade"];
+                }
+                hwAverage /= dt.Rows.Count;
+                // Use LINQ to find the closest value to the divided average.
+                hwAverage = GradeVals.Aggregate((x, y) => Math.Abs(x - hwAverage) < Math.Abs(y - hwAverage) ? x : y);
+            }
+            // Do the same with test results.
+            comm.CommandText = "SELECT FinalGrade FROM TestResults ";
+            comm.CommandText += "INNER JOIN Tests ON TestResults.TestId=Tests.TestId ";
+            comm.CommandText += "WHERE TestResults.StudentId=@StudentId AND Tests.GroupId=@GroupId";
+            dt = SqlTools.GetTable(comm);
+            if (dt.Rows.Count != 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    testAverage += (double)dt.Rows[i]["FinalGrade"];
+                }
+                testAverage /= dt.Rows.Count;
+                testAverage = GradeVals.Aggregate((x, y) => Math.Abs(x - testAverage) < Math.Abs(y - testAverage) ? x : y);
+            }
+            // Grab minimum target grade.
+            // Get subject ID
+            int subjectId = Groups.GetSubjectId(groupId);
+            comm.CommandText = "SELECT Grade FROM MinimumTargetGrades WHERE SubjectId=@SubjectId AND StudentId=@StudentId";
+            comm.Parameters.AddWithValue("@SubjectId", subjectId);
+            dt = SqlTools.GetTable(comm);
+            if (dt.Rows.Count != 0)
+            {
+                mtg = (double)dt.Rows[0]["Grade"];
+            }
+            // Work out their predicted grade based from this average data.
+            double[] MLR = Subjects.GetSubjectMLR(subjectId);
+            double predicted = calculateGrade(hwAverage, testAverage, mtg, MLR);
+            predicted = GradeVals.Aggregate((x, y) => Math.Abs(x - predicted) < Math.Abs(y - predicted) ? x : y);
+            return new GradeData
+            {
+                HwAverage = hwAverage,
+                TestAverage = testAverage,
+                MTG = mtg,
+                Predicted = predicted
+            };
         }
     }
 }

@@ -94,6 +94,24 @@ namespace CSCourseworkApp
             return (int)dt.Rows[0]["GroupId"];
         }
 
+        public static int GetSubjectId(int GroupId)
+        {
+            /*
+             * GetSubjectId gets the SubjectId assigned to a
+             * group.
+             * 
+             * Arguments:
+             * GetSubjectId (int): Id of the group.
+             */
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "SELECT Subjects.SubjectId FROM Subjects ";
+            command.CommandText += "INNER JOIN Groups ON Subjects.SubjectId=Groups.SubjectId ";
+            command.CommandText += "WHERE Groups.GroupId=@GroupId";
+            command.Parameters.AddWithValue("@GroupId", GroupId);
+            DataTable dt = SqlTools.GetTable(command);
+            return (int)dt.Rows[0]["SubjectId"];
+        }
+
         public static BindingList<string> GetStaff(string groupName)
         {
             /*

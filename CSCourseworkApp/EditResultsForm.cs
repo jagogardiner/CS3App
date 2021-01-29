@@ -57,13 +57,17 @@ namespace CSCourseworkApp
 
         private void EditResultsForm_Load(object sender, EventArgs e)
         {
+            // Populate list of assignments
+            PopulateList();
+            // Assign the boxes their datasources
             assignmentsBox.DataSource = AssignmentsList;
             studentsListBox.DataSource = StudentsList;
-            PopulateList();
+            // Add grades into the combobox
             foreach(KeyValuePair<string, double> grade in GradeUtils.Grades)
             {
                 resultComboBox.Items.Add(grade.Key);
             }
+            // If assignment is provided, select the assignment that was just created.
             if (assignmentName != null)
             {
                 assignmentId = GradeUtils.getAssignmentId(assignmentName, isHomework);
@@ -72,6 +76,7 @@ namespace CSCourseworkApp
             {
                 try
                 {
+                    // Encase in try to stop errors if there are no assignments
                     assignmentId = GradeUtils.getAssignmentId((string)assignmentsBox.SelectedItem, isHomework);
                 } catch (Exception)
                 {
@@ -96,8 +101,8 @@ namespace CSCourseworkApp
             // Update the result, however if the affected rowcount is 0, insert a new result as there is nothing to update.
             if (isHomework)
             {
-                comm.CommandText = "UPDATE HomeworkResultsLink SET FinalGrade=@FinalGrade WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId ";
-                comm.CommandText += "IF @@ROWCOUNT = 0 INSERT INTO HomeworkResultsLink VALUES (@assignmentId, @StudentId, @FinalGrade)";
+                comm.CommandText = "UPDATE HomeworkResults SET FinalGrade=@FinalGrade WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId ";
+                comm.CommandText += "IF @@ROWCOUNT = 0 INSERT INTO HomeworkResults VALUES (@assignmentId, @StudentId, @FinalGrade)";
                 SqlTools.ExecuteNonQuery(comm);
             } else
             {
@@ -120,7 +125,7 @@ namespace CSCourseworkApp
             comm.Parameters.AddWithValue("@AssignmentId", assignmentId);
             if(isHomework)
             {
-                comm.CommandText = "SELECT FinalGrade FROM HomeworkResultsLink WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId";
+                comm.CommandText = "SELECT FinalGrade FROM HomeworkResults WHERE StudentId=@StudentId AND HomeworkId=@AssignmentId";
             } else
             {
                 comm.CommandText = "SELECT FinalGrade FROM TestResults WHERE StudentId=@StudentId AND TestId=@AssignmentId";
@@ -140,7 +145,7 @@ namespace CSCourseworkApp
         private void exitButton_Click(object sender, EventArgs e)
         {
             Hide();
-            this.Dispose();
+            Close();
         }
     }
 }

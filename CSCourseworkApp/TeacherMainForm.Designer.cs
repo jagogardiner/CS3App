@@ -32,6 +32,13 @@ namespace CSCourseworkApp
             this.teacherOverviewLabel = new System.Windows.Forms.Label();
             this.teacherClassListBox = new System.Windows.Forms.ListBox();
             this.subjectPanel = new System.Windows.Forms.Panel();
+            this.predictedGradeLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.mtgLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.testsAverageLabel = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.homeworkAverageLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.StudentsListBox = new System.Windows.Forms.ListBox();
             this.addAssignmentButton = new System.Windows.Forms.Button();
@@ -63,20 +70,95 @@ namespace CSCourseworkApp
             // 
             // subjectPanel
             // 
+            this.subjectPanel.Controls.Add(this.predictedGradeLabel);
+            this.subjectPanel.Controls.Add(this.label7);
+            this.subjectPanel.Controls.Add(this.mtgLabel);
+            this.subjectPanel.Controls.Add(this.label5);
+            this.subjectPanel.Controls.Add(this.testsAverageLabel);
+            this.subjectPanel.Controls.Add(this.label3);
+            this.subjectPanel.Controls.Add(this.homeworkAverageLabel);
             this.subjectPanel.Controls.Add(this.label1);
             this.subjectPanel.Location = new System.Drawing.Point(394, 30);
             this.subjectPanel.Name = "subjectPanel";
-            this.subjectPanel.Size = new System.Drawing.Size(223, 303);
+            this.subjectPanel.Size = new System.Drawing.Size(135, 303);
             this.subjectPanel.TabIndex = 2;
+            // 
+            // predictedGradeLabel
+            // 
+            this.predictedGradeLabel.AutoSize = true;
+            this.predictedGradeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.predictedGradeLabel.Location = new System.Drawing.Point(54, 212);
+            this.predictedGradeLabel.Name = "predictedGradeLabel";
+            this.predictedGradeLabel.Size = new System.Drawing.Size(26, 25);
+            this.predictedGradeLabel.TabIndex = 7;
+            this.predictedGradeLabel.Text = "A";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 192);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 16);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Predicted Grade";
+            // 
+            // mtgLabel
+            // 
+            this.mtgLabel.AutoSize = true;
+            this.mtgLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mtgLabel.Location = new System.Drawing.Point(55, 141);
+            this.mtgLabel.Name = "mtgLabel";
+            this.mtgLabel.Size = new System.Drawing.Size(23, 24);
+            this.mtgLabel.TabIndex = 5;
+            this.mtgLabel.Text = "A";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(11, 116);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(114, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Minimum Target Grade";
+            // 
+            // testsAverageLabel
+            // 
+            this.testsAverageLabel.AutoSize = true;
+            this.testsAverageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.testsAverageLabel.Location = new System.Drawing.Point(55, 83);
+            this.testsAverageLabel.Name = "testsAverageLabel";
+            this.testsAverageLabel.Size = new System.Drawing.Size(23, 24);
+            this.testsAverageLabel.TabIndex = 3;
+            this.testsAverageLabel.Text = "A";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Tests Average";
+            // 
+            // homeworkAverageLabel
+            // 
+            this.homeworkAverageLabel.AutoSize = true;
+            this.homeworkAverageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.homeworkAverageLabel.Location = new System.Drawing.Point(55, 25);
+            this.homeworkAverageLabel.Name = "homeworkAverageLabel";
+            this.homeworkAverageLabel.Size = new System.Drawing.Size(23, 24);
+            this.homeworkAverageLabel.TabIndex = 1;
+            this.homeworkAverageLabel.Text = "A";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Location = new System.Drawing.Point(15, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(101, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.label1.Text = "Homework Average";
             // 
             // StudentsListBox
             // 
@@ -85,6 +167,7 @@ namespace CSCourseworkApp
             this.StudentsListBox.Name = "StudentsListBox";
             this.StudentsListBox.Size = new System.Drawing.Size(123, 303);
             this.StudentsListBox.TabIndex = 3;
+            this.StudentsListBox.SelectedIndexChanged += new System.EventHandler(this.StudentsListBox_SelectedIndexChanged);
             // 
             // addAssignmentButton
             // 
@@ -130,7 +213,7 @@ namespace CSCourseworkApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 341);
+            this.ClientSize = new System.Drawing.Size(535, 341);
             this.Controls.Add(this.editTestResultsButton);
             this.Controls.Add(this.editAssignmentsButton);
             this.Controls.Add(this.addTestResultButton);
@@ -156,10 +239,17 @@ namespace CSCourseworkApp
         private System.Windows.Forms.ListBox teacherClassListBox;
         private System.Windows.Forms.Panel subjectPanel;
         private System.Windows.Forms.ListBox StudentsListBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button addAssignmentButton;
         private System.Windows.Forms.Button addTestResultButton;
         private System.Windows.Forms.Button editAssignmentsButton;
         private System.Windows.Forms.Button editTestResultsButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label homeworkAverageLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label testsAverageLabel;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label mtgLabel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label predictedGradeLabel;
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CSCourseworkApp.GradeUtils;
 
 namespace CSCourseworkApp
 {
@@ -94,6 +95,16 @@ namespace CSCourseworkApp
             EditResultsForm erf = new EditResultsForm(studentsList, GroupId, false);
             erf.ShowDialog();
             erf.Dispose();
+        }
+
+        private void StudentsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Load average and predicted for the selected student.
+            GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex+1, GroupId);
+            homeworkAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.HwAverage).Key;
+            testsAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.TestAverage).Key;
+            mtgLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.MTG).Key;
+            predictedGradeLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.Predicted).Key;
         }
     }
 }

@@ -87,7 +87,7 @@ namespace CSCourseworkApp
             return (int)dt.Rows[0]["SubjectId"];
         }
 
-        public static double[] GetSubjectMLR(string subjectName)
+        public static double[] GetSubjectMLR(int subjectId)
         {
             /*
              * GetSubjectMLR gets the subject MLR line based from previous results of that subject.
@@ -97,21 +97,15 @@ namespace CSCourseworkApp
              * Read more at GradeUtils.calculateGrade().
              * 
              * Arguments:
-             * subjectName (string): Name of the subject to get the coeff of.
+             * SubjectId (int): Id of the subject to get the MLR of.
              */
-            SqlCommand command = new SqlCommand("SELECT SubjectWeightConstant, SubjectHomeworkWeight, SubjectTestWeight, SubjectMTGWeight FROM Subjects WHERE SubjectName = @SubjectName");
-            command.Parameters.AddWithValue("@SubjectName", subjectName);
+            SqlCommand command = new SqlCommand("SELECT SubjectWeightConstant, SubjectHomeworkWeight, SubjectTestWeight, SubjectMTGWeight FROM Subjects WHERE SubjectId = @SubjectId");
+            command.Parameters.AddWithValue("@SubjectId", subjectId);
             DataTable dt = SqlTools.GetTable(command);
             return new double[] { (double)dt.Rows[0]["SubjectWeightConstant"],
                 (double)dt.Rows[0]["SubjectHomeworkWeight"],
                 (double)dt.Rows[0]["SubjectTestWeight"],
                 (double)dt.Rows[0]["SubjectMTGWeight"] };
-        }
-
-        public static void UpdateSubjectMLR(string subjectName)
-        {
-            int subjectId = GetSubjectIdByName(subjectName);
-            UpdateSubjectMLR(subjectId);
         }
 
         public static void UpdateSubjectMLR(int subjectId)
@@ -180,6 +174,12 @@ namespace CSCourseworkApp
 
             // Finally, execute the update
             SqlTools.ExecuteNonQuery(command);
+        }
+
+        public static void UpdateSubjectMLR(string subjectName)
+        {
+            int subjectId = GetSubjectIdByName(subjectName);
+            UpdateSubjectMLR(subjectId);
         }
     }
 }
