@@ -12,10 +12,8 @@ namespace CSCourseworkApp
      */
     public enum PermissionLevel
     {
-        TutorOverseer = 5, // Overseer & Tutor function
-        Overseer = 4, // Teacher (assigned groups), Overseer (all data from all groups)
-        Admin = 3, // Account & data management only - no class data, for data protection
-        Tutor = 2, // Tutor can view data on all students within their tutor. Every Tutor is also a Teacher
+        Overseer = 3, // Teacher (assigned groups), Overseer (all data from all groups)
+        Admin = 2, // Account & data management only - no class data, for data protection
         Teacher = 1, // Base level, can see group data that they are assigned to
         None = 0 // No permission
     };
@@ -84,47 +82,34 @@ namespace CSCourseworkApp
                     {
                         switch (Staff.GetPermissionLevel(username))
                         {
-                            case PermissionLevel.TutorOverseer:
+                            case PermissionLevel.Overseer:
                                 int staffId = Staff.GetStaffIdByUsername(username);
-                                OverseerForm otf = new OverseerForm
+                                OverseerForm of = new OverseerForm
                                 {
                                     StaffId = staffId,
-                                    isTutor = true
+                                    isTutor = false
                                 };
                                 Hide();
-                                otf.FormClosed += (s, args) => Close();
-                                otf.Show();
+                                of.FormClosed += (s, args) => Close();
+                                of.Show();
                                 break;
-                            //case PermissionLevel.Overseer:
-                            //    staffId = Staff.GetStaffIdByUsername(username);
-                            //    OverseerForm of = new OverseerForm
-                            //    {
-                            //        StaffId = staffId,
-                            //        isTutor = false
-                            //    };
-                            //    Hide();
-                            //    of.FormClosed += (s, args) => Close();
-                            //    of.Show();
-                            //    break;
-                            //case PermissionLevel.Admin:
-                            //    AdminForm af = new AdminForm();
-                            //    Hide();
-                            //    af.FormClosed += (s, args) => Close();
-                            //    af.Show();
-                            //    break;
-                            //case PermissionLevel.Tutor:
-                            //    break;
-                            //case PermissionLevel.Teacher:
-                            //    staffId = Staff.GetStaffIdByUsername(username);
-                            //    TeacherMainForm tf = new TeacherMainForm
-                            //    {
-                            //        StaffId = staffId,
-                            //        StaffName = Staff.GetStaffNameById(staffId),
-                            //    };
-                            //    Hide();
-                            //    tf.FormClosed += (s, args) => Close();
-                            //    tf.Show();
-                            //    break;
+                            case PermissionLevel.Admin:
+                                AdminForm af = new AdminForm();
+                                Hide();
+                                af.FormClosed += (s, args) => Close();
+                                af.Show();
+                                break;
+                            case PermissionLevel.Teacher:
+                                staffId = Staff.GetStaffIdByUsername(username);
+                                TeacherMainForm tf = new TeacherMainForm
+                                {
+                                    StaffId = staffId,
+                                    StaffName = Staff.GetStaffNameById(staffId),
+                                };
+                                Hide();
+                                tf.FormClosed += (s, args) => Close();
+                                tf.Show();
+                                break;
                             default:
                                 MessageBox.Show("Future system will have lower permission levels");
                                 break;

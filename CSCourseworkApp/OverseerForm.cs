@@ -43,10 +43,6 @@ namespace CSCourseworkApp
 
         private void OverseerForm_Load(object sender, System.EventArgs e)
         {
-            if (!isTutor)
-            {
-                tutorButton.Hide();
-            }
         }
     }
 }

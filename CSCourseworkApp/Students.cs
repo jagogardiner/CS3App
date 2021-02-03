@@ -62,17 +62,22 @@ namespace CSCourseworkApp
 
         public static BindingList<string> GetGroups(string studentName)
         {
+            return GetGroups(GetStudentIdByName(studentName));
+        }
+
+        public static BindingList<string> GetGroups(int studentId)
+        {
             /*
              * getGroups returns a List of strings of
              * the groups within staff member specified.
              * 
              * Arguments:
-             * staffName (string): Name of the group to find the staff members of.
+             * studentName (string): ID of the student to find the groups of.
             */
             BindingList<string> groupList = new BindingList<string>();
             // Returns a table with the staff members at that GroupID using StudentGroupsLink table.
-            SqlCommand command = new SqlCommand("SELECT Groups.GroupName FROM StudentGroupsLink INNER JOIN Students ON StudentGroupsLink.StudentId=Students.StudentId INNER JOIN Groups ON StudentGroupsLink.GroupId=Groups.GroupId WHERE Students.StudentName = @StudentName");
-            command.Parameters.AddWithValue("@StudentName", studentName);
+            SqlCommand command = new SqlCommand("SELECT Groups.GroupName FROM StudentGroupsLink INNER JOIN Students ON StudentGroupsLink.StudentId=Students.StudentId INNER JOIN Groups ON StudentGroupsLink.GroupId=Groups.GroupId WHERE Students.StudentId = @StudentId");
+            command.Parameters.AddWithValue("@StudentId", studentId);
             DataTable dt = SqlTools.GetTable(command);
             for (int i = 0; i < dt.Rows.Count; i++)
             {

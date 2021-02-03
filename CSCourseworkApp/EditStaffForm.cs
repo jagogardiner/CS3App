@@ -23,14 +23,7 @@ namespace CSCourseworkApp
                 // Get permission level, 3 being tutor, 4 being overseer.
                 switch (Staff.GetPermissionLevel(staffUsername))
                 {
-                    case PermissionLevel.Tutor:
-                        tutorCheckBox.Checked = true;
-                        break;
                     case PermissionLevel.Overseer:
-                        overseerCheckBox.Checked = true;
-                        break;
-                    case PermissionLevel.TutorOverseer:
-                        tutorCheckBox.Checked = true;
                         overseerCheckBox.Checked = true;
                         break;
                 }
@@ -65,15 +58,7 @@ namespace CSCourseworkApp
         private void saveStaffButton_Click(object sender, System.EventArgs e)
         {
             PermissionLevel permissionLevel = PermissionLevel.Teacher;
-            if (tutorCheckBox.Checked && overseerCheckBox.Checked)
-            {
-                permissionLevel = PermissionLevel.TutorOverseer;
-            }
-            else if (tutorCheckBox.Checked)
-            {
-                permissionLevel = PermissionLevel.Tutor;
-            }
-            else if (overseerCheckBox.Checked)
+            if (overseerCheckBox.Checked)
             {
                 permissionLevel = PermissionLevel.Overseer;
             }

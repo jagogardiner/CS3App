@@ -63,13 +63,14 @@ namespace CSCourseworkApp
             this.label10 = new System.Windows.Forms.Label();
             this.staffListBox = new System.Windows.Forms.ListBox();
             this.manageSubjectsPanel = new System.Windows.Forms.Panel();
+            this.editPrevResultsButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.subjectNewNameBox = new System.Windows.Forms.TextBox();
             this.addNewSubjectButton = new System.Windows.Forms.Button();
             this.deleteSubjectButton = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.subjectsListBox = new System.Windows.Forms.ListBox();
-            this.editPrevResultsButton = new System.Windows.Forms.Button();
+            this.editTutorButton = new System.Windows.Forms.Button();
             this.adminPanel.SuspendLayout();
             this.manageGroupsPanel.SuspendLayout();
             this.manageStudentsPanel.SuspendLayout();
@@ -365,6 +366,7 @@ namespace CSCourseworkApp
             // 
             // manageStaffPanel
             // 
+            this.manageStaffPanel.Controls.Add(this.editTutorButton);
             this.manageStaffPanel.Controls.Add(this.label7);
             this.manageStaffPanel.Controls.Add(this.editStaffInfoButton);
             this.manageStaffPanel.Controls.Add(this.addStaffMemberButton);
@@ -390,7 +392,7 @@ namespace CSCourseworkApp
             // 
             // editStaffInfoButton
             // 
-            this.editStaffInfoButton.Location = new System.Drawing.Point(183, 152);
+            this.editStaffInfoButton.Location = new System.Drawing.Point(183, 175);
             this.editStaffInfoButton.Margin = new System.Windows.Forms.Padding(2);
             this.editStaffInfoButton.Name = "editStaffInfoButton";
             this.editStaffInfoButton.Size = new System.Drawing.Size(121, 29);
@@ -413,7 +415,7 @@ namespace CSCourseworkApp
             // deleteStaffButton
             // 
             this.deleteStaffButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.deleteStaffButton.Location = new System.Drawing.Point(183, 184);
+            this.deleteStaffButton.Location = new System.Drawing.Point(183, 207);
             this.deleteStaffButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteStaffButton.Name = "deleteStaffButton";
             this.deleteStaffButton.Size = new System.Drawing.Size(121, 29);
@@ -470,6 +472,16 @@ namespace CSCourseworkApp
             this.manageSubjectsPanel.Size = new System.Drawing.Size(390, 277);
             this.manageSubjectsPanel.TabIndex = 11;
             this.manageSubjectsPanel.Visible = false;
+            // 
+            // editPrevResultsButton
+            // 
+            this.editPrevResultsButton.Location = new System.Drawing.Point(209, 164);
+            this.editPrevResultsButton.Name = "editPrevResultsButton";
+            this.editPrevResultsButton.Size = new System.Drawing.Size(121, 37);
+            this.editPrevResultsButton.TabIndex = 9;
+            this.editPrevResultsButton.Text = "Edit Previous Results";
+            this.editPrevResultsButton.UseVisualStyleBackColor = true;
+            this.editPrevResultsButton.Click += new System.EventHandler(this.editPrevResultsButton_Click);
             // 
             // label3
             // 
@@ -532,25 +544,25 @@ namespace CSCourseworkApp
             this.subjectsListBox.Size = new System.Drawing.Size(195, 251);
             this.subjectsListBox.TabIndex = 0;
             // 
-            // editPrevResultsButton
+            // editTutorButton
             // 
-            this.editPrevResultsButton.Location = new System.Drawing.Point(209, 164);
-            this.editPrevResultsButton.Name = "editPrevResultsButton";
-            this.editPrevResultsButton.Size = new System.Drawing.Size(121, 37);
-            this.editPrevResultsButton.TabIndex = 9;
-            this.editPrevResultsButton.Text = "Edit Previous Results";
-            this.editPrevResultsButton.UseVisualStyleBackColor = true;
-            this.editPrevResultsButton.Click += new System.EventHandler(this.editPrevResultsButton_Click);
+            this.editTutorButton.Location = new System.Drawing.Point(183, 141);
+            this.editTutorButton.Name = "editTutorButton";
+            this.editTutorButton.Size = new System.Drawing.Size(121, 29);
+            this.editTutorButton.TabIndex = 9;
+            this.editTutorButton.Text = "Edit Tutor Group";
+            this.editTutorButton.UseVisualStyleBackColor = true;
+            this.editTutorButton.Visible = false;
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 292);
+            this.Controls.Add(this.manageStaffPanel);
             this.Controls.Add(this.manageSubjectsPanel);
             this.Controls.Add(this.manageStudentsPanel);
             this.Controls.Add(this.manageGroupsPanel);
-            this.Controls.Add(this.manageStaffPanel);
             this.Controls.Add(this.adminPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AdminForm";
@@ -612,5 +624,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button editPrevResultsButton;
+        private System.Windows.Forms.Button editTutorButton;
     }
 }

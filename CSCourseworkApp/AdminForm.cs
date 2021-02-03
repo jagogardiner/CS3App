@@ -146,7 +146,7 @@ namespace CSCourseworkApp
         private void deleteStaffButton_Click(object sender, EventArgs e)
         {
             // Create a simple MessageBox for admin confirmation.
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected staff member??",
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the selected staff member?",
                 "Delete staff member",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);

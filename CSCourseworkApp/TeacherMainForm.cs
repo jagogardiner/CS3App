@@ -61,6 +61,7 @@ namespace CSCourseworkApp
             {
                 GroupId = Groups.GetGroupIdByName(teacherClassListBox.SelectedItem.ToString());
                 PopulateStudentsList(GroupId);
+                StudentsListBox.SelectedIndex = -1;
             }
         }
 
@@ -97,11 +98,24 @@ namespace CSCourseworkApp
             // Load average and predicted for the selected student.
             if (StudentsListBox.Items.Count != 0)
             {
-                GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex + 1, GroupId);
-                homeworkAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.HwAverage).Key;
-                testsAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.TestAverage).Key;
-                mtgLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.MTG).Key;
-                predictedGradeLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.Predicted).Key;
+                // Reset labels
+                homeworkAverageLabel.Text = "--";
+                testsAverageLabel.Text = "--";
+                mtgLabel.Text = "--";
+                predictedGradeLabel.Text = "--";
+                if (StudentsListBox.SelectedIndex != -1)
+                {
+                    // Grab data.
+                    GradeData Data = GradeUtils.calculateStudentGrades(StudentsListBox.SelectedIndex + 1, GroupId);
+                    // Only bother showing new data if they have homework and test results.
+                    if(Data.HwAverage != 0 && Data.TestAverage != 0 && Data.MTG != 0)
+                    {
+                        homeworkAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.HwAverage).Key;
+                        testsAverageLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.TestAverage).Key;
+                        mtgLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.MTG).Key;
+                        predictedGradeLabel.Text = Grades.FirstOrDefault(k => k.Value == Data.Predicted).Key;
+                    }
+                }
             }
         }
 

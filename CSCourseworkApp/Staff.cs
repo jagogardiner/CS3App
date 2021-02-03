@@ -25,8 +25,22 @@ namespace CSCourseworkApp
 
         public static PermissionLevel GetPermissionLevel(string staffUsername)
         {
+            /*
+             * Get the permission level of the staff member based on staff login.
+             */
             SqlCommand comm = new SqlCommand("SELECT PermissionLevel FROM Staff WHERE StaffUsername = @StaffUsername");
             comm.Parameters.AddWithValue("@StaffUsername", staffUsername);
+            DataTable dt = SqlTools.GetTable(comm);
+            return (PermissionLevel)dt.Rows[0]["PermissionLevel"];
+        }
+
+        public static PermissionLevel GetPermissionLevel(int staffId)
+        {
+            /*
+             * Get the permission level of the staff member based on staff ID.
+             */
+            SqlCommand comm = new SqlCommand("SELECT PermissionLevel FROM Staff WHERE StaffId = @StaffId");
+            comm.Parameters.AddWithValue("@StaffId", staffId);
             DataTable dt = SqlTools.GetTable(comm);
             return (PermissionLevel)dt.Rows[0]["PermissionLevel"];
         }

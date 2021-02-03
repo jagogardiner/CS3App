@@ -32,7 +32,6 @@ namespace CSCourseworkApp
             this.label1 = new System.Windows.Forms.Label();
             this.teachingFunctionsButton = new System.Windows.Forms.Button();
             this.adminButton = new System.Windows.Forms.Button();
-            this.tutorButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -66,18 +65,9 @@ namespace CSCourseworkApp
             this.adminButton.UseVisualStyleBackColor = true;
             this.adminButton.Click += new System.EventHandler(this.adminButton_Click);
             // 
-            // tutorButton
-            // 
-            this.tutorButton.Location = new System.Drawing.Point(16, 127);
-            this.tutorButton.Name = "tutorButton";
-            this.tutorButton.Size = new System.Drawing.Size(138, 39);
-            this.tutorButton.TabIndex = 3;
-            this.tutorButton.Text = "Go to tutor overview";
-            this.tutorButton.UseVisualStyleBackColor = true;
-            // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(16, 172);
+            this.exitButton.Location = new System.Drawing.Point(17, 127);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(137, 39);
             this.exitButton.TabIndex = 4;
@@ -89,9 +79,8 @@ namespace CSCourseworkApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(166, 224);
+            this.ClientSize = new System.Drawing.Size(166, 175);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.tutorButton);
             this.Controls.Add(this.adminButton);
             this.Controls.Add(this.teachingFunctionsButton);
             this.Controls.Add(this.label1);
@@ -108,7 +97,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button teachingFunctionsButton;
         private System.Windows.Forms.Button adminButton;
-        private System.Windows.Forms.Button tutorButton;
         private System.Windows.Forms.Button exitButton;
     }
 }

@@ -32,7 +32,6 @@ namespace CSCourseworkApp
             this.titleLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.staffNameBox = new System.Windows.Forms.TextBox();
-            this.tutorCheckBox = new System.Windows.Forms.CheckBox();
             this.overseerCheckBox = new System.Windows.Forms.CheckBox();
             this.staffUsernameBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -70,20 +69,10 @@ namespace CSCourseworkApp
             this.staffNameBox.Size = new System.Drawing.Size(151, 20);
             this.staffNameBox.TabIndex = 2;
             // 
-            // tutorCheckBox
-            // 
-            this.tutorCheckBox.AutoSize = true;
-            this.tutorCheckBox.Location = new System.Drawing.Point(17, 116);
-            this.tutorCheckBox.Name = "tutorCheckBox";
-            this.tutorCheckBox.Size = new System.Drawing.Size(51, 17);
-            this.tutorCheckBox.TabIndex = 3;
-            this.tutorCheckBox.Text = "Tutor";
-            this.tutorCheckBox.UseVisualStyleBackColor = true;
-            // 
             // overseerCheckBox
             // 
             this.overseerCheckBox.AutoSize = true;
-            this.overseerCheckBox.Location = new System.Drawing.Point(17, 140);
+            this.overseerCheckBox.Location = new System.Drawing.Point(17, 114);
             this.overseerCheckBox.Name = "overseerCheckBox";
             this.overseerCheckBox.Size = new System.Drawing.Size(69, 17);
             this.overseerCheckBox.TabIndex = 4;
@@ -127,7 +116,7 @@ namespace CSCourseworkApp
             // 
             this.resetPasswordTickBox.AutoSize = true;
             this.resetPasswordTickBox.Location = new System.Drawing.Point(17, 92);
-            this.resetPasswordTickBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.resetPasswordTickBox.Margin = new System.Windows.Forms.Padding(2);
             this.resetPasswordTickBox.Name = "resetPasswordTickBox";
             this.resetPasswordTickBox.Size = new System.Drawing.Size(103, 17);
             this.resetPasswordTickBox.TabIndex = 12;
@@ -137,7 +126,7 @@ namespace CSCourseworkApp
             // saveStaffButton
             // 
             this.saveStaffButton.Location = new System.Drawing.Point(17, 363);
-            this.saveStaffButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.saveStaffButton.Margin = new System.Windows.Forms.Padding(2);
             this.saveStaffButton.Name = "saveStaffButton";
             this.saveStaffButton.Size = new System.Drawing.Size(192, 29);
             this.saveStaffButton.TabIndex = 13;
@@ -148,7 +137,7 @@ namespace CSCourseworkApp
             // cancelButton
             // 
             this.cancelButton.Location = new System.Drawing.Point(17, 396);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(192, 30);
             this.cancelButton.TabIndex = 14;
@@ -181,11 +170,10 @@ namespace CSCourseworkApp
             this.Controls.Add(this.staffUsernameBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.overseerCheckBox);
-            this.Controls.Add(this.tutorCheckBox);
             this.Controls.Add(this.staffNameBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.titleLabel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditStaffForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Staff";
@@ -200,7 +188,6 @@ namespace CSCourseworkApp
         private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox staffNameBox;
-        private System.Windows.Forms.CheckBox tutorCheckBox;
         private System.Windows.Forms.CheckBox overseerCheckBox;
         private System.Windows.Forms.TextBox staffUsernameBox;
         private System.Windows.Forms.Label label3;
