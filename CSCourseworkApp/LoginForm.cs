@@ -32,34 +32,38 @@ namespace CSCourseworkApp
          */
         public static string HashingAlgorithm(string plain)
         {
-            double val = 1;
-            // Convert plaintext password to a char array
-            char[] plainarr = plain.ToCharArray();
-            foreach (char ch in plainarr)
+            // Only process password if it's not empty.
+            if (plain != "")
             {
-                // Add each ASCII character value of each character to a total.
-                val += ch;
+                double val = 1;
+                // Convert plaintext password to a char array
+                char[] plainarr = plain.ToCharArray();
+                foreach (char ch in plainarr)
+                {
+                    // Add each ASCII character value of each character to a total.
+                    val += ch;
+                }
+                /* 
+                 * To avoid allowing another character sum unlocking the same account,
+                 * add the 1st and last value of the character array to the sum.
+                 * This makes it very unlikely that two different passwords could
+                 * unlock the same account.
+                */
+                val += plainarr[0] + plainarr[plainarr.Length - 1];
+                // Multiply the Sin of the value of by the Tan of the value.
+                val = Math.Sin(val) * Math.Tan(val);
+                // Store the double value into a string.
+                string hash = val.ToString();
+                // Remove the first three characters to make this less reversible.
+                hash = hash.Remove(0, 3);
+                Debug.WriteLine(hash);
+                return hash;
             }
-            /* 
-             * To avoid allowing another character sum unlocking the same account,
-             * add the 1st and last value of the character array to the sum.
-             * This makes it very unlikely that two different passwords could
-             * unlock the same account.
-            */
-            val += plainarr[0] + plainarr[plainarr.Length - 1];
-            // Multiply the Sin of the value of by the Tan of the value.
-            val = Math.Sin(val) * Math.Tan(val);
-            // Store the double value into a string.
-            string hash = val.ToString();
-            // Remove the first three characters to make this less reversible.
-            hash = hash.Remove(0, 3);
-            Debug.WriteLine(hash);
-            return hash;
+            else return null;
         }
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            Subjects.UpdateSubjectMLR("Mathematics");
             string username = usernameBox.Text;
             Debug.WriteLine(username);
             // Run plain-text password through algorithm

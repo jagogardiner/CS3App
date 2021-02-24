@@ -41,6 +41,8 @@ namespace CSCourseworkApp
         {
             // Save the new results
             SqlTools.UpdateDatabaseFromTable(command, dt);
+            // Update the subject weights.
+            Subjects.UpdateSubjectMLR(subjectId);
             // Refresh the table
             UpdateTable();
         }
